@@ -43,15 +43,6 @@ html[dir="rtl"] {
   text-align: right;
 }
 
-/* Force header link colors */
-header a {
-  color: inherit !important;
-}
-
-header nav a:not(.btn) {
-  color: inherit !important;
-}
-
 /* Smooth scrolling */
 html {
   scroll-behavior: smooth;

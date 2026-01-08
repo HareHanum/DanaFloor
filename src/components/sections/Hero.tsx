@@ -48,7 +48,7 @@ export default function Hero() {
             </Link>
             <Link
               href="/services/consulting"
-              className="btn btn-outline border-white text-white hover:bg-white hover:text-[var(--foreground)] text-lg px-8 py-4"
+              className="btn border-2 border-white text-white hover:border-[var(--accent)] hover:bg-[var(--accent)] hover:text-white text-lg px-8 py-4 transition-all duration-300"
             >
               לשירותים שלנו
             </Link>
