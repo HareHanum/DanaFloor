@@ -27,8 +27,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const textColor = isScrolled ? "#1a1a1a" : "#ffffff";
-
   return (
     <header
       className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
@@ -38,17 +36,14 @@ export default function Header() {
       }`}
     >
       <div className="container-custom">
-        <nav
-          className="flex items-center justify-between h-20"
-          style={{ color: textColor }}
-        >
+        <nav className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <span
               className="text-2xl font-bold tracking-tight transition-colors duration-300"
-              style={{ color: textColor }}
+              style={{ color: isScrolled ? "#1a1a1a" : "#ffffff" }}
             >
-              D.A.N.A <span style={{ color: "#d4a574" }}>FLOOR</span>
+              D.A.N.A <span className="text-[var(--accent)]">FLOOR</span>
             </span>
           </Link>
 
@@ -58,11 +53,11 @@ export default function Header() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm font-medium hover:!text-[#d4a574] transition-colors duration-300 relative group"
-                  style={{ color: textColor }}
+                  className="text-sm font-medium hover:text-[var(--accent)] transition-colors duration-300 relative group"
+                  style={{ color: isScrolled ? "#1a1a1a" : "#ffffff" }}
                 >
                   {item.label}
-                  <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-[#d4a574] transition-all group-hover:w-full" />
+                  <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-[var(--accent)] transition-all group-hover:w-full" />
                 </Link>
               </li>
             ))}
@@ -71,11 +66,7 @@ export default function Header() {
           {/* CTA Button - Desktop */}
           <Link
             href="/contact"
-            className={`hidden lg:inline-flex btn text-sm ${
-              isScrolled
-                ? "btn-primary"
-                : "bg-white text-[#1a1a1a] hover:bg-white/90"
-            }`}
+            className="hidden lg:inline-flex btn btn-primary text-sm"
           >
             לתיאום שיחה
           </Link>
@@ -84,7 +75,7 @@ export default function Header() {
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="lg:hidden p-2 transition-colors duration-300"
-            style={{ color: textColor }}
+            style={{ color: isScrolled ? "#1a1a1a" : "#ffffff" }}
             aria-label="תפריט"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -109,7 +100,7 @@ export default function Header() {
                     <Link
                       href={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className="block py-2 text-lg font-medium text-[#1a1a1a] hover:text-[#d4a574] transition-colors"
+                      className="block py-2 text-lg font-medium hover:text-[var(--accent)] transition-colors"
                     >
                       {item.label}
                     </Link>
