@@ -39,7 +39,7 @@ const services = [
     title: "שיפור תוצאות",
     description:
       "יום שטח עם שיפור בלייב או דוח אבחון מקיף. רואים את השינוי כבר באותו הערב.",
-    href: "/services/consulting",
+    href: "/services/results",
   },
 ];
 
