@@ -139,14 +139,6 @@ export default function Header() {
             ))}
           </ul>
 
-          {/* CTA Button - Desktop */}
-          <Link
-            href="/contact"
-            className="hidden lg:inline-flex btn btn-primary text-sm"
-          >
-            לתיאום שיחה
-          </Link>
-
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -224,7 +216,7 @@ export default function Header() {
                   <Link
                     href="/contact"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="btn btn-primary w-full text-center"
+                    className="block w-full text-center text-xs py-2 px-3 bg-[var(--foreground)] text-[var(--background)] rounded font-medium"
                   >
                     לתיאום שיחה
                   </Link>
