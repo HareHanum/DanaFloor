@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Phone, Mail, Instagram, Facebook } from "lucide-react";
+import { Phone, Mail, Instagram } from "lucide-react";
 
 const footerLinks = {
   services: [
@@ -71,20 +71,20 @@ export default function Footer() {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="tel:+972500000000"
+                  href="tel:+972526589291"
                   className="flex items-center gap-2 text-white/70 hover:text-[var(--accent)] transition-colors text-sm"
                 >
                   <Phone size={16} />
-                  <span>050-000-0000</span>
+                  <span dir="ltr">052-658-9291</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="mailto:dana@danafloor.co.il"
+                  href="mailto:danashimroni@gmail.com"
                   className="flex items-center gap-2 text-white/70 hover:text-[var(--accent)] transition-colors text-sm"
                 >
                   <Mail size={16} />
-                  <span>dana@danafloor.co.il</span>
+                  <span>danashimroni@gmail.com</span>
                 </a>
               </li>
             </ul>
@@ -92,18 +92,13 @@ export default function Footer() {
             {/* Social */}
             <div className="flex gap-4 mt-6">
               <a
-                href="#"
+                href="https://www.instagram.com/danashimroni/"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-white/70 hover:text-[var(--accent)] transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram size={20} />
-              </a>
-              <a
-                href="#"
-                className="text-white/70 hover:text-[var(--accent)] transition-colors"
-                aria-label="Facebook"
-              >
-                <Facebook size={20} />
               </a>
             </div>
           </div>

@@ -1,0 +1,24 @@
+{
+  "name": "D.A.N.A FLOOR - ייעוץ והדרכות אירוח",
+  "short_name": "DANA FLOOR",
+  "description": "ייעוץ והדרכות שירות ומכירות למצוינות באירוח והגדלת הכנסות במסעדות, בתי קפה, ברים ומלונות.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#d4a574",
+  "orientation": "portrait-primary",
+  "dir": "rtl",
+  "lang": "he",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

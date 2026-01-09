@@ -151,9 +151,9 @@ export default function ContactPage() {
   };
 
   return (
-    <main className="pt-[var(--header-height)]">
+    <main>
       {/* Hero Section */}
-      <section className="bg-[var(--foreground)] text-white py-20 lg:py-28">
+      <section className="bg-[var(--foreground)] text-white pt-32 lg:pt-40 pb-20 lg:pb-28">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -384,7 +384,7 @@ export default function ContactPage() {
                 {/* Phone */}
                 <motion.a
                   variants={itemVariants}
-                  href="tel:+972501234567"
+                  href="tel:+972526589291"
                   className="flex items-center gap-4 p-5 bg-[var(--background)] border border-[var(--border-light)] rounded-xl hover:border-[var(--accent)] transition-colors group"
                 >
                   <div className="w-12 h-12 bg-[var(--accent)]/10 rounded-full flex items-center justify-center group-hover:bg-[var(--accent)]/20 transition-colors">
@@ -392,14 +392,14 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-[var(--text-muted)] mb-1">טלפון</p>
-                    <p className="font-medium text-lg" dir="ltr">050-123-4567</p>
+                    <p className="font-medium text-lg" dir="ltr">052-658-9291</p>
                   </div>
                 </motion.a>
 
                 {/* WhatsApp */}
                 <motion.a
                   variants={itemVariants}
-                  href="https://wa.me/972501234567?text=היי%20דנה%2C%20הגעתי%20מהאתר%20ואשמח%20לשיחת%20ייעוץ"
+                  href="https://wa.me/972526589291?text=היי%20דנה%2C%20הגעתי%20מהאתר%20ואשמח%20לשיחת%20ייעוץ"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-4 p-5 bg-green-50 border border-green-200 rounded-xl hover:bg-green-100 transition-colors group"
@@ -416,7 +416,7 @@ export default function ContactPage() {
                 {/* Email */}
                 <motion.a
                   variants={itemVariants}
-                  href="mailto:dana@danafloor.co.il"
+                  href="mailto:danashimroni@gmail.com"
                   className="flex items-center gap-4 p-5 bg-[var(--background)] border border-[var(--border-light)] rounded-xl hover:border-[var(--accent)] transition-colors group"
                 >
                   <div className="w-12 h-12 bg-[var(--accent)]/10 rounded-full flex items-center justify-center group-hover:bg-[var(--accent)]/20 transition-colors">
@@ -424,7 +424,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-[var(--text-muted)] mb-1">אימייל</p>
-                    <p className="font-medium" dir="ltr">dana@danafloor.co.il</p>
+                    <p className="font-medium" dir="ltr">danashimroni@gmail.com</p>
                   </div>
                 </motion.a>
 
