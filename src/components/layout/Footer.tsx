@@ -17,7 +17,7 @@ export default function Footer() {
   return (
     <footer className="bg-[var(--foreground)] text-white">
       <div className="container-custom section-padding">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mr-4 md:mr-0">
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-4">
@@ -32,7 +32,7 @@ export default function Footer() {
           </div>
 
           {/* Services */}
-          <div>
+          <div className="mt-8 md:mt-0">
             <h4 className="font-bold mb-4 text-lg">שירותים</h4>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
@@ -49,7 +49,7 @@ export default function Footer() {
           </div>
 
           {/* Company */}
-          <div>
+          <div className="mt-8 md:mt-0">
             <h4 className="font-bold mb-4 text-lg">קישורים</h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
@@ -66,7 +66,7 @@ export default function Footer() {
           </div>
 
           {/* Contact */}
-          <div>
+          <div className="mt-8 md:mt-0">
             <h4 className="font-bold mb-4 text-lg">יצירת קשר</h4>
             <ul className="space-y-3">
               <li>
