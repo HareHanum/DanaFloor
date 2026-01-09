@@ -78,7 +78,7 @@ export async function POST(request: NextRequest) {
     //
     // await resend.emails.send({
     //   from: 'D.A.N.A FLOOR <noreply@danafloor.co.il>',
-    //   to: 'dana@danafloor.co.il',
+    //   to: 'danashimroni@gmail.com',
     //   subject: `פנייה חדשה מ${data.name}`,
     //   html: `
     //     <div dir="rtl" style="font-family: Arial, sans-serif;">
