@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowDown } from "lucide-react";
 
 export default function Hero() {
   return (
@@ -64,21 +63,6 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Scroll Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity }}
-            className="text-white/50"
-          >
-            <ArrowDown size={24} />
-          </motion.div>
-        </motion.div>
       </div>
 
       {/* Decorative Elements */}
