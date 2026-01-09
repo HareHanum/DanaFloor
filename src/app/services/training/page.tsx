@@ -58,9 +58,19 @@ export default function TrainingPage() {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative pt-32 pb-20 bg-gradient-to-b from-[var(--foreground)] to-[#2a2a2a]"
+        className="relative pt-32 pb-20 min-h-[60vh] flex items-center overflow-hidden"
       >
-        <div className="absolute inset-0 bg-black/30" />
+        {/* Video Background */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/media/training-video.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 container-custom text-white">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
