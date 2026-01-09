@@ -1,5 +1,5 @@
 import { Header, Footer } from "@/components/layout";
-import { Hero, Introduction, Services, CTA } from "@/components/sections";
+import { Hero, Introduction, Services, ForWhom, Testimonials, CTA } from "@/components/sections";
 
 export default function Home() {
   return (
@@ -9,6 +9,8 @@ export default function Home() {
         <Hero />
         <Introduction />
         <Services />
+        <ForWhom />
+        <Testimonials />
         <CTA />
       </main>
       <Footer />
