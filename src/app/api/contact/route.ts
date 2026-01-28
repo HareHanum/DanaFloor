@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 interface ContactFormData {
   name: string;
   phone: string;
@@ -75,6 +73,11 @@ export async function POST(request: NextRequest) {
 
     // Send email notification to Dana
     try {
+      if (!process.env.RESEND_API_KEY) {
+        console.warn("RESEND_API_KEY not set - skipping email");
+        throw new Error("RESEND_API_KEY not configured");
+      }
+      const resend = new Resend(process.env.RESEND_API_KEY);
       const emailResult = await resend.emails.send({
         from: "FLOOR D.a.N.A <contact@floor-dana.com>",
         to: "danashimroni@gmail.com",
