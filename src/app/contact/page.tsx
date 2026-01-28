@@ -188,6 +188,7 @@ export default function ContactPage() {
 
               {submitStatus === "success" ? (
                 <motion.div
+                  key="success"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="bg-green-50 border border-green-200 rounded-lg p-8 text-center"
@@ -207,7 +208,14 @@ export default function ContactPage() {
                   </button>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <motion.form
+                  key="form"
+                  onSubmit={handleSubmit}
+                  className="space-y-6"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                >
                   {submitStatus === "error" && (
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
@@ -365,7 +373,7 @@ export default function ContactPage() {
                       )}
                     </button>
                   </motion.div>
-                </form>
+                </motion.form>
               )}
             </motion.div>
 
