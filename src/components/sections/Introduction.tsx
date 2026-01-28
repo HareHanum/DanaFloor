@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
+import Image from "next/image";
 
 export default function Introduction() {
   const ref = useRef(null);
@@ -25,18 +26,20 @@ export default function Introduction() {
               אני דנה שימרוני
             </h2>
             <div className="space-y-4 text-[var(--text-secondary)] leading-relaxed">
-              <p className="text-lg">
-                גדלתי בפלור, עבדתי בכל תפקיד – ואני יודעת בדיוק מה גורם למקום
-                לעבוד טוב באמת.
+              <p className="text-lg font-medium text-[var(--foreground)]">
+                מומחית לשירות, תפעול וחווית לקוח בענף המסעדנות והאירוח - מומחית ביצירת D.N.A של הצלחה לפלור
               </p>
               <p>
-                אני מלווה מסעדות וצוותים בבניית שירות מדויק, ניהול רגוע ומכירה
-                טבעית.
+                אני מלווה מסעדות, בתי קפה ומלונות בבניית שירות מדויק, ניהול רגוע ומכירה טבעית. אני יודעת לאבחן במהירות את מצב הפלור, להדריך מנהלים וצוותים, ומתרגמת ניסיון מעשי לשיטה ברורה שעובדת יום־יום, משפרת את חווית הלקוח ומגדילה הכנסות.
+              </p>
+              <p>
+                השיטה שלי עובדת כי היא מגיעה מהשטח! צמחתי מהפלור. התחלתי בגיל צעיר ועבדתי בכל תפקיד אפשרי ממלצרות, ברמנית, בריסטה, ניהול משמרות וניהול פלור. למדתי מבפנים מה גורם למקום לעבוד טוב באמת.
+              </p>
+              <p>
+                לא מתיאוריה, אלא ממשמרות, עומסים, אנשים וקצב.
               </p>
               <p className="font-medium text-[var(--foreground)]">
-                בלי רעש. בלי סיסמאות.
-                <br />
-                רק מה שעובד במשמרת – ומה שנראה בסוף במספרים.
+                אני שמחה להביא את הידע שלי דרך ייעוץ, ליווי והדרכות בשיטתיות, דיוק ותוצאות שמורגשים מהרגע הראשון!
               </p>
             </div>
 
@@ -52,7 +55,7 @@ export default function Introduction() {
               </div>
               <div>
                 <div className="text-3xl md:text-4xl font-bold text-[var(--accent)]">
-                  100+
+                  50+
                 </div>
                 <div className="text-sm text-[var(--text-muted)] mt-1">
                   עסקים שליוויתי
@@ -60,7 +63,7 @@ export default function Introduction() {
               </div>
               <div>
                 <div className="text-3xl md:text-4xl font-bold text-[var(--accent)]">
-                  500+
+                  400+
                 </div>
                 <div className="text-sm text-[var(--text-muted)] mt-1">
                   אנשי צוות הודרכו
@@ -76,11 +79,13 @@ export default function Introduction() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="relative"
           >
-            <div className="aspect-[4/5] bg-[var(--border-light)] rounded-lg overflow-hidden">
-              {/* Placeholder for Dana's image */}
-              <div className="absolute inset-0 flex items-center justify-center text-[var(--text-muted)]">
-                <span className="text-sm">תמונה של דנה</span>
-              </div>
+            <div className="aspect-[4/5] rounded-lg overflow-hidden relative">
+              <Image
+                src="/media/dana-hero.png"
+                alt="דנה שימרוני - יועצת אירוח"
+                fill
+                className="object-cover object-top"
+              />
             </div>
             {/* Decorative element */}
             <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-[var(--accent)]/10 rounded-lg -z-10" />
