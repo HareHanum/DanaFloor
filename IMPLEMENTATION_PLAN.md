@@ -103,7 +103,7 @@ Light Gray:   #E5E5E5 (borders, dividers)
 - [x] Dana's full story with personal narrative
 - [x] Professional journey timeline (2008-present)
 - [x] Philosophy section (4 core principles)
-- [x] Stats section (15+ years, 100+ businesses, 500+ team members, 95% recommend)
+- [x] Stats section (15+ years, 50+ businesses, 400+ team members, 95% recommend)
 - [x] Photo gallery placeholders
 
 ### Testimonials Section

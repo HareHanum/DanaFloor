@@ -52,7 +52,6 @@ export default function CTA() {
                 "בתי קפה",
                 "ברים",
                 "מלונות",
-                "עגלות קפה",
                 "בתי הארחה",
               ].map((item) => (
                 <span
