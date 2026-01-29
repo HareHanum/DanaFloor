@@ -17,6 +17,7 @@ const serviceItems = [
 const navItems = [
   { href: "/", label: "בית" },
   { href: "/about", label: "אודות" },
+  { href: "/purim-guide", label: "מדריך תפעול לפורים" },
   { href: "/contact", label: "צור קשר" },
 ];
 
