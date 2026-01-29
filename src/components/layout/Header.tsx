@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ChevronDown, Search, Users, Building2, TrendingUp } from "lucide-react";
@@ -57,15 +58,25 @@ export default function Header() {
       }`}
     >
       <div className="container-custom">
-        <nav className="flex items-center justify-between h-20">
+        <nav className="flex items-center justify-between h-[120px]">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <span
-              className="text-2xl font-bold tracking-tight transition-colors duration-300"
-              style={{ color: isScrolled ? "#1a1a1a" : "#ffffff" }}
-            >
-              FLOOR <span className="text-[var(--accent)]">D.a.N.A</span>
-            </span>
+          <Link href="/" className="flex items-center relative h-[86px] mt-1">
+            <Image
+              src="/logo-light-v4.png"
+              alt="FLOOR D.a.N.A Consulting"
+              width={127}
+              height={85}
+              className={`h-[86px] w-auto absolute transition-opacity duration-300 ${isScrolled ? "opacity-0" : "opacity-100"}`}
+              priority
+            />
+            <Image
+              src="/logo-dark-v4.png"
+              alt="FLOOR D.a.N.A Consulting"
+              width={127}
+              height={85}
+              className={`h-[86px] w-auto transition-opacity duration-300 ${isScrolled ? "opacity-100" : "opacity-0"}`}
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
