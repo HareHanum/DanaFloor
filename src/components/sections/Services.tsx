@@ -64,7 +64,7 @@ export default function Services() {
             אז במה אני עוזרת?
           </h2>
           <p className="text-[var(--text-secondary)] text-lg">
-            כל מקום שמארח אנשים – וחשוב לו איך זה מרגיש
+            להביא את פלור למקסימום
           </p>
         </motion.div>
 

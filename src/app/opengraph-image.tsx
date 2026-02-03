@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-export const alt = "FLOOR D.A.N.A - ייעוץ והדרכות אירוח";
+export const alt = "FLOOR D.a.N.A - ייעוץ והדרכות אירוח";
 export const size = {
   width: 1200,
   height: 630,
@@ -63,7 +63,7 @@ export default async function Image() {
               letterSpacing: "-2px",
             }}
           >
-            D.A.N.A
+            D.a.N.A
           </span>
         </div>
 
