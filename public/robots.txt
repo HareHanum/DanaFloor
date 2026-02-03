@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://danafloor.co.il/sitemap.xml
+Sitemap: https://floor-dana.com/sitemap.xml

@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-export const alt = "D.A.N.A FLOOR - ייעוץ והדרכות אירוח";
+export const alt = "FLOOR D.A.N.A - ייעוץ והדרכות אירוח";
 export const size = {
   width: 1200,
   height: 630,
@@ -49,21 +49,21 @@ export default async function Image() {
             style={{
               fontSize: "72px",
               fontWeight: "bold",
-              color: "#ffffff",
+              color: "#d4a574",
               letterSpacing: "-2px",
             }}
           >
-            D.A.N.A{" "}
+            FLOOR{" "}
           </span>
           <span
             style={{
               fontSize: "72px",
               fontWeight: "bold",
-              color: "#d4a574",
+              color: "#ffffff",
               letterSpacing: "-2px",
             }}
           >
-            FLOOR
+            D.A.N.A
           </span>
         </div>
 
@@ -131,7 +131,7 @@ export default async function Image() {
               color: "rgba(255,255,255,0.5)",
             }}
           >
-            danafloor.co.il
+            floor-dana.com
           </span>
         </div>
       </div>

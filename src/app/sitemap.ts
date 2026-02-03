@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://danafloor.co.il";
+  const baseUrl = "https://floor-dana.com";
 
   return [
     {

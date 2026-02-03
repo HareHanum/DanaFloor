@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { Header, Footer } from "@/components/layout";
 
 export const metadata: Metadata = {
   title: "אודות דנה שימרוני",
   description:
     "דנה שימרוני - 15+ שנות ניסיון בניהול והדרכת צוותים במסעדות ובתי קפה. מהפלור אל הליווי - הסיפור של יועצת האירוח המובילה בישראל.",
   openGraph: {
-    title: "אודות דנה שימרוני | D.A.N.A FLOOR",
+    title: "אודות דנה שימרוני | FLOOR D.A.N.A",
     description:
       "15+ שנות ניסיון בניהול והדרכת צוותים במסעדות ובתי קפה. גדלתי בפלור, עבדתי בכל תפקיד – ואני יודעת בדיוק מה גורם למקום לעבוד טוב באמת.",
   },
@@ -16,5 +17,11 @@ export default function AboutLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <Header />
+      {children}
+      <Footer />
+    </>
+  );
 }

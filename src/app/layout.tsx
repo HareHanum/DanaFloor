@@ -8,7 +8,7 @@ const heebo = Heebo({
   display: "swap",
 });
 
-const siteUrl = "https://danafloor.co.il";
+const siteUrl = "https://floor-dana.com";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -19,8 +19,8 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "D.A.N.A FLOOR | ייעוץ והדרכות אירוח למסעדות",
-    template: "%s | D.A.N.A FLOOR",
+    default: "FLOOR D.A.N.A | ייעוץ והדרכות אירוח למסעדות",
+    template: "%s | FLOOR D.A.N.A",
   },
   description:
     "ייעוץ והדרכות שירות ומכירות למצוינות באירוח והגדלת הכנסות במסעדות, בתי קפה, ברים ומלונות. דנה שימרוני - מהשטח לתוצאות. 15+ שנות ניסיון, 100+ עסקים.",
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     "הגדלת מכירות במסעדות",
   ],
   authors: [{ name: "דנה שימרוני", url: siteUrl }],
-  creator: "D.A.N.A FLOOR",
-  publisher: "D.A.N.A FLOOR",
+  creator: "FLOOR D.A.N.A",
+  publisher: "FLOOR D.A.N.A",
   formatDetection: {
     email: false,
     telephone: true,
@@ -50,14 +50,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "he_IL",
     url: siteUrl,
-    siteName: "D.A.N.A FLOOR",
-    title: "D.A.N.A FLOOR | ייעוץ והדרכות אירוח למסעדות",
+    siteName: "FLOOR D.A.N.A",
+    title: "FLOOR D.A.N.A | ייעוץ והדרכות אירוח למסעדות",
     description:
       "ייעוץ והדרכות שירות ומכירות למצוינות באירוח והגדלת הכנסות במסעדות, בתי קפה, ברים ומלונות. דנה שימרוני - מהשטח לתוצאות.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "D.A.N.A FLOOR | ייעוץ והדרכות אירוח למסעדות",
+    title: "FLOOR D.A.N.A | ייעוץ והדרכות אירוח למסעדות",
     description:
       "ייעוץ והדרכות שירות ומכירות למצוינות באירוח והגדלת הכנסות במסעדות, בתי קפה, ברים ומלונות.",
   },

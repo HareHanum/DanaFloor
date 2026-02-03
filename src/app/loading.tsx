@@ -4,7 +4,7 @@ export default function Loading() {
       <div className="flex flex-col items-center gap-4">
         {/* Logo */}
         <div className="text-2xl font-bold tracking-tight">
-          D.A.N.A <span className="text-[var(--accent)]">FLOOR</span>
+          FLOOR <span className="text-[var(--accent)]">D.A.N.A</span>
         </div>
 
         {/* Loading spinner */}
