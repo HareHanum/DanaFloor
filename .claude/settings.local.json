@@ -10,7 +10,9 @@
       "Bash(netstat:*)",
       "Bash(ss:*)",
       "Bash(fuser:*)",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(npm run dev:*)",
+      "Bash(curl:*)"
     ]
   }
 }

@@ -19,11 +19,11 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "FLOOR D.A.N.A | ייעוץ והדרכות אירוח למסעדות",
-    template: "%s | FLOOR D.A.N.A",
+    default: "FLOOR D.a.N.A | ייעוץ והדרכות אירוח למסעדות",
+    template: "%s | FLOOR D.a.N.A",
   },
   description:
-    "ייעוץ והדרכות שירות ומכירות למצוינות באירוח והגדלת הכנסות במסעדות, בתי קפה, ברים ומלונות. דנה שימרוני - מהשטח לתוצאות. 15+ שנות ניסיון, 100+ עסקים.",
+    "ייעוץ והדרכות שירות ומכירות למצוינות באירוח והגדלת הכנסות במסעדות, בתי קפה, ברים ומלונות. דנה שימרוני - מהשטח לתוצאות. 15+ שנות ניסיון, 50+ עסקים.",
   keywords: [
     "ייעוץ למסעדות",
     "הדרכות שירות",
@@ -40,8 +40,8 @@ export const metadata: Metadata = {
     "הגדלת מכירות במסעדות",
   ],
   authors: [{ name: "דנה שימרוני", url: siteUrl }],
-  creator: "FLOOR D.A.N.A",
-  publisher: "FLOOR D.A.N.A",
+  creator: "FLOOR D.a.N.A",
+  publisher: "FLOOR D.a.N.A",
   formatDetection: {
     email: false,
     telephone: true,
@@ -50,14 +50,14 @@ export const metadata: Metadata = {
     type: "website",
     locale: "he_IL",
     url: siteUrl,
-    siteName: "FLOOR D.A.N.A",
-    title: "FLOOR D.A.N.A | ייעוץ והדרכות אירוח למסעדות",
+    siteName: "FLOOR D.a.N.A",
+    title: "FLOOR D.a.N.A | ייעוץ והדרכות אירוח למסעדות",
     description:
       "ייעוץ והדרכות שירות ומכירות למצוינות באירוח והגדלת הכנסות במסעדות, בתי קפה, ברים ומלונות. דנה שימרוני - מהשטח לתוצאות.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FLOOR D.A.N.A | ייעוץ והדרכות אירוח למסעדות",
+    title: "FLOOR D.a.N.A | ייעוץ והדרכות אירוח למסעדות",
     description:
       "ייעוץ והדרכות שירות ומכירות למצוינות באירוח והגדלת הכנסות במסעדות, בתי קפה, ברים ומלונות.",
   },

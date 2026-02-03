@@ -22,7 +22,7 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <Link href="/" className="inline-block mb-4">
               <span className="text-2xl font-bold tracking-tight">
-                FLOOR <span className="text-[var(--accent)]">D.A.N.A</span>
+                FLOOR <span className="text-[var(--accent)]">D.a.N.A</span>
               </span>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed">
@@ -107,7 +107,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-white/50 text-sm">
-            © {new Date().getFullYear()} FLOOR D.A.N.A. כל הזכויות שמורות.
+            © {new Date().getFullYear()} FLOOR D.a.N.A. כל הזכויות שמורות.
           </p>
           <p className="text-white/50 text-sm">דנה שימרוני - ייעוץ והדרכות אירוח</p>
         </div>
