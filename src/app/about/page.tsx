@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
-import { Header, Footer } from "@/components/layout";
 import { ArrowLeft, Quote } from "lucide-react";
 
 const timelineEvents = [
@@ -34,7 +33,7 @@ const timelineEvents = [
   },
   {
     year: "2020",
-    title: "הקמת D.A.N.A FLOOR",
+    title: "הקמת FLOOR D.A.N.A",
     description:
       "הקמתי את החברה שלי. המיקוד: להביא לכל עסק אירוח את הכלים והגישה שגורמים לפלור לעבוד באמת.",
   },
@@ -79,9 +78,7 @@ export default function AboutPage() {
   const philosophyInView = useInView(philosophyRef, { once: true, margin: "-100px" });
 
   return (
-    <>
-      <Header />
-      <main>
+    <main>
         {/* Hero Section */}
         <section className="relative pt-32 pb-20 bg-gradient-to-b from-[var(--foreground)] to-[#2a2a2a]">
           <div className="absolute inset-0 bg-black/30" />
@@ -336,7 +333,5 @@ export default function AboutPage() {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
   );
 }

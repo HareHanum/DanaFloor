@@ -31,7 +31,7 @@ export default function Hero() {
           {/* Brand Tag */}
           <div className="mb-6">
             <span className="inline-block px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm font-medium tracking-wide">
-              D.A.N.A FLOOR
+              FLOOR D.A.N.A
             </span>
           </div>
 

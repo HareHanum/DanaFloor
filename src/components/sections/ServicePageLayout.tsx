@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, ReactNode } from "react";
 import Link from "next/link";
-import { ArrowLeft, Check, LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, LucideIcon } from "lucide-react";
 import ServiceNav from "@/components/ui/ServiceNav";
 
 interface ServicePageLayoutProps {
@@ -14,6 +14,8 @@ interface ServicePageLayoutProps {
   subtitle: string;
   heroDescription: string;
   heroVideo?: string;
+  backLink?: string;
+  backText?: string;
 
   // Problem/Solution
   problemTitle: string;
@@ -47,6 +49,8 @@ export default function ServicePageLayout({
   subtitle,
   heroDescription,
   heroVideo,
+  backLink,
+  backText,
   problemTitle,
   problemDescription,
   solutionTitle,
@@ -98,6 +102,15 @@ export default function ServicePageLayout({
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
+            {backLink && backText && (
+              <Link
+                href={backLink}
+                className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors text-sm font-medium"
+              >
+                <ArrowRight size={16} />
+                <span>{backText}</span>
+              </Link>
+            )}
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 bg-[var(--accent)] rounded-lg flex items-center justify-center">
                 <Icon size={24} className="text-white" />

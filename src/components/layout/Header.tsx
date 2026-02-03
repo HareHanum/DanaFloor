@@ -64,7 +64,7 @@ export default function Header() {
               className="text-2xl font-bold tracking-tight transition-colors duration-300"
               style={{ color: isScrolled ? "#1a1a1a" : "#ffffff" }}
             >
-              D.A.N.A <span className="text-[var(--accent)]">FLOOR</span>
+              FLOOR <span className="text-[var(--accent)]">D.A.N.A</span>
             </span>
           </Link>
 

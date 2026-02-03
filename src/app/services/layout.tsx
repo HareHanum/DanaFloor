@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
+import { Header, Footer } from "@/components/layout";
 
 export const metadata: Metadata = {
   title: "שירותים",
   description:
     "שירותי ייעוץ והדרכה לעסקי אירוח - ייעוץ למסעדות, הדרכות לצוותים, ליווי הקמה ושיפור תוצאות. פתרונות מותאמים אישית לכל עסק.",
   openGraph: {
-    title: "שירותים | D.A.N.A FLOOR",
+    title: "שירותים | FLOOR D.A.N.A",
     description:
       "ייעוץ והדרכה לעסקי אירוח - מסעדות, בתי קפה, מלונות וברים. פתרונות מותאמים אישית להצלחת העסק שלך.",
   },
@@ -16,5 +17,11 @@ export default function ServicesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <Header />
+      {children}
+      <Footer />
+    </>
+  );
 }
