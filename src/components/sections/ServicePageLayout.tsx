@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, ReactNode } from "react";
+import { useRef, useState, ReactNode } from "react";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Check, LucideIcon } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ChevronDown, LucideIcon } from "lucide-react";
 import ServiceNav from "@/components/ui/ServiceNav";
 
 interface ServicePageLayoutProps {
@@ -35,6 +35,9 @@ interface ServicePageLayoutProps {
     description: string;
   }[];
 
+  // FAQ
+  faqs?: { question: string; answer: string }[];
+
   // CTA
   ctaTitle?: string;
   ctaDescription?: string;
@@ -62,6 +65,7 @@ export default function ServicePageLayout({
   includesList,
   processTitle = "איך זה עובד?",
   processSteps,
+  faqs,
   ctaTitle = "מרגישים שזה מה שאתם צריכים?",
   ctaDescription = "בואו נדבר ונבין יחד מה הדרך הנכונה לעסק שלכם.",
   navMode = "services",
@@ -70,12 +74,16 @@ export default function ServicePageLayout({
   const problemRef = useRef(null);
   const includesRef = useRef(null);
   const processRef = useRef(null);
+  const faqRef = useRef(null);
   const ctaRef = useRef(null);
 
   const problemInView = useInView(problemRef, { once: true, margin: "-100px" });
   const includesInView = useInView(includesRef, { once: true, margin: "-100px" });
   const processInView = useInView(processRef, { once: true, margin: "-100px" });
+  const faqInView = useInView(faqRef, { once: true, margin: "-100px" });
   const ctaInView = useInView(ctaRef, { once: true, margin: "-100px" });
+
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   return (
     <>
@@ -225,6 +233,67 @@ export default function ServicePageLayout({
 
       {/* Optional Children Content */}
       {children}
+
+      {/* FAQ Section */}
+      {faqs && faqs.length > 0 && (
+        <section ref={faqRef} className="section-padding bg-white">
+          <div className="container-custom">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={faqInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6 }}
+              className="text-center mb-12"
+            >
+              <span className="text-[var(--accent)] font-medium mb-4 block">
+                שאלות ותשובות
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold">
+                שאלות שעולות הרבה
+              </h2>
+            </motion.div>
+
+            <div className="max-w-3xl mx-auto space-y-4">
+              {faqs.map((faq, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={faqInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="bg-[var(--background)] rounded-xl border border-[var(--border-light)] overflow-hidden"
+                >
+                  <button
+                    onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
+                    className="w-full flex items-center justify-between p-6 text-right cursor-pointer"
+                  >
+                    <span className="text-lg font-bold text-[var(--text-primary)] leading-relaxed">
+                      {faq.question}
+                    </span>
+                    <ChevronDown
+                      size={22}
+                      className={`text-[var(--accent)] shrink-0 mr-4 transition-transform duration-300 ${
+                        openFaqIndex === index ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  <div
+                    className={`grid transition-all duration-300 ease-in-out ${
+                      openFaqIndex === index
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="px-6 pb-6 text-[var(--text-secondary)] leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section ref={ctaRef} className="section-padding bg-[var(--foreground)] text-white">
