@@ -7,6 +7,7 @@ export default function MenuTrainingPage() {
   return (
     <ServicePageLayout
       navMode="trainings"
+      heroVideo="/media/training-courses-video.mp4"
       icon={UtensilsCrossed}
       title="הדרכת תפריט"
       subtitle="הדרכות לצוותים"

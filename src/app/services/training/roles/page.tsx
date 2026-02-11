@@ -7,6 +7,7 @@ export default function RolesTrainingPage() {
   return (
     <ServicePageLayout
       navMode="trainings"
+      heroVideo="/media/training-courses-video.mp4"
       icon={ClipboardList}
       title="הדרכות תפקיד"
       subtitle="הדרכות לצוותים"

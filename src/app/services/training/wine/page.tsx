@@ -7,6 +7,7 @@ export default function WineTrainingPage() {
   return (
     <ServicePageLayout
       navMode="trainings"
+      heroVideo="/media/training-courses-video.mp4"
       icon={Wine}
       title="הדרכת יין ואלכוהול"
       subtitle="הדרכות לצוותים"

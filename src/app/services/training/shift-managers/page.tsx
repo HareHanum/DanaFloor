@@ -7,6 +7,7 @@ export default function ShiftManagersTrainingPage() {
   return (
     <ServicePageLayout
       navMode="trainings"
+      heroVideo="/media/training-courses-video.mp4"
       icon={ShieldCheck}
       title='הדרכת אחמ"שים ומנהלי משמרת'
       subtitle="הדרכות לצוותים"

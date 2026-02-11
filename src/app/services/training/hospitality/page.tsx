@@ -7,6 +7,7 @@ export default function HospitalityTrainingPage() {
   return (
     <ServicePageLayout
       navMode="trainings"
+      heroVideo="/media/training-courses-video.mp4"
       icon={Heart}
       title="הדרכת אירוח"
       subtitle="הדרכות לצוותים"

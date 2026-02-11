@@ -7,6 +7,7 @@ export default function BarTrainingPage() {
   return (
     <ServicePageLayout
       navMode="trainings"
+      heroVideo="/media/training-courses-video.mp4"
       icon={Beer}
       title="הדרכת ברמנים ושירות בר"
       subtitle="הדרכות לצוותים"

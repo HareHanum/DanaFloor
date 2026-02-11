@@ -7,6 +7,7 @@ export default function HostessTrainingPage() {
   return (
     <ServicePageLayout
       navMode="trainings"
+      heroVideo="/media/training-courses-video.mp4"
       icon={DoorOpen}
       title="הדרכת מארחות"
       subtitle="הדרכות לצוותים"

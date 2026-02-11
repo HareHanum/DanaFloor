@@ -7,6 +7,7 @@ export default function ManagementTrainingPage() {
   return (
     <ServicePageLayout
       navMode="trainings"
+      heroVideo="/media/training-courses-video.mp4"
       icon={UserCog}
       title="הדרכת מנהלים"
       subtitle="הדרכות לצוותים"
