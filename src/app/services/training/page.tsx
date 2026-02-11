@@ -11,37 +11,84 @@ import {
   UserCog,
   ClipboardList,
   ArrowLeft,
+  UtensilsCrossed,
+  Wine,
+  Heart,
+  DoorOpen,
+  Beer,
+  ShieldCheck,
+  Coffee,
 } from "lucide-react";
 import ServiceNav from "@/components/ui/ServiceNav";
 
-const trainingTypes = [
+const trainingTypes: {
+  icon: React.ComponentType<{ size?: number; className?: string }>;
+  title: string;
+  description: string;
+  href: string;
+}[] = [
   {
     icon: HandHelping,
     title: "הדרכת שירות",
     description:
-      "איך לתת שירות שגורם ללקוחות לחזור. מהברכה הראשונה ועד הפרידה – כל רגע חשוב.",
+      "תסריטי שירות בכל שלבי חוויית הלקוח, התאמת תקשורת לסוגי לקוחות שונים, טיפול בתלונות ושחזור חוויה – והתנהלות מקצועית גם בשעות העומס.",
     href: "/services/training/service",
   },
   {
     icon: TrendingUp,
     title: "הדרכת מכירה",
     description:
-      "איך להגדיל את התיק הממוצע בלי להרגיש דוחפניים. מכירה שמרגישה כמו שירות.",
+      "הדרכה שמלמדת את הצוות למכור בצורה אלגנטית, טבעית ולא דוחפת – כחלק בלתי נפרד מהשירות. זיהוי הזדמנויות בזמן אמת, הגדלת ממוצע לסועד והצעת ערך מדויקת.",
     href: "/services/training/sales",
   },
   {
-    icon: UserCog,
-    title: "הדרכת מנהלים",
+    icon: UtensilsCrossed,
+    title: "הדרכת תפריט",
     description:
-      "כלים פרקטיים לניהול צוות, התמודדות עם לחץ והובלת משמרת בביטחון.",
-    href: "/services/training/management",
+      "העמקת היכרות הצוות עם התפריט וחיזוק הביטחון בהצגת מנות, משקאות והתאמות לאורחים שונים. לספר את הסיפור שמאחורי המנה וליצור חוויה מקצועית מההזמנה ועד ההגשה.",
+    href: "/services/training/menu",
   },
   {
-    icon: ClipboardList,
-    title: "הדרכות תפקיד",
+    icon: Wine,
+    title: "הדרכת יין ואלכוהול",
     description:
-      "הדרכות ייעודיות לכל תפקיד: מלצרים, ברמנים, מארחות ואנשי בר.",
-    href: "/services/training/roles",
+      "ידע מעשי וביטחון בעולם היין והאלכוהול, לצד יכולת להמליץ ולמכור בצורה מקצועית ונעימה. חיבור בין ידע, טקס הגשה וחוויית שירות – גם בשגרה וגם בעומס.",
+    href: "/services/training/wine",
+  },
+  {
+    icon: Heart,
+    title: "הדרכת אירוח",
+    description:
+      "יצירת חוויית אירוח אנושית, חמה וזכירה – מעבר לביצוע טכני של שירות. לראות את האורח, לנהל תקשורת אמפתית וליצור \"רגעים קטנים\" שמשאירים רושם גדול.",
+    href: "/services/training/hospitality",
+  },
+  {
+    icon: DoorOpen,
+    title: "הדרכת מארחות",
+    description:
+      "חיזוק עמדת הקבלה כנקודת מפתח בחוויית האורח ובניהול הזרימה במסעדה. שליטה בעומסים, תיאום עם הפלור והמטבח, ויצירת פתיחה מקצועית ונעימה לכל ביקור.",
+    href: "/services/training/hostess",
+  },
+  {
+    icon: Beer,
+    title: "הדרכת ברמנים ושירות בר",
+    description:
+      "ייעול העבודה בבר, חיזוק נוכחות מקצועית ושיפור איכות השירות גם בשעות שיא. עבודה נקייה, מדויקת ובקצב נכון – תוך שמירה על קשר עם האורח.",
+    href: "/services/training/bar",
+  },
+  {
+    icon: ShieldCheck,
+    title: "הדרכת אחמ\"שים ומנהלי משמרת",
+    description:
+      "כלים לניהול משמרת בזמן אמת, קבלת החלטות תחת לחץ והובלת צוות בצורה ברורה ובטוחה. מנהלי משמרת שיודעים לשלוט בקצב, לפתור תקלות ולהחזיק את הרצפה.",
+    href: "/services/training/shift-managers",
+  },
+  {
+    icon: Coffee,
+    title: "הדרכת קפה",
+    description:
+      "הדרכה מקצועית שמעלה את רמת הקפה, הדיוק והאחידות – מהאספרסו ועד ההגשה ללקוח. עבודה נכונה עם הציוד, שמירה על איכות תחת לחץ וחוויית קפה שמחזקת את המותג.",
+    href: "/services/training/coffee",
   },
 ];
 

@@ -24,7 +24,7 @@
 ```
 Primary:      #1A1A1A (near-black)
 Background:   #FAFAFA (off-white)
-Accent:       #D4A574 (warm gold/bronze - hospitality warmth)
+Accent:       #f69a62 (warm gold/bronze - hospitality warmth)
 Text:         #333333
 Light Gray:   #E5E5E5 (borders, dividers)
 ```

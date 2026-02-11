@@ -13,7 +13,11 @@
       "Bash(pkill:*)",
       "Bash(npm run dev:*)",
       "Bash(curl:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(for f in src/app/services/training/coffee/page.tsx src/app/services/training/shift-managers/page.tsx src/app/services/training/bar/page.tsx src/app/services/training/hostess/page.tsx src/app/services/training/hospitality/page.tsx src/app/services/training/wine/page.tsx src/app/services/training/menu/page.tsx src/app/services/training/sales/page.tsx src/app/services/training/service/page.tsx src/app/services/training/roles/page.tsx src/app/services/training/management/page.tsx)",
+      "Bash(do sed -i '/backLink=\"\"\\\\/services\\\\/training\"\"/d; /backText=\"\"חזרה להדרכות\"\"/d' \"$f\")",
+      "Bash(done)",
+      "Bash(grep:*)"
     ]
   }
 }

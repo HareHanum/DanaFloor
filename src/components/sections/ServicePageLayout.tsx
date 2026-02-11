@@ -39,6 +39,9 @@ interface ServicePageLayoutProps {
   ctaTitle?: string;
   ctaDescription?: string;
 
+  // Navigation mode
+  navMode?: "services" | "trainings";
+
   // Optional: Additional content
   children?: ReactNode;
 }
@@ -61,6 +64,7 @@ export default function ServicePageLayout({
   processSteps,
   ctaTitle = "מרגישים שזה מה שאתם צריכים?",
   ctaDescription = "בואו נדבר ונבין יחד מה הדרך הנכונה לעסק שלכם.",
+  navMode = "services",
   children,
 }: ServicePageLayoutProps) {
   const problemRef = useRef(null);
@@ -129,42 +133,24 @@ export default function ServicePageLayout({
       </section>
 
       {/* Service Navigation */}
-      <ServiceNav />
+      <ServiceNav mode={navMode} />
 
-      {/* Problem/Solution Section */}
+      {/* What's Included Intro */}
       <section ref={problemRef} className="section-padding bg-[var(--background)]">
         <div className="container-custom">
-          <div className="grid md:grid-cols-2 gap-12 lg:gap-20">
-            {/* Problem */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={problemInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6 }}
-            >
-              <span className="text-red-500 font-medium mb-3 block">הבעיה</span>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                {problemTitle}
-              </h2>
-              <p className="text-[var(--text-secondary)] leading-relaxed">
-                {problemDescription}
-              </p>
-            </motion.div>
-
-            {/* Solution */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={problemInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <span className="text-green-600 font-medium mb-3 block">הפתרון</span>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">
-                {solutionTitle}
-              </h2>
-              <p className="text-[var(--text-secondary)] leading-relaxed">
-                {solutionDescription}
-              </p>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={problemInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+              {problemTitle}
+            </h2>
+            <p className="text-[var(--text-secondary)] leading-relaxed text-lg">
+              {problemDescription}
+            </p>
+          </motion.div>
         </div>
       </section>
 

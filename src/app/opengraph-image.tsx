@@ -33,7 +33,7 @@ export default async function Image() {
             left: 0,
             right: 0,
             height: "6px",
-            backgroundColor: "#d4a574",
+            backgroundColor: "#f69a62",
           }}
         />
 
@@ -49,7 +49,7 @@ export default async function Image() {
             style={{
               fontSize: "72px",
               fontWeight: "bold",
-              color: "#d4a574",
+              color: "#f69a62",
               letterSpacing: "-2px",
             }}
           >
@@ -121,7 +121,7 @@ export default async function Image() {
             style={{
               width: "4px",
               height: "4px",
-              backgroundColor: "#d4a574",
+              backgroundColor: "#f69a62",
               borderRadius: "50%",
             }}
           />

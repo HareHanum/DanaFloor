@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
         html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background: #1a1a1a; padding: 20px; border-radius: 8px 8px 0 0;">
-              <h1 style="color: #d4a574; margin: 0; font-size: 24px;">FLOOR D.a.N.A</h1>
+              <h1 style="color: #f69a62; margin: 0; font-size: 24px;">FLOOR D.a.N.A</h1>
             </div>
             <div style="background: #f5f5f5; padding: 30px; border-radius: 0 0 8px 8px;">
               <h2 style="color: #1a1a1a; margin-top: 0;">פנייה חדשה מהאתר</h2>
@@ -96,11 +96,11 @@ export async function POST(request: NextRequest) {
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">טלפון:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;"><a href="tel:${data.phone}" style="color: #d4a574;">${leadData.phone}</a></td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;"><a href="tel:${data.phone}" style="color: #f69a62;">${leadData.phone}</a></td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">אימייל:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${data.email ? `<a href="mailto:${data.email}" style="color: #d4a574;">${leadData.email}</a>` : leadData.email}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${data.email ? `<a href="mailto:${data.email}" style="color: #f69a62;">${leadData.email}</a>` : leadData.email}</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">סוג עסק:</td>

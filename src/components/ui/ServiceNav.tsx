@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
-import { Search, Users, Building2, TrendingUp } from "lucide-react";
+import {
+  Search, Building2, TrendingUp,
+  HandHelping, BadgeDollarSign, UtensilsCrossed, Wine,
+  Heart, DoorOpen, Beer, ShieldCheck, Coffee,
+} from "lucide-react";
 
 const services = [
   {
@@ -13,54 +17,45 @@ const services = [
     href: "/services/consulting",
   },
   {
-    icon: Users,
-    title: "הדרכות",
-    fullTitle: "הדרכות לצוותים",
-    href: "/services/training",
-  },
-  {
     icon: Building2,
     title: "הקמה",
     fullTitle: "הקמה וליווי",
     href: "/services/establishment",
   },
-  {
-    icon: TrendingUp,
-    title: "שיפור תוצאות",
-    fullTitle: "שיפור תוצאות",
-    href: "/services/results",
-  },
 ];
 
-export default function ServiceNav() {
+const trainings = [
+  { icon: HandHelping, title: "שירות", fullTitle: "הדרכת שירות", href: "/services/training/service" },
+  { icon: BadgeDollarSign, title: "מכירה", fullTitle: "הדרכת מכירה", href: "/services/training/sales" },
+  { icon: UtensilsCrossed, title: "תפריט", fullTitle: "הדרכת תפריט", href: "/services/training/menu" },
+  { icon: Wine, title: "יין ואלכוהול", fullTitle: "הדרכת יין ואלכוהול", href: "/services/training/wine" },
+  { icon: Heart, title: "אירוח", fullTitle: "הדרכת אירוח", href: "/services/training/hospitality" },
+  { icon: DoorOpen, title: "מארחות", fullTitle: "הדרכת מארחות", href: "/services/training/hostess" },
+  { icon: Beer, title: "ברמנים ובר", fullTitle: "הדרכת ברמנים ושירות בר", href: "/services/training/bar" },
+  { icon: ShieldCheck, title: 'אחמ"שים', fullTitle: 'הדרכת אחמ"שים ומנהלי משמרת', href: "/services/training/shift-managers" },
+  { icon: Coffee, title: "קפה", fullTitle: "הדרכת קפה", href: "/services/training/coffee" },
+];
+
+interface ServiceNavProps {
+  mode?: "services" | "trainings";
+}
+
+export default function ServiceNav({ mode = "services" }: ServiceNavProps) {
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
+  const items = mode === "trainings" ? trainings : services;
+
   const isActive = (href: string) => {
-    if (href === "/services/training") {
-      return pathname.startsWith("/services/training");
-    }
     return pathname === href;
   };
 
-  // Find the active service href
-  const getActiveHref = () => {
-    for (const service of services) {
-      if (isActive(service.href)) {
-        return service.href;
-      }
-    }
-    return null;
-  };
-
-  // Scroll active item into view
   useEffect(() => {
-    const activeHref = getActiveHref();
+    const activeHref = items.find((item) => isActive(item.href))?.href;
     if (activeHref && navRef.current) {
       const activeElement = itemRefs.current.get(activeHref);
       if (activeElement) {
-        // Use scrollIntoView with inline: 'center' to center the active item
         activeElement.scrollIntoView({
           behavior: "smooth",
           block: "nearest",
@@ -77,22 +72,23 @@ export default function ServiceNav() {
           ref={navRef}
           className="flex items-center justify-start gap-2 md:gap-4 overflow-x-auto py-3 px-4 scrollbar-hide"
         >
-          {services.map((service) => (
+          {items.map((item) => (
             <Link
-              key={service.href}
-              href={service.href}
+              key={item.fullTitle}
+              href={item.href}
+              scroll={false}
               ref={(el) => {
-                if (el) itemRefs.current.set(service.href, el);
+                if (el) itemRefs.current.set(item.href, el);
               }}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex-shrink-0 ${
-                isActive(service.href)
+                isActive(item.href)
                   ? "bg-[var(--accent)] text-white shadow-sm"
                   : "text-[var(--text-secondary)] hover:bg-[var(--background)] hover:text-[var(--foreground)]"
               }`}
             >
-              <service.icon size={18} />
-              <span className="hidden sm:inline">{service.fullTitle}</span>
-              <span className="sm:hidden">{service.title}</span>
+              <item.icon size={18} />
+              <span className="hidden sm:inline">{item.fullTitle}</span>
+              <span className="sm:hidden">{item.title}</span>
             </Link>
           ))}
         </div>

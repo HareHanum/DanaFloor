@@ -51,7 +51,7 @@ src/
 ```css
 --background: #fafafa     /* Off-white */
 --foreground: #1a1a1a     /* Near-black */
---accent: #d4a574         /* Warm gold */
+--accent: #f69a62         /* Warm gold */
 --text-primary: #333333
 --text-secondary: #666666
 ```

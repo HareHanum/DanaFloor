@@ -5,19 +5,33 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown, Search, Users, Building2, TrendingUp } from "lucide-react";
+import {
+  Menu, X, ChevronDown, Search, Building2, TrendingUp,
+  HandHelping, BadgeDollarSign, UtensilsCrossed, Wine,
+  Heart, DoorOpen, Beer, ShieldCheck, Coffee, Users,
+} from "lucide-react";
 
 const serviceItems = [
   { href: "/services/consulting", label: "ייעוץ למסעדות", icon: Search },
-  { href: "/services/training", label: "הדרכות לצוותים", icon: Users },
   { href: "/services/establishment", label: "הקמה וליווי", icon: Building2 },
-  { href: "/services/results", label: "שיפור תוצאות", icon: TrendingUp },
+];
+
+const trainingItems = [
+  { href: "/services/training/service", label: "הדרכת שירות", icon: HandHelping },
+  { href: "/services/training/sales", label: "הדרכת מכירה", icon: BadgeDollarSign },
+  { href: "/services/training/menu", label: "הדרכת תפריט", icon: UtensilsCrossed },
+  { href: "/services/training/wine", label: "הדרכת יין ואלכוהול", icon: Wine },
+  { href: "/services/training/hospitality", label: "הדרכת אירוח", icon: Heart },
+  { href: "/services/training/hostess", label: "הדרכת מארחות", icon: DoorOpen },
+  { href: "/services/training/bar", label: "הדרכת ברמנים ושירות בר", icon: Beer },
+  { href: "/services/training/shift-managers", label: 'הדרכת אחמ"שים ומנהלי משמרת', icon: ShieldCheck },
+  { href: "/services/training/coffee", label: "הדרכת קפה", icon: Coffee },
 ];
 
 const navItems = [
   { href: "/", label: "בית" },
   { href: "/about", label: "אודות" },
-  { href: "/purim-guide", label: "מדריך תפעול לפורים" },
+  // { href: "/purim-guide", label: "מדריך תפעול לפורים" },
   { href: "/contact", label: "צור קשר" },
 ];
 
@@ -25,10 +39,13 @@ export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const [isTrainingsOpen, setIsTrainingsOpen] = useState(false);
   const servicesRef = useRef<HTMLLIElement>(null);
+  const trainingsRef = useRef<HTMLLIElement>(null);
   const pathname = usePathname();
 
-  const isServicePage = pathname.startsWith("/services");
+  const isServicePage = pathname.startsWith("/services") && !pathname.startsWith("/services/training");
+  const isTrainingPage = pathname.startsWith("/services/training");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +60,9 @@ export default function Header() {
     const handleClickOutside = (event: MouseEvent) => {
       if (servicesRef.current && !servicesRef.current.contains(event.target as Node)) {
         setIsServicesOpen(false);
+      }
+      if (trainingsRef.current && !trainingsRef.current.contains(event.target as Node)) {
+        setIsTrainingsOpen(false);
       }
     };
 
@@ -96,17 +116,26 @@ export default function Header() {
 
             {/* Services Dropdown */}
             <li className="relative" ref={servicesRef}>
-              <button
-                onClick={() => setIsServicesOpen(!isServicesOpen)}
-                className="flex items-center gap-1 text-sm font-medium hover:text-[var(--accent)] transition-colors duration-300"
-                style={{ color: isServicePage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
-              >
-                שירותים
-                <ChevronDown
-                  size={16}
-                  className={`transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""}`}
-                />
-              </button>
+              <div className="relative group flex items-center">
+                <Link
+                  href="/services/consulting"
+                  className="text-sm font-medium hover:text-[var(--accent)] transition-colors duration-300"
+                  style={{ color: isServicePage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
+                >
+                  שירותים
+                </Link>
+                <button
+                  onClick={() => { setIsServicesOpen(!isServicesOpen); setIsTrainingsOpen(false); }}
+                  className="mr-1 hover:text-[var(--accent)] transition-colors duration-300"
+                  style={{ color: isServicePage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
+                >
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-[var(--accent)] transition-all group-hover:w-full" />
+              </div>
               <AnimatePresence>
                 {isServicesOpen && (
                   <motion.div
@@ -122,13 +151,64 @@ export default function Header() {
                         href={service.href}
                         onClick={() => setIsServicesOpen(false)}
                         className={`flex items-center gap-3 px-4 py-3 hover:bg-[var(--background)] transition-colors ${
-                          pathname === service.href || (service.href === "/services/training" && pathname.startsWith("/services/training"))
+                          pathname === service.href
                             ? "bg-[var(--accent)]/10 text-[var(--accent)]"
                             : "text-[var(--text-primary)]"
                         }`}
                       >
                         <service.icon size={18} />
                         <span className="text-sm font-medium">{service.label}</span>
+                      </Link>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </li>
+
+            {/* Trainings Dropdown */}
+            <li className="relative" ref={trainingsRef}>
+              <div className="relative group flex items-center">
+                <Link
+                  href="/services/training/service"
+                  className="text-sm font-medium hover:text-[var(--accent)] transition-colors duration-300"
+                  style={{ color: isTrainingPage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
+                >
+                  הדרכות
+                </Link>
+                <button
+                  onClick={() => { setIsTrainingsOpen(!isTrainingsOpen); setIsServicesOpen(false); }}
+                  className="mr-1 hover:text-[var(--accent)] transition-colors duration-300"
+                  style={{ color: isTrainingPage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
+                >
+                  <ChevronDown
+                    size={16}
+                    className={`transition-transform duration-200 ${isTrainingsOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-[var(--accent)] transition-all group-hover:w-full" />
+              </div>
+              <AnimatePresence>
+                {isTrainingsOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-[var(--border-light)] overflow-hidden"
+                  >
+                    {trainingItems.map((training) => (
+                      <Link
+                        key={training.label}
+                        href={training.href}
+                        onClick={() => setIsTrainingsOpen(false)}
+                        className={`flex items-center gap-3 px-4 py-3 hover:bg-[var(--background)] transition-colors ${
+                          pathname === training.href
+                            ? "bg-[var(--accent)]/10 text-[var(--accent)]"
+                            : "text-[var(--text-primary)]"
+                        }`}
+                      >
+                        <training.icon size={18} />
+                        <span className="text-sm font-medium">{training.label}</span>
                       </Link>
                     ))}
                   </motion.div>
@@ -198,13 +278,38 @@ export default function Header() {
                           href={service.href}
                           onClick={() => setIsMobileMenuOpen(false)}
                           className={`flex items-center gap-3 py-2 text-base font-medium transition-colors ${
-                            pathname === service.href || (service.href === "/services/training" && pathname.startsWith("/services/training"))
+                            pathname === service.href
                               ? "text-[var(--accent)]"
                               : "hover:text-[var(--accent)]"
                           }`}
                         >
                           <service.icon size={18} />
                           {service.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+
+                {/* Trainings Section */}
+                <li className="pt-2">
+                  <span className="block py-2 text-sm font-medium text-[var(--text-muted)] uppercase tracking-wide">
+                    הדרכות
+                  </span>
+                  <ul className="flex flex-col gap-1 pr-4 border-r-2 border-[var(--border-light)]">
+                    {trainingItems.map((training) => (
+                      <li key={training.label}>
+                        <Link
+                          href={training.href}
+                          onClick={() => setIsMobileMenuOpen(false)}
+                          className={`flex items-center gap-3 py-2 text-base font-medium transition-colors ${
+                            pathname === training.href
+                              ? "text-[var(--accent)]"
+                              : "hover:text-[var(--accent)]"
+                          }`}
+                        >
+                          <training.icon size={18} />
+                          {training.label}
                         </Link>
                       </li>
                     ))}

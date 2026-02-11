@@ -13,7 +13,7 @@ const siteUrl = "https://floor-dana.com";
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#d4a574",
+  themeColor: "#f69a62",
 };
 
 export const metadata: Metadata = {

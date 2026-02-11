@@ -6,12 +6,11 @@ import { UserCog } from "lucide-react";
 export default function ManagementTrainingPage() {
   return (
     <ServicePageLayout
+      navMode="trainings"
       icon={UserCog}
       title="הדרכת מנהלים"
       subtitle="הדרכות לצוותים"
       heroDescription="מנהל משמרת טוב הוא לא רק מי שיודע לפתור בעיות – הוא מי שמונע אותן. אני נותנת למנהלים שלכם כלים להוביל, לנהל ולהפיק את המקסימום מהצוות."
-      backLink="/services/training"
-      backText="חזרה להדרכות"
       problemTitle="מנהל בלי כלים = צוות בלי כיוון"
       problemDescription="הרבה מנהלי משמרת קודמו מהשטח בלי הכשרה אמיתית. הם יודעים לעבוד קשה, אבל לא בהכרח יודעים להוביל אחרים, לתת פידבק או להתמודד עם לחץ. התוצאה? שחיקה, תחלופה גבוהה וערבים כאוטיים."
       solutionTitle="מנהלים שיודעים להוביל"
