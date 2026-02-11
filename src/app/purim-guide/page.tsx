@@ -22,14 +22,6 @@ interface FormErrors {
   phone?: string;
 }
 
-const guideFeatures = [
-  "איך לצמצם תפריט אלכוהול בלי לפגוע במכירה",
-  "איך להוביל מכירה במקום לחכות להזמנה",
-  "איך לבחור קוקטיילים שעובדים בערב עמוס",
-  "איך לנהל קצב בבר מלא",
-  "ואיך להימנע מהטעויות שחוזרות כל פורים מחדש",
-];
-
 const targetAudience = [
   { icon: Wine, text: "בעלי ברים" },
   { icon: Users, text: "מנהלי בר ומסעדה" },
@@ -182,69 +174,26 @@ export default function PurimGuidePage() {
             >
               <div className="prose prose-lg text-[var(--text-secondary)] leading-relaxed space-y-4">
                 <p className="text-xl text-[var(--foreground)] font-medium">
-                  פורים הוא אחד הערבים החזקים של הבר.
+                  פורים הוא ערב עם פוטנציאל הכנסה גבוה במיוחד.
                 </p>
                 <p>
-                  והוא גם אחד הערבים שבהם הכי קל לאבד כסף.
+                  יותר אורחים, יותר אלכוהול, יותר תנועה.<br />
+                  ובכל זאת, בהרבה מקומות, הבר עובד חזק, הצוות רץ והקופה לא תמיד מרגישה את זה.
                 </p>
                 <p className="text-[var(--text-primary)]">
-                  לא בגלל חוסר לקוחות<br />
-                  לא בגלל שהצוות לא מקצועי<br />
-                  אלא בגלל חוסר החלטות מראש.
+                  זה לא בגלל שאין ביקוש וזה לא בגלל שהצוות לא טוב.<br />
+                  ברוב המקרים, זה פשוט ניהול שלא מותאם לערב עמוס.
                 </p>
                 <p>
-                  בערב עמוס<br />
-                  כל חוסר תיאום פוגע בקצב<br />
-                  וכל עיכוב קטן פוגע במכירה.
+                  אחרי שנים של עבודה בכל התפקידים בפלור ובמיוחד בעשרות חגים, בבר ובניהול צוות ראיתי כל טעות שכתובה בספר ולמדתי כל דרך לתקן אותה - כי אפשר! אפשר להרוויח הרבה יותר.
+                </p>
+                <p className="text-[var(--text-primary)]">
+                  המדריך הזה כולל עקרונות שנועדו לעזור לכם לא רק להימנע מטעויות שחוזרות כל שנה, אלא להכניס יותר כסף בפועל – בלי להאריך משמרות ובלי לשחוק את הצוות.
                 </p>
                 <p className="text-[var(--foreground)] font-medium">
-                  בדיוק בשביל זה הכנתי את המדריך הזה.
+                  באהבה, דנה
                 </p>
               </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* What's in the Guide */}
-        <section className="section-padding bg-white">
-          <div className="container-custom">
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="max-w-3xl mx-auto"
-            >
-              <motion.div variants={itemVariants} className="mb-8">
-                <span className="text-[var(--accent)] font-medium mb-2 block">
-                  מה תמצאו במדריך
-                </span>
-                <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                  5 החלטות תפעוליות פשוטות שעושות הבדל מיידי בהכנסות מהבר
-                </h2>
-              </motion.div>
-
-              <ul className="space-y-4">
-                {guideFeatures.map((feature, index) => (
-                  <motion.li
-                    key={index}
-                    variants={itemVariants}
-                    className="flex items-start gap-3 text-lg"
-                  >
-                    <CheckCircle className="w-6 h-6 text-[var(--accent)] flex-shrink-0 mt-0.5" />
-                    <span className="text-[var(--text-primary)]">{feature}</span>
-                  </motion.li>
-                ))}
-              </ul>
-
-              <motion.div
-                variants={itemVariants}
-                className="mt-8 p-6 bg-[var(--background)] rounded-lg border-r-4 border-[var(--accent)]"
-              >
-                <p className="text-lg font-medium text-[var(--foreground)]">
-                  בלי תיאוריה. בלי השראה. עבודה מהשטח.
-                </p>
-              </motion.div>
             </motion.div>
           </div>
         </section>
