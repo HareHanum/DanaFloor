@@ -12,7 +12,8 @@
       "Bash(fuser:*)",
       "Bash(pkill:*)",
       "Bash(npm run dev:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(ls:*)"
     ]
   }
 }

@@ -59,23 +59,23 @@ export default function Header() {
       }`}
     >
       <div className="container-custom">
-        <nav className="flex items-center justify-between h-[120px]">
+        <nav className="flex items-center justify-between h-24">
           {/* Logo */}
-          <Link href="/" className="flex items-center relative h-[86px] mt-1">
+          <Link href="/" className="flex items-center relative h-16">
             <Image
-              src="/logo-light-v4.png"
-              alt="FLOOR D.a.N.A Consulting"
-              width={127}
-              height={85}
-              className={`h-[86px] w-auto absolute transition-opacity duration-300 ${isScrolled ? "opacity-0" : "opacity-100"}`}
+              src="/logo-light.png"
+              alt="FLOOR D.a.N.A"
+              width={120}
+              height={64}
+              className={`h-16 w-auto absolute transition-opacity duration-300 ${isScrolled ? "opacity-0" : "opacity-100"}`}
               priority
             />
             <Image
-              src="/logo-dark-v4.png"
-              alt="FLOOR D.a.N.A Consulting"
-              width={127}
-              height={85}
-              className={`h-[86px] w-auto transition-opacity duration-300 ${isScrolled ? "opacity-100" : "opacity-0"}`}
+              src="/logo-dark.png"
+              alt="FLOOR D.a.N.A"
+              width={120}
+              height={64}
+              className={`h-16 w-auto transition-opacity duration-300 ${isScrolled ? "opacity-100" : "opacity-0"}`}
               priority
             />
           </Link>
