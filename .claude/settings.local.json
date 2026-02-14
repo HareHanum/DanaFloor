@@ -22,7 +22,10 @@
       "Bash(ffmpeg:*)",
       "Bash(for f in public/media/*.mp4)",
       "Bash(do echo \"=== $f ===\")",
-      "Bash(ffprobe:*)"
+      "Bash(ffprobe:*)",
+      "Bash(npm ls:*)",
+      "Bash(npx vercel env rm:*)",
+      "Bash(npx vercel env add:*)"
     ]
   }
 }

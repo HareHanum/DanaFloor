@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Mail, MessageCircle, Send, CheckCircle, AlertCircle, MapPin, Clock } from "lucide-react";
 
 const businessTypes = [
@@ -197,12 +197,14 @@ export default function ContactPage() {
                 השאירו פרטים
               </motion.h2>
 
+              <AnimatePresence mode="wait">
               {submitStatus === "success" ? (
                 <motion.div
                   key="success"
                   role="alert"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
                   className="bg-green-50 border border-green-200 rounded-lg p-8 text-center"
                 >
                   <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
@@ -224,9 +226,10 @@ export default function ContactPage() {
                   key="form"
                   onSubmit={handleSubmit}
                   className="space-y-6"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.3 }}
+                  initial="hidden"
+                  animate="visible"
+                  exit={{ opacity: 0 }}
+                  variants={containerVariants}
                 >
                   {submitStatus === "error" && (
                     <motion.div
@@ -402,6 +405,7 @@ export default function ContactPage() {
                   </motion.div>
                 </motion.form>
               )}
+              </AnimatePresence>
             </motion.div>
 
             {/* Contact Info */}
