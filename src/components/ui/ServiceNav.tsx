@@ -66,7 +66,7 @@ export default function ServiceNav({ mode = "services" }: ServiceNavProps) {
   }, [pathname]);
 
   return (
-    <nav className="bg-white border-b border-[var(--border-light)] sticky top-20 z-40">
+    <nav className="bg-white border-b border-[var(--border-light)] sticky top-20 z-40" aria-label="ניווט שירותים">
       <div className="container-custom">
         <div
           ref={navRef}
@@ -80,13 +80,14 @@ export default function ServiceNav({ mode = "services" }: ServiceNavProps) {
               ref={(el) => {
                 if (el) itemRefs.current.set(item.href, el);
               }}
+              {...(isActive(item.href) ? { "aria-current": "page" as const } : {})}
               className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex-shrink-0 ${
                 isActive(item.href)
                   ? "bg-[var(--accent)] text-white shadow-sm"
                   : "text-[var(--text-secondary)] hover:bg-[var(--background)] hover:text-[var(--foreground)]"
               }`}
             >
-              <item.icon size={18} />
+              <item.icon size={18} aria-hidden="true" />
               <span className="hidden sm:inline">{item.fullTitle}</span>
               <span className="sm:hidden">{item.title}</span>
             </Link>

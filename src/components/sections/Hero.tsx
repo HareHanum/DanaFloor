@@ -13,6 +13,7 @@ export default function Hero() {
           loop
           muted
           playsInline
+          aria-hidden="true"
           className="absolute inset-0 w-full h-full object-cover"
         >
           <source src="/media/hero-video.mp4" type="video/mp4" />

@@ -70,6 +70,19 @@ export default function Header() {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsServicesOpen(false);
+        setIsTrainingsOpen(false);
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, []);
+
   return (
     <header
       className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
@@ -108,6 +121,7 @@ export default function Header() {
                 href="/"
                 className="text-sm font-medium hover:text-[var(--accent)] transition-colors duration-300 relative group"
                 style={{ color: isScrolled ? "#1a1a1a" : "#ffffff" }}
+                {...(pathname === "/" ? { "aria-current": "page" as const } : {})}
               >
                 בית
                 <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-[var(--accent)] transition-all group-hover:w-full" />
@@ -128,9 +142,13 @@ export default function Header() {
                   onClick={() => { setIsServicesOpen(!isServicesOpen); setIsTrainingsOpen(false); }}
                   className="mr-1 hover:text-[var(--accent)] transition-colors duration-300"
                   style={{ color: isServicePage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
+                  aria-expanded={isServicesOpen}
+                  aria-haspopup="true"
+                  aria-label="פתח תפריט שירותים"
                 >
                   <ChevronDown
                     size={16}
+                    aria-hidden="true"
                     className={`transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""}`}
                   />
                 </button>
@@ -144,19 +162,21 @@ export default function Header() {
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
                     className="absolute top-full right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-[var(--border-light)] overflow-hidden"
+                    role="menu"
                   >
                     {serviceItems.map((service) => (
                       <Link
                         key={service.href}
                         href={service.href}
                         onClick={() => setIsServicesOpen(false)}
+                        role="menuitem"
                         className={`flex items-center gap-3 px-4 py-3 hover:bg-[var(--background)] transition-colors ${
                           pathname === service.href
                             ? "bg-[var(--accent)]/10 text-[var(--accent)]"
                             : "text-[var(--text-primary)]"
                         }`}
                       >
-                        <service.icon size={18} />
+                        <service.icon size={18} aria-hidden="true" />
                         <span className="text-sm font-medium">{service.label}</span>
                       </Link>
                     ))}
@@ -179,9 +199,13 @@ export default function Header() {
                   onClick={() => { setIsTrainingsOpen(!isTrainingsOpen); setIsServicesOpen(false); }}
                   className="mr-1 hover:text-[var(--accent)] transition-colors duration-300"
                   style={{ color: isTrainingPage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
+                  aria-expanded={isTrainingsOpen}
+                  aria-haspopup="true"
+                  aria-label="פתח תפריט הדרכות"
                 >
                   <ChevronDown
                     size={16}
+                    aria-hidden="true"
                     className={`transition-transform duration-200 ${isTrainingsOpen ? "rotate-180" : ""}`}
                   />
                 </button>
@@ -195,19 +219,21 @@ export default function Header() {
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
                     className="absolute top-full right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-[var(--border-light)] overflow-hidden"
+                    role="menu"
                   >
                     {trainingItems.map((training) => (
                       <Link
                         key={training.label}
                         href={training.href}
                         onClick={() => setIsTrainingsOpen(false)}
+                        role="menuitem"
                         className={`flex items-center gap-3 px-4 py-3 hover:bg-[var(--background)] transition-colors ${
                           pathname === training.href
                             ? "bg-[var(--accent)]/10 text-[var(--accent)]"
                             : "text-[var(--text-primary)]"
                         }`}
                       >
-                        <training.icon size={18} />
+                        <training.icon size={18} aria-hidden="true" />
                         <span className="text-sm font-medium">{training.label}</span>
                       </Link>
                     ))}
@@ -223,6 +249,7 @@ export default function Header() {
                   href={item.href}
                   className="text-sm font-medium hover:text-[var(--accent)] transition-colors duration-300 relative group"
                   style={{ color: isScrolled ? "#1a1a1a" : "#ffffff" }}
+                  {...(pathname === item.href ? { "aria-current": "page" as const } : {})}
                 >
                   {item.label}
                   <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-[var(--accent)] transition-all group-hover:w-full" />
@@ -237,6 +264,7 @@ export default function Header() {
             className="lg:hidden p-2 transition-colors duration-300"
             style={{ color: isScrolled ? "#1a1a1a" : "#ffffff" }}
             aria-label="תפריט"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -251,7 +279,7 @@ export default function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white border-t"
+            className="lg:hidden bg-white border-t max-h-[calc(100vh-6rem)] overflow-y-auto"
           >
             <div className="container-custom py-6">
               <ul className="flex flex-col gap-2">
@@ -283,7 +311,7 @@ export default function Header() {
                               : "hover:text-[var(--accent)]"
                           }`}
                         >
-                          <service.icon size={18} />
+                          <service.icon size={18} aria-hidden="true" />
                           {service.label}
                         </Link>
                       </li>
@@ -308,7 +336,7 @@ export default function Header() {
                               : "hover:text-[var(--accent)]"
                           }`}
                         >
-                          <training.icon size={18} />
+                          <training.icon size={18} aria-hidden="true" />
                           {training.label}
                         </Link>
                       </li>

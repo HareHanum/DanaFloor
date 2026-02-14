@@ -86,7 +86,7 @@ export default function ServicePageLayout({
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   return (
-    <>
+    <main id="main-content">
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 min-h-[60vh] flex items-center overflow-hidden">
         {/* Video Background */}
@@ -97,6 +97,7 @@ export default function ServicePageLayout({
               loop
               muted
               playsInline
+              aria-hidden="true"
               className="absolute inset-0 w-full h-full object-cover"
             >
               <source src={heroVideo} type="video/mp4" />
@@ -119,13 +120,13 @@ export default function ServicePageLayout({
                 href={backLink}
                 className="inline-flex items-center gap-2 text-white/80 hover:text-white mb-8 transition-colors text-sm font-medium"
               >
-                <ArrowRight size={16} />
+                <ArrowRight size={16} aria-hidden="true" />
                 <span>{backText}</span>
               </Link>
             )}
             <div className="flex items-center gap-3 mb-6">
               <div className="w-12 h-12 bg-[var(--accent)] rounded-lg flex items-center justify-center">
-                <Icon size={24} className="text-white" />
+                <Icon size={24} className="text-white" aria-hidden="true" />
               </div>
               <span className="text-[var(--accent)] font-medium">{subtitle}</span>
             </div>
@@ -184,7 +185,7 @@ export default function ServicePageLayout({
                   className="flex items-start gap-3 p-4 bg-[var(--background)] rounded-lg"
                 >
                   <div className="flex-shrink-0 w-6 h-6 bg-[var(--accent)]/10 rounded-full flex items-center justify-center mt-0.5">
-                    <Check size={14} className="text-[var(--accent)]" />
+                    <Check size={14} className="text-[var(--accent)]" aria-hidden="true" />
                   </div>
                   <span className="text-[var(--text-primary)]">{item}</span>
                 </motion.div>
@@ -264,18 +265,23 @@ export default function ServicePageLayout({
                   <button
                     onClick={() => setOpenFaqIndex(openFaqIndex === index ? null : index)}
                     className="w-full flex items-center justify-between p-6 text-right cursor-pointer"
+                    aria-expanded={openFaqIndex === index}
+                    aria-controls={`service-faq-${index}`}
                   >
                     <span className="text-lg font-bold text-[var(--text-primary)] leading-relaxed">
                       {faq.question}
                     </span>
                     <ChevronDown
                       size={22}
+                      aria-hidden="true"
                       className={`text-[var(--accent)] shrink-0 mr-4 transition-transform duration-300 ${
                         openFaqIndex === index ? "rotate-180" : ""
                       }`}
                     />
                   </button>
                   <div
+                    id={`service-faq-${index}`}
+                    role="region"
                     className={`grid transition-all duration-300 ease-in-out ${
                       openFaqIndex === index
                         ? "grid-rows-[1fr] opacity-100"
@@ -323,6 +329,6 @@ export default function ServicePageLayout({
           </motion.div>
         </div>
       </section>
-    </>
+    </main>
   );
 }

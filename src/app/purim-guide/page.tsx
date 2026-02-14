@@ -137,7 +137,7 @@ export default function PurimGuidePage() {
   return (
     <>
       <Header />
-      <main>
+      <main id="main-content">
         {/* Hero Section */}
         <section className="relative pt-32 pb-16 bg-gradient-to-b from-[var(--foreground)] to-[#2a2a2a]">
           <div className="absolute inset-0 bg-black/30" />
@@ -257,6 +257,7 @@ export default function PurimGuidePage() {
               {submitStatus === "success" ? (
                 <motion.div
                   key="success"
+                  role="alert"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="bg-green-50 border border-green-200 rounded-lg p-8 text-center"
@@ -283,6 +284,7 @@ export default function PurimGuidePage() {
                 >
                   {submitStatus === "error" && (
                     <motion.div
+                      role="alert"
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center gap-3"
@@ -304,13 +306,16 @@ export default function PurimGuidePage() {
                       name="firstName"
                       value={formData.firstName}
                       onChange={handleChange}
+                      aria-required="true"
+                      aria-invalid={!!errors.firstName}
+                      aria-describedby={errors.firstName ? "firstName-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
                         errors.firstName ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
                       placeholder="השם שלך"
                     />
                     {errors.firstName && (
-                      <p className="mt-1 text-sm text-red-500">{errors.firstName}</p>
+                      <p id="firstName-error" className="mt-1 text-sm text-red-500" role="alert">{errors.firstName}</p>
                     )}
                   </div>
 
@@ -324,13 +329,16 @@ export default function PurimGuidePage() {
                       name="businessName"
                       value={formData.businessName}
                       onChange={handleChange}
+                      aria-required="true"
+                      aria-invalid={!!errors.businessName}
+                      aria-describedby={errors.businessName ? "businessName-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
                         errors.businessName ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
                       placeholder="שם הבר או המסעדה"
                     />
                     {errors.businessName && (
-                      <p className="mt-1 text-sm text-red-500">{errors.businessName}</p>
+                      <p id="businessName-error" className="mt-1 text-sm text-red-500" role="alert">{errors.businessName}</p>
                     )}
                   </div>
 
@@ -344,13 +352,16 @@ export default function PurimGuidePage() {
                       name="role"
                       value={formData.role}
                       onChange={handleChange}
+                      aria-required="true"
+                      aria-invalid={!!errors.role}
+                      aria-describedby={errors.role ? "role-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
                         errors.role ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
                       placeholder="בעלים / מנהל / אחמ״ש / ברמן"
                     />
                     {errors.role && (
-                      <p className="mt-1 text-sm text-red-500">{errors.role}</p>
+                      <p id="role-error" className="mt-1 text-sm text-red-500" role="alert">{errors.role}</p>
                     )}
                   </div>
 
@@ -364,6 +375,9 @@ export default function PurimGuidePage() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      aria-required="true"
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "purim-email-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
                         errors.email ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
@@ -371,7 +385,7 @@ export default function PurimGuidePage() {
                       dir="ltr"
                     />
                     {errors.email && (
-                      <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                      <p id="purim-email-error" className="mt-1 text-sm text-red-500" role="alert">{errors.email}</p>
                     )}
                   </div>
 
@@ -385,6 +399,9 @@ export default function PurimGuidePage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
+                      aria-required="true"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={errors.phone ? "purim-phone-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
                         errors.phone ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
@@ -392,7 +409,7 @@ export default function PurimGuidePage() {
                       dir="ltr"
                     />
                     {errors.phone && (
-                      <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
+                      <p id="purim-phone-error" className="mt-1 text-sm text-red-500" role="alert">{errors.phone}</p>
                     )}
                   </div>
 

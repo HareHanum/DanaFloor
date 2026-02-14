@@ -71,18 +71,23 @@ export default function FAQ() {
               <button
                 onClick={() => toggle(index)}
                 className="w-full flex items-center justify-between p-6 text-right cursor-pointer"
+                aria-expanded={openIndex === index}
+                aria-controls={`faq-${index}`}
               >
                 <span className="text-lg font-bold text-[var(--text-primary)] leading-relaxed">
                   {faq.question}
                 </span>
                 <ChevronDown
                   size={22}
+                  aria-hidden="true"
                   className={`text-[var(--accent)] shrink-0 mr-4 transition-transform duration-300 ${
                     openIndex === index ? "rotate-180" : ""
                   }`}
                 />
               </button>
               <div
+                id={`faq-${index}`}
+                role="region"
                 className={`grid transition-all duration-300 ease-in-out ${
                   openIndex === index
                     ? "grid-rows-[1fr] opacity-100"

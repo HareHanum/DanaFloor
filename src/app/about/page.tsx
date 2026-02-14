@@ -13,7 +13,7 @@ export default function AboutPage() {
   const storyInView = useInView(storyRef, { once: true, margin: "-100px" });
 
   return (
-    <main>
+    <main id="main-content">
         {/* Hero Section */}
         <section className="relative pt-32 pb-20 bg-gradient-to-b from-[var(--foreground)] to-[#2a2a2a]">
           <div className="absolute inset-0 bg-black/30" />

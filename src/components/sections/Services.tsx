@@ -85,6 +85,7 @@ export default function Services() {
                   <div className="flex-shrink-0 w-12 h-12 bg-[var(--accent)]/10 rounded-lg flex items-center justify-center group-hover:bg-[var(--accent)] transition-colors">
                     <service.icon
                       size={24}
+                      aria-hidden="true"
                       className="text-[var(--accent)] group-hover:text-white transition-colors"
                     />
                   </div>
@@ -99,6 +100,7 @@ export default function Services() {
                       למידע נוסף
                       <ArrowLeft
                         size={16}
+                        aria-hidden="true"
                         className="group-hover:-translate-x-1 transition-transform"
                       />
                     </span>

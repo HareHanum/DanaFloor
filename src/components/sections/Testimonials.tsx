@@ -83,7 +83,7 @@ export default function Testimonials({ variant = "light" }: TestimonialsProps) {
   };
 
   return (
-    <section ref={ref} className={`section-padding ${bgColor}`}>
+    <section ref={ref} className={`section-padding ${bgColor}`} aria-label="המלצות לקוחות" aria-roledescription="קרוסלה">
       <div className="container-custom">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -107,7 +107,7 @@ export default function Testimonials({ variant = "light" }: TestimonialsProps) {
           className="max-w-4xl mx-auto relative"
         >
           {/* Main Testimonial Card */}
-          <div className="relative overflow-hidden">
+          <div id="carousel-content" className="relative overflow-hidden" aria-live="polite" aria-atomic="true">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -147,6 +147,7 @@ export default function Testimonials({ variant = "light" }: TestimonialsProps) {
               variant === "dark" ? "bg-white/10 hover:bg-white/20" : "bg-white hover:bg-[var(--background)]"
             } shadow-lg flex items-center justify-center transition-colors`}
             aria-label="הקודם"
+            aria-controls="carousel-content"
           >
             <ChevronRight size={24} className={textColor} />
           </button>
@@ -156,6 +157,7 @@ export default function Testimonials({ variant = "light" }: TestimonialsProps) {
               variant === "dark" ? "bg-white/10 hover:bg-white/20" : "bg-white hover:bg-[var(--background)]"
             } shadow-lg flex items-center justify-center transition-colors`}
             aria-label="הבא"
+            aria-controls="carousel-content"
           >
             <ChevronLeft size={24} className={textColor} />
           </button>

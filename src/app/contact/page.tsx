@@ -151,7 +151,7 @@ export default function ContactPage() {
   };
 
   return (
-    <main>
+    <main id="main-content">
       {/* Hero Section */}
       <section className="bg-[var(--foreground)] text-white pt-32 lg:pt-40 pb-20 lg:pb-28">
         <div className="container-custom">
@@ -189,6 +189,7 @@ export default function ContactPage() {
               {submitStatus === "success" ? (
                 <motion.div
                   key="success"
+                  role="alert"
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="bg-green-50 border border-green-200 rounded-lg p-8 text-center"
@@ -218,6 +219,7 @@ export default function ContactPage() {
                 >
                   {submitStatus === "error" && (
                     <motion.div
+                      role="alert"
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-center gap-3"
@@ -239,13 +241,16 @@ export default function ContactPage() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
+                      aria-required="true"
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? "name-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
                         errors.name ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
                       placeholder="איך קוראים לך?"
                     />
                     {errors.name && (
-                      <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                      <p id="name-error" className="mt-1 text-sm text-red-500" role="alert">{errors.name}</p>
                     )}
                   </motion.div>
 
@@ -259,6 +264,9 @@ export default function ContactPage() {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
+                      aria-required="true"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={errors.phone ? "phone-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
                         errors.phone ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
@@ -266,7 +274,7 @@ export default function ContactPage() {
                       dir="ltr"
                     />
                     {errors.phone && (
-                      <p className="mt-1 text-sm text-red-500">{errors.phone}</p>
+                      <p id="phone-error" className="mt-1 text-sm text-red-500" role="alert">{errors.phone}</p>
                     )}
                   </motion.div>
 
@@ -280,6 +288,8 @@ export default function ContactPage() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "email-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
                         errors.email ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
@@ -287,7 +297,7 @@ export default function ContactPage() {
                       dir="ltr"
                     />
                     {errors.email && (
-                      <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                      <p id="email-error" className="mt-1 text-sm text-red-500" role="alert">{errors.email}</p>
                     )}
                   </motion.div>
 
@@ -300,6 +310,9 @@ export default function ContactPage() {
                       name="businessType"
                       value={formData.businessType}
                       onChange={handleChange}
+                      aria-required="true"
+                      aria-invalid={!!errors.businessType}
+                      aria-describedby={errors.businessType ? "businessType-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] bg-white ${
                         errors.businessType ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
@@ -311,7 +324,7 @@ export default function ContactPage() {
                       ))}
                     </select>
                     {errors.businessType && (
-                      <p className="mt-1 text-sm text-red-500">{errors.businessType}</p>
+                      <p id="businessType-error" className="mt-1 text-sm text-red-500" role="alert">{errors.businessType}</p>
                     )}
                   </motion.div>
 
@@ -324,6 +337,9 @@ export default function ContactPage() {
                       name="serviceInterest"
                       value={formData.serviceInterest}
                       onChange={handleChange}
+                      aria-required="true"
+                      aria-invalid={!!errors.serviceInterest}
+                      aria-describedby={errors.serviceInterest ? "serviceInterest-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] bg-white ${
                         errors.serviceInterest ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
@@ -335,7 +351,7 @@ export default function ContactPage() {
                       ))}
                     </select>
                     {errors.serviceInterest && (
-                      <p className="mt-1 text-sm text-red-500">{errors.serviceInterest}</p>
+                      <p id="serviceInterest-error" className="mt-1 text-sm text-red-500" role="alert">{errors.serviceInterest}</p>
                     )}
                   </motion.div>
 
