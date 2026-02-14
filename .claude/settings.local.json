@@ -18,7 +18,11 @@
       "Bash(do sed -i '/backLink=\"\"\\\\/services\\\\/training\"\"/d; /backText=\"\"חזרה להדרכות\"\"/d' \"$f\")",
       "Bash(done)",
       "Bash(grep:*)",
-      "Bash(xargs kill:*)"
+      "Bash(xargs kill:*)",
+      "Bash(ffmpeg:*)",
+      "Bash(for f in public/media/*.mp4)",
+      "Bash(do echo \"=== $f ===\")",
+      "Bash(ffprobe:*)"
     ]
   }
 }
