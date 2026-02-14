@@ -4,8 +4,7 @@ import { Phone, Mail, Instagram } from "lucide-react";
 const footerLinks = {
   services: [
     { href: "/services/consulting", label: "ייעוץ למסעדות" },
-    { href: "/services/training", label: "הדרכות לצוותים" },
-    { href: "/services/establishment", label: "הקמה" },
+    { href: "/services/training/service", label: "הדרכות לצוותים" },
   ],
   company: [
     { href: "/about", label: "אודות" },
@@ -95,10 +94,11 @@ export default function Footer() {
                 href="https://www.instagram.com/danashimroni/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-white/70 hover:text-[var(--accent)] transition-colors"
-                aria-label="Instagram"
+                className="flex items-center gap-2 text-white/70 hover:text-[var(--accent)] transition-colors text-sm"
+                aria-label="Instagram - danashimroni"
               >
                 <Instagram size={20} />
+                <span>danashimroni</span>
               </a>
             </div>
           </div>

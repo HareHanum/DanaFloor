@@ -153,8 +153,19 @@ export default function ContactPage() {
   return (
     <main id="main-content">
       {/* Hero Section */}
-      <section className="bg-[var(--foreground)] text-white pt-32 lg:pt-40 pb-20 lg:pb-28">
-        <div className="container-custom">
+      <section className="relative bg-[var(--foreground)] text-white pt-32 lg:pt-40 pb-20 lg:pb-28 overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover"
+        >
+          <source src="/media/contact.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-black/50" />
+        <div className="relative z-10 container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

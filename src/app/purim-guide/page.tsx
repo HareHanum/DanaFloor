@@ -139,8 +139,18 @@ export default function PurimGuidePage() {
       <Header />
       <main id="main-content">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-16 bg-gradient-to-b from-[var(--foreground)] to-[#2a2a2a]">
-          <div className="absolute inset-0 bg-black/30" />
+        <section className="relative pt-32 pb-16 min-h-[60vh] flex items-center overflow-hidden">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            aria-hidden="true"
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src="/media/purim.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/50" />
           <div className="relative z-10 container-custom text-white">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
