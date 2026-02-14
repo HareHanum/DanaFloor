@@ -23,7 +23,7 @@ export default function Introduction() {
               היכרות
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-              אני דנה שימרוני
+              אני דנה שמרוני
             </h2>
             <div className="space-y-4 text-[var(--text-secondary)] leading-relaxed">
               <p className="text-lg font-medium text-[var(--foreground)]">
@@ -82,7 +82,7 @@ export default function Introduction() {
             <div className="aspect-[4/5] rounded-lg overflow-hidden relative">
               <Image
                 src="/media/dana-hero.png"
-                alt="דנה שימרוני - יועצת אירוח"
+                alt="דנה שמרוני - יועצת אירוח"
                 fill
                 className="object-cover object-top"
               />

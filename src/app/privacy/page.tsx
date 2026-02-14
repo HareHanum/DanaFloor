@@ -30,7 +30,7 @@ export default function PrivacyPage() {
                 <div>
                   <h2 className="text-2xl font-bold mb-4">1. כללי</h2>
                   <p className="text-[var(--text-secondary)] mb-3">
-                    מדיניות פרטיות זו מתארת את האופן שבו דנה שימרוני – ייעוץ והדרכה בתחום האירוח וההסעדה (להלן: &quot;העסק&quot;, &quot;אנחנו&quot; או &quot;FLOOR D.a.N.A&quot;) אוספת, משתמשת ומגינה על מידע אישי הנמסר על ידי המשתמשים באתר floor-dana.com (להלן: &quot;האתר&quot;).
+                    מדיניות פרטיות זו מתארת את האופן שבו דנה שמרוני – ייעוץ והדרכה בתחום האירוח וההסעדה (להלן: &quot;העסק&quot;, &quot;אנחנו&quot; או &quot;FLOOR D.a.N.A&quot;) אוספת, משתמשת ומגינה על מידע אישי הנמסר על ידי המשתמשים באתר floor-dana.com (להלן: &quot;האתר&quot;).
                   </p>
                   <p className="text-[var(--text-secondary)] mb-3">
                     השימוש באתר ומסירת מידע אישי באמצעותו מהווים הסכמה לתנאי מדיניות פרטיות זו. אם אינך מסכים/ה למדיניות זו, אנא הימנע/י משימוש באתר וממסירת מידע אישי.
@@ -147,8 +147,8 @@ export default function PrivacyPage() {
                     לכל שאלה, בירור או בקשה בנוגע למדיניות הפרטיות או לטיפול במידע האישי שלך, ניתן לפנות אלינו:
                   </p>
                   <p className="text-[var(--text-secondary)]">
-                    דנה שימרוני – FLOOR D.a.N.A<br />
-                    דואר אלקטרוני: danashimroni@gmail.com<br />
+                    דנה שמרוני – FLOOR D.a.N.A<br />
+                    דואר אלקטרוני: dana@floor-dana.com<br />
                     טלפון: 052-658-9291
                   </p>
                 </div>

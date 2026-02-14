@@ -38,7 +38,7 @@ export default function AboutPage() {
                 אודות
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-                דנה שימרוני
+                דנה שמרוני
               </h1>
               <p className="text-lg md:text-xl text-white/80 leading-relaxed">
                 מומחית לשירות, תפעול וחווית לקוח בענף המסעדנות והאירוח - מומחית ביצירת D.N.A של הצלחה לפלור
@@ -62,7 +62,7 @@ export default function AboutPage() {
                 <div className="aspect-[4/5] rounded-lg overflow-hidden relative">
                   <Image
                     src="/media/dana-hero.png"
-                    alt="דנה שימרוני - יועצת אירוח"
+                    alt="דנה שמרוני - יועצת אירוח"
                     fill
                     className="object-cover object-top"
                   />
@@ -82,7 +82,7 @@ export default function AboutPage() {
                   הסיפור שלי
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  אני דנה שימרוני
+                  אני דנה שמרוני
                 </h2>
                 <div className="space-y-4 text-[var(--text-secondary)] leading-relaxed">
                   <p className="text-lg">

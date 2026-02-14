@@ -30,7 +30,7 @@ export default function TermsPage() {
                 <div>
                   <h2 className="text-2xl font-bold mb-4">1. כללי</h2>
                   <p className="text-[var(--text-secondary)] mb-3">
-                    1.1 ברוכים הבאים לאתר floor-dana.com (להלן: &quot;האתר&quot;), המופעל על ידי דנה שימרוני – ייעוץ והדרכה בתחום האירוח וההסעדה, המוכר גם בשם המותג FLOOR D.a.N.A (להלן: &quot;העסק&quot; או &quot;אנחנו&quot;).
+                    1.1 ברוכים הבאים לאתר floor-dana.com (להלן: &quot;האתר&quot;), המופעל על ידי דנה שמרוני – ייעוץ והדרכה בתחום האירוח וההסעדה, המוכר גם בשם המותג FLOOR D.a.N.A (להלן: &quot;העסק&quot; או &quot;אנחנו&quot;).
                   </p>
                   <p className="text-[var(--text-secondary)] mb-3">
                     1.2 תקנון זה מהווה הסכם מחייב בינך, המשתמש/ת באתר (להלן: &quot;המשתמש&quot;), לבין העסק. עצם הגלישה באתר ו/או השימוש בשירותים המוצעים בו מהווים הסכמה מלאה לתנאי תקנון זה. אם אינך מסכים/ה לתנאים אלה, אנא הפסק/י את השימוש באתר.
@@ -46,7 +46,7 @@ export default function TermsPage() {
                 <div>
                   <h2 className="text-2xl font-bold mb-4">2. תיאור האתר והשירותים</h2>
                   <p className="text-[var(--text-secondary)] mb-3">
-                    2.1 האתר משמש כפלטפורמה להצגת שירותי ייעוץ, הדרכה וליווי מקצועי בתחום האירוח וההסעדה, הניתנים על ידי דנה שימרוני.
+                    2.1 האתר משמש כפלטפורמה להצגת שירותי ייעוץ, הדרכה וליווי מקצועי בתחום האירוח וההסעדה, הניתנים על ידי דנה שמרוני.
                   </p>
                   <p className="text-[var(--text-secondary)] mb-3">
                     2.2 האתר מציע מידע אודות השירותים, תכנים מקצועיים, וכן אפשרות ליצירת קשר ולקבלת חומרים מקצועיים באמצעות טפסים מקוונים.
@@ -185,8 +185,8 @@ export default function TermsPage() {
                     לכל שאלה, הערה או בירור בנוגע לתקנון זה או לאתר, ניתן לפנות אלינו:
                   </p>
                   <p className="text-[var(--text-secondary)]">
-                    דנה שימרוני – FLOOR D.a.N.A<br />
-                    דואר אלקטרוני: danashimroni@gmail.com<br />
+                    דנה שמרוני – FLOOR D.a.N.A<br />
+                    דואר אלקטרוני: dana@floor-dana.com<br />
                     טלפון: 052-658-9291
                   </p>
                 </div>

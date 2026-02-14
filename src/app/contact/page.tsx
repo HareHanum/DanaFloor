@@ -451,7 +451,7 @@ export default function ContactPage() {
                 {/* Email */}
                 <motion.a
                   variants={itemVariants}
-                  href="mailto:danashimroni@gmail.com"
+                  href="mailto:dana@floor-dana.com"
                   className="flex items-center gap-4 p-5 bg-[var(--background)] border border-[var(--border-light)] rounded-xl hover:border-[var(--accent)] transition-colors group"
                 >
                   <div className="w-12 h-12 bg-[var(--accent)]/10 rounded-full flex items-center justify-center group-hover:bg-[var(--accent)]/20 transition-colors">
@@ -459,7 +459,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <p className="text-sm text-[var(--text-muted)] mb-1">אימייל</p>
-                    <p className="font-medium" dir="ltr">danashimroni@gmail.com</p>
+                    <p className="font-medium" dir="ltr">dana@floor-dana.com</p>
                   </div>
                 </motion.a>
 

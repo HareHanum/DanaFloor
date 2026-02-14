@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
 
       // Send welcome email to user with PDF attached
       const userEmailResult = await resend.emails.send({
-        from: "דנה שימרוני - FLOOR D.a.N.A <contact@floor-dana.com>",
+        from: "דנה שמרוני - FLOOR D.a.N.A <contact@floor-dana.com>",
         to: data.email,
         subject: "המדריך לבר בפורים מחכה לך",
         html: `
@@ -121,7 +121,7 @@ export async function POST(request: NextRequest) {
       // Send notification email to Dana
       const danaEmailResult = await resend.emails.send({
         from: "FLOOR D.a.N.A <contact@floor-dana.com>",
-        to: "danashimroni@gmail.com",
+        to: "dana@floor-dana.com",
         subject: `הורדת מדריך פורים - ${data.firstName} מ${data.businessName}`,
         html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">

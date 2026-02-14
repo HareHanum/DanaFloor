@@ -115,7 +115,7 @@ export default async function Image() {
               direction: "rtl",
             }}
           >
-            דנה שימרוני
+            דנה שמרוני
           </span>
           <span
             style={{

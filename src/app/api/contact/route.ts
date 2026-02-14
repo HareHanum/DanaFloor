@@ -80,7 +80,7 @@ export async function POST(request: NextRequest) {
       const resend = new Resend(process.env.RESEND_API_KEY);
       const emailResult = await resend.emails.send({
         from: "FLOOR D.a.N.A <contact@floor-dana.com>",
-        to: "danashimroni@gmail.com",
+        to: "dana@floor-dana.com",
         subject: `פנייה חדשה מ${data.name}`,
         html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
