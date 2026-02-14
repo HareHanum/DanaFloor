@@ -109,7 +109,15 @@ export default function Footer() {
           <p className="text-white/50 text-sm">
             © {new Date().getFullYear()} FLOOR D.a.N.A. כל הזכויות שמורות.
           </p>
-          <p className="text-white/50 text-sm">דנה שימרוני - ייעוץ והדרכות אירוח</p>
+          <div className="flex items-center gap-4 text-white/50 text-sm">
+            <Link href="/terms" className="hover:text-[var(--accent)] transition-colors">
+              תקנון אתר
+            </Link>
+            <span>|</span>
+            <Link href="/privacy" className="hover:text-[var(--accent)] transition-colors">
+              מדיניות פרטיות
+            </Link>
+          </div>
         </div>
       </div>
     </footer>
