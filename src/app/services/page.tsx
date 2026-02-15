@@ -70,16 +70,16 @@ export default function ServicesPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3">
               השירותים שלנו
             </h1>
-            <p className="text-lg md:text-xl text-white/80 leading-relaxed">
+            <p className="text-2xl md:text-3xl text-white/80 leading-relaxed">
               מייעוץ וליווי ועד הדרכות צוות – כל מה שהעסק שלכם צריך כדי לתת
               שירות, מכירה ואירוח ברמה אחרת.
             </p>
           </motion.div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[var(--background)] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[var(--background)] to-transparent hidden" />
       </section>
 
       {/* Services Grid */}

@@ -19,14 +19,14 @@ export default function Introduction() {
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <span className="text-[var(--accent)] font-medium mb-4 block">
+            <span className="text-[var(--accent)] font-bold mb-4 block text-[2rem]">
               היכרות
             </span>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 leading-tight">
               אני דנה שמרוני
             </h2>
             <div className="space-y-4 text-[var(--text-secondary)] leading-relaxed">
-              <p className="text-lg font-medium text-[var(--foreground)]">
+              <p className="text-2xl font-medium text-[var(--foreground)]">
                 מומחית לשירות, תפעול וחווית לקוח בענף המסעדנות והאירוח - מומחית ביצירת D.N.A של הצלחה לפלור
               </p>
               <p>

@@ -51,7 +51,7 @@ export default function FAQ() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="text-[var(--accent)] font-medium mb-4 block">
+          <span className="text-[var(--accent)] font-bold mb-4 block text-[2rem]">
             שאלות ותשובות
           </span>
           <h2 className="text-3xl md:text-4xl font-bold">

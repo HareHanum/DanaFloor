@@ -71,7 +71,7 @@ export default function ForWhom() {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <span className="text-[var(--accent)] font-medium mb-4 block">
+          <span className="text-[var(--accent)] font-bold mb-4 block text-[2rem]">
             למי זה מתאים?
           </span>
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -92,21 +92,21 @@ export default function ForWhom() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               className="group bg-white rounded-xl p-6 border border-[var(--border-light)] hover:border-[var(--accent)] hover:shadow-lg transition-all duration-300"
             >
-              <div className="w-14 h-14 bg-[var(--accent)]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[var(--accent)] transition-colors duration-300">
+              <div className="w-20 h-20 bg-[var(--accent)]/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-[var(--accent)] transition-colors duration-300">
                 <business.icon
-                  size={28}
+                  size={42}
                   className="text-[var(--accent)] group-hover:text-white transition-colors duration-300"
                 />
               </div>
-              <h3 className="text-xl font-bold mb-2">{business.title}</h3>
-              <p className="text-[var(--text-secondary)] text-sm mb-4 leading-relaxed">
+              <h3 className="text-3xl font-bold mb-2">{business.title}</h3>
+              <p className="text-[var(--text-secondary)] text-xl mb-4 leading-relaxed">
                 {business.description}
               </p>
               <div className="flex flex-wrap gap-2">
                 {business.examples.map((example, i) => (
                   <span
                     key={i}
-                    className="text-xs px-2 py-1 bg-[var(--background)] rounded-full text-[var(--text-muted)]"
+                    className="text-base px-2 py-1 bg-[var(--background)] rounded-full text-[var(--text-muted)]"
                   >
                     {example}
                   </span>

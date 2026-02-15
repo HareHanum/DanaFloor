@@ -34,18 +34,18 @@ export default function AboutPage() {
               transition={{ duration: 0.6 }}
               className="max-w-3xl"
             >
-              <span className="text-[var(--accent)] font-medium mb-4 block">
+              <span className="text-[var(--accent)] font-bold mb-4 block text-[2rem]">
                 אודות
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3">
                 דנה שמרוני
               </h1>
-              <p className="text-lg md:text-xl text-white/80 leading-relaxed">
+              <p className="text-2xl md:text-3xl text-white/80 leading-relaxed">
                 מומחית לשירות, תפעול וחווית לקוח בענף המסעדנות והאירוח - מומחית ביצירת D.N.A של הצלחה לפלור
               </p>
             </motion.div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[var(--background)] to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[var(--background)] to-transparent hidden" />
         </section>
 
         {/* Story Section */}
@@ -78,14 +78,14 @@ export default function AboutPage() {
                 transition={{ duration: 0.8, delay: 0.2 }}
                 className="order-1 lg:order-2"
               >
-                <span className="text-[var(--accent)] font-medium mb-4 block">
+                <span className="text-[var(--accent)] font-bold mb-4 block text-[2rem]">
                   הסיפור שלי
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold mb-6">
                   אני דנה שמרוני
                 </h2>
                 <div className="space-y-4 text-[var(--text-secondary)] leading-relaxed">
-                  <p className="text-lg">
+                  <p className="text-2xl">
                     אני מלווה מסעדות, בתי קפה ומלונות בבניית שירות מדויק, ניהול רגוע ומכירה טבעית. אני יודעת לאבחן במהירות את מצב הפלור, להדריך מנהלים וצוותים, ומתרגמת ניסיון מעשי לשיטה ברורה שעובדת יום־יום, משפרת את חווית הלקוח ומגדילה הכנסות.
                   </p>
                   <p>
@@ -117,7 +117,7 @@ export default function AboutPage() {
                 {/* Quote */}
                 <div className="mt-8 p-6 bg-white rounded-lg border-r-4 border-[var(--accent)]">
                   <Quote size={24} className="text-[var(--accent)] mb-3" />
-                  <p className="text-lg font-medium text-[var(--foreground)]">
+                  <p className="text-2xl font-medium text-[var(--foreground)]">
                     D.N.A של שירות, ניהול ואנשים. שמביא לחוויה ומגדיל רווח.
                   </p>
                 </div>

@@ -85,7 +85,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 right-0 left-0 z-50 text-xl transition-all duration-300 ${
         isScrolled
           ? "bg-white/95 backdrop-blur-sm shadow-sm"
           : "bg-transparent"
@@ -94,21 +94,21 @@ export default function Header() {
       <div className="container-custom">
         <nav className="flex items-center justify-between h-24">
           {/* Logo */}
-          <Link href="/" className="flex items-center relative h-16">
+          <Link href="/" className="flex items-center relative h-20">
             <Image
               src="/logo-light.png"
               alt="FLOOR D.a.N.A"
-              width={120}
-              height={64}
-              className={`h-16 w-auto absolute transition-opacity duration-300 ${isScrolled ? "opacity-0" : "opacity-100"}`}
+              width={150}
+              height={80}
+              className={`h-20 w-auto absolute transition-opacity duration-300 ${isScrolled ? "opacity-0" : "opacity-100"}`}
               priority
             />
             <Image
               src="/logo-dark.png"
               alt="FLOOR D.a.N.A"
-              width={120}
-              height={64}
-              className={`h-16 w-auto transition-opacity duration-300 ${isScrolled ? "opacity-100" : "opacity-0"}`}
+              width={150}
+              height={80}
+              className={`h-20 w-auto transition-opacity duration-300 ${isScrolled ? "opacity-100" : "opacity-0"}`}
               priority
             />
           </Link>
@@ -119,7 +119,7 @@ export default function Header() {
             <li>
               <Link
                 href="/"
-                className="text-sm font-medium hover:text-[var(--accent)] transition-colors duration-300 relative group"
+                className="text-xl font-medium hover:text-[var(--accent)] transition-colors duration-300 relative group"
                 style={{ color: isScrolled ? "#1a1a1a" : "#ffffff" }}
                 {...(pathname === "/" ? { "aria-current": "page" as const } : {})}
               >
@@ -129,25 +129,25 @@ export default function Header() {
             </li>
 
             {/* Services Dropdown */}
-            <li className="relative" ref={servicesRef}>
-              <div className="relative group flex items-center">
+            <li className="relative flex items-center" ref={servicesRef}>
+              <div className="relative group flex items-center leading-none">
                 <Link
                   href="/services/consulting"
-                  className="text-sm font-medium hover:text-[var(--accent)] transition-colors duration-300"
+                  className="text-xl font-medium hover:text-[var(--accent)] transition-colors duration-300"
                   style={{ color: isServicePage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
                 >
                   שירותים
                 </Link>
                 <button
                   onClick={() => { setIsServicesOpen(!isServicesOpen); setIsTrainingsOpen(false); }}
-                  className="mr-1 hover:text-[var(--accent)] transition-colors duration-300"
+                  className="mr-1 text-xl hover:text-[var(--accent)] transition-colors duration-300"
                   style={{ color: isServicePage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
                   aria-expanded={isServicesOpen}
                   aria-haspopup="true"
                   aria-label="פתח תפריט שירותים"
                 >
                   <ChevronDown
-                    size={16}
+                    size={24}
                     aria-hidden="true"
                     className={`transition-transform duration-200 ${isServicesOpen ? "rotate-180" : ""}`}
                   />
@@ -161,7 +161,7 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-[var(--border-light)] overflow-hidden"
+                    className="absolute top-full right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-[var(--border-light)] overflow-hidden"
                     role="menu"
                   >
                     {serviceItems.map((service) => (
@@ -170,14 +170,14 @@ export default function Header() {
                         href={service.href}
                         onClick={() => setIsServicesOpen(false)}
                         role="menuitem"
-                        className={`flex items-center gap-3 px-4 py-3 hover:bg-[var(--background)] transition-colors ${
+                        className={`flex items-center gap-4 px-5 py-4 hover:bg-[var(--background)] transition-colors ${
                           pathname === service.href
                             ? "bg-[var(--accent)]/10 text-[var(--accent)]"
                             : "text-[var(--text-primary)]"
                         }`}
                       >
-                        <service.icon size={18} aria-hidden="true" />
-                        <span className="text-sm font-medium">{service.label}</span>
+                        <service.icon size={27} aria-hidden="true" />
+                        <span className="text-xl font-medium">{service.label}</span>
                       </Link>
                     ))}
                   </motion.div>
@@ -186,25 +186,25 @@ export default function Header() {
             </li>
 
             {/* Trainings Dropdown */}
-            <li className="relative" ref={trainingsRef}>
-              <div className="relative group flex items-center">
+            <li className="relative flex items-center" ref={trainingsRef}>
+              <div className="relative group flex items-center leading-none">
                 <Link
                   href="/services/training/service"
-                  className="text-sm font-medium hover:text-[var(--accent)] transition-colors duration-300"
+                  className="text-xl font-medium hover:text-[var(--accent)] transition-colors duration-300"
                   style={{ color: isTrainingPage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
                 >
                   הדרכות
                 </Link>
                 <button
                   onClick={() => { setIsTrainingsOpen(!isTrainingsOpen); setIsServicesOpen(false); }}
-                  className="mr-1 hover:text-[var(--accent)] transition-colors duration-300"
+                  className="mr-1 text-xl hover:text-[var(--accent)] transition-colors duration-300"
                   style={{ color: isTrainingPage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
                   aria-expanded={isTrainingsOpen}
                   aria-haspopup="true"
                   aria-label="פתח תפריט הדרכות"
                 >
                   <ChevronDown
-                    size={16}
+                    size={24}
                     aria-hidden="true"
                     className={`transition-transform duration-200 ${isTrainingsOpen ? "rotate-180" : ""}`}
                   />
@@ -218,7 +218,7 @@ export default function Header() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full right-0 mt-2 w-72 bg-white rounded-lg shadow-lg border border-[var(--border-light)] overflow-hidden"
+                    className="absolute top-full right-0 mt-2 w-96 bg-white rounded-lg shadow-lg border border-[var(--border-light)] overflow-hidden"
                     role="menu"
                   >
                     {trainingItems.map((training) => (
@@ -227,14 +227,14 @@ export default function Header() {
                         href={training.href}
                         onClick={() => setIsTrainingsOpen(false)}
                         role="menuitem"
-                        className={`flex items-center gap-3 px-4 py-3 hover:bg-[var(--background)] transition-colors ${
+                        className={`flex items-center gap-4 px-5 py-4 hover:bg-[var(--background)] transition-colors ${
                           pathname === training.href
                             ? "bg-[var(--accent)]/10 text-[var(--accent)]"
                             : "text-[var(--text-primary)]"
                         }`}
                       >
-                        <training.icon size={18} aria-hidden="true" />
-                        <span className="text-sm font-medium">{training.label}</span>
+                        <training.icon size={27} aria-hidden="true" />
+                        <span className="text-xl font-medium">{training.label}</span>
                       </Link>
                     ))}
                   </motion.div>
@@ -247,7 +247,7 @@ export default function Header() {
               <li key={item.href}>
                 <Link
                   href={item.href}
-                  className="text-sm font-medium hover:text-[var(--accent)] transition-colors duration-300 relative group"
+                  className="text-xl font-medium hover:text-[var(--accent)] transition-colors duration-300 relative group"
                   style={{ color: isScrolled ? "#1a1a1a" : "#ffffff" }}
                   {...(pathname === item.href ? { "aria-current": "page" as const } : {})}
                 >

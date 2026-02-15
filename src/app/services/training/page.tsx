@@ -5,7 +5,6 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import Link from "next/link";
 import {
-  Users,
   HandHelping,
   TrendingUp,
   UserCog,
@@ -125,24 +124,19 @@ export default function TrainingPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-[var(--accent)] rounded-lg flex items-center justify-center">
-                <Users size={24} className="text-white" />
-              </div>
-              <span className="text-[var(--accent)] font-medium">
+            <span className="text-[var(--accent)] font-bold text-[2rem] mb-6 block">
                 הדרכות מקצועיות
               </span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3">
               הדרכות לצוותים
             </h1>
-            <p className="text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl">
+            <p className="text-2xl md:text-3xl text-white/80 leading-relaxed max-w-2xl">
               הצוות שלכם הוא הפנים של העסק. אני נותנת להם את הביטחון, הכלים
               והידע לתת שירות יוצא מן הכלל ולמכור בלי להתאמץ.
             </p>
           </motion.div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[var(--background)] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[var(--background)] to-transparent hidden" />
       </section>
 
       {/* Service Navigation */}

@@ -50,7 +50,6 @@ interface ServicePageLayoutProps {
 }
 
 export default function ServicePageLayout({
-  icon: Icon,
   title,
   subtitle,
   heroDescription,
@@ -124,21 +123,16 @@ export default function ServicePageLayout({
                 <span>{backText}</span>
               </Link>
             )}
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-[var(--accent)] rounded-lg flex items-center justify-center">
-                <Icon size={24} className="text-white" aria-hidden="true" />
-              </div>
-              <span className="text-[var(--accent)] font-medium">{subtitle}</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+            <span className="text-[var(--accent)] font-bold text-[2rem] mb-6 block">{subtitle}</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3">
               {title}
             </h1>
-            <p className="text-lg md:text-xl text-white/80 leading-relaxed max-w-2xl">
+            <p className="text-2xl md:text-3xl text-white/80 leading-relaxed max-w-2xl">
               {heroDescription}
             </p>
           </motion.div>
         </div>
-        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[var(--background)] to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[var(--background)] to-transparent hidden" />
       </section>
 
       {/* Service Navigation */}
@@ -156,7 +150,7 @@ export default function ServicePageLayout({
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
               {problemTitle}
             </h2>
-            <p className="text-[var(--text-secondary)] leading-relaxed text-lg">
+            <p className="text-[var(--text-secondary)] leading-relaxed text-2xl">
               {problemDescription}
             </p>
           </motion.div>
@@ -245,7 +239,7 @@ export default function ServicePageLayout({
               transition={{ duration: 0.6 }}
               className="text-center mb-12"
             >
-              <span className="text-[var(--accent)] font-medium mb-4 block">
+              <span className="text-[var(--accent)] font-bold mb-4 block text-[2rem]">
                 שאלות ותשובות
               </span>
               <h2 className="text-3xl md:text-4xl font-bold">

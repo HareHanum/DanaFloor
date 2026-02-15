@@ -172,10 +172,10 @@ export default function ContactPage() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl"
           >
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-3">
               בואו נדבר
             </h1>
-            <p className="text-xl text-gray-300 leading-relaxed">
+            <p className="text-2xl md:text-3xl text-gray-300 leading-relaxed">
               מרגישים שהפלור יכול לעבוד טוב יותר? השאירו פרטים ואחזור אליכם תוך 24 שעות
               לשיחת היכרות קצרה - בלי התחייבות.
             </p>

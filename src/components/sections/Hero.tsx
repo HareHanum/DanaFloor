@@ -37,14 +37,14 @@ export default function Hero() {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-6 max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight mb-3 max-w-4xl mx-auto">
             שירות, מכירה ואירוח
             <br />
             <span className="text-[var(--accent)]">שעובדים באמת בשטח</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-2xl md:text-3xl text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
             ייעוץ והדרכות למסעדות, בתי קפה ומלונות,
             <br />
             מחברים בין אנשים, תפעול ותוצאות.

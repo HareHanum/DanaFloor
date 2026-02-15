@@ -81,13 +81,13 @@ export default function ServiceNav({ mode = "services" }: ServiceNavProps) {
                 if (el) itemRefs.current.set(item.href, el);
               }}
               {...(isActive(item.href) ? { "aria-current": "page" as const } : {})}
-              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex-shrink-0 ${
+              className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xl font-medium whitespace-nowrap transition-all duration-200 flex-shrink-0 ${
                 isActive(item.href)
                   ? "bg-[var(--accent)] text-white shadow-sm"
                   : "text-[var(--text-secondary)] hover:bg-[var(--background)] hover:text-[var(--foreground)]"
               }`}
             >
-              <item.icon size={18} aria-hidden="true" />
+              <item.icon size={27} aria-hidden="true" />
               <span className="hidden sm:inline">{item.fullTitle}</span>
               <span className="sm:hidden">{item.title}</span>
             </Link>

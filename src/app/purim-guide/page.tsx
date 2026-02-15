@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Header, Footer } from "@/components/layout";
 import { Download, CheckCircle, AlertCircle, Wine, ListChecks, Users, FileText } from "lucide-react";
 
@@ -158,18 +159,18 @@ export default function PurimGuidePage() {
               transition={{ duration: 0.6 }}
               className="max-w-3xl"
             >
-              <span className="text-[var(--accent)] font-medium mb-4 block text-lg">
+              <span className="text-[var(--accent)] font-bold mb-4 block text-[2.25rem]">
                 בר בפורים
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3">
                 כך מגדילים הכנסות בלי לשרוף את הצוות
               </h1>
-              <p className="text-lg md:text-xl text-white/80 leading-relaxed">
+              <p className="text-2xl md:text-3xl text-white/80 leading-relaxed">
                 מדריך תפעולי קצר לבעלי ברים, מנהלים וצוותים שעובדים בערבים עמוסים ורוצים שהבר יעבוד חכם, לא רק חזק
               </p>
             </motion.div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[var(--background)] to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[var(--background)] to-transparent hidden" />
         </section>
 
         {/* Opening Text */}
@@ -183,7 +184,7 @@ export default function PurimGuidePage() {
               className="max-w-3xl mx-auto"
             >
               <div className="prose prose-lg text-[var(--text-secondary)] leading-relaxed space-y-4">
-                <p className="text-xl text-[var(--foreground)] font-medium">
+                <p className="text-3xl text-[var(--foreground)] font-medium">
                   פורים הוא ערב עם פוטנציאל הכנסה גבוה במיוחד.
                 </p>
                 <p>
@@ -208,6 +209,16 @@ export default function PurimGuidePage() {
           </div>
         </section>
 
+        {/* Bar Image */}
+        <section className="relative w-full h-[400px] md:h-[500px]">
+          <Image
+            src="/media/busy-bar.jpg"
+            alt="בר עמוס באווירת ערב"
+            fill
+            className="object-cover"
+          />
+        </section>
+
         {/* Who is it for */}
         <section className="section-padding bg-[var(--background)]">
           <div className="container-custom">
@@ -219,7 +230,7 @@ export default function PurimGuidePage() {
               className="max-w-3xl mx-auto"
             >
               <motion.div variants={itemVariants} className="mb-8">
-                <span className="text-[var(--accent)] font-medium mb-2 block">
+                <span className="text-[var(--accent)] font-bold mb-2 block text-[2rem]">
                   למי המדריך מתאים
                 </span>
                 <h2 className="text-3xl md:text-4xl font-bold">
@@ -257,7 +268,7 @@ export default function PurimGuidePage() {
                 className="text-center mb-10"
               >
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  קבלו את המדריך בחינם
+                  אני רוצה להרוויח יותר בפורים
                 </h2>
                 <p className="text-white/70">
                   השאירו פרטים והמדריך יישלח אליכם מיד
@@ -461,28 +472,6 @@ export default function PurimGuidePage() {
                 </motion.form>
               )}
             </div>
-          </div>
-        </section>
-
-        {/* Closing Section */}
-        <section className="section-padding bg-white">
-          <div className="container-custom">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="max-w-2xl mx-auto text-center"
-            >
-              <h2 className="text-2xl md:text-3xl font-bold mb-6">
-                פורים לא צריך להיות כאוס
-              </h2>
-              <p className="text-lg text-[var(--text-secondary)] leading-relaxed">
-                הוא צריך להיות מתוכנן.<br />
-                כמה החלטות נכונות מראש<br />
-                יכולות לשנות ערב שלם.
-              </p>
-            </motion.div>
           </div>
         </section>
       </main>
