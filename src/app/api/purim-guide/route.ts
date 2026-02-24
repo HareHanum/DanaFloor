@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const data: GuideFormData = await request.json();
 
     // Validate required fields
-    if (!data.firstName || !data.businessName || !data.role || !data.email || !data.phone) {
+    if (!data.firstName || !data.email || !data.phone) {
       return NextResponse.json(
         { error: "Missing required fields" },
         { status: 400 }
@@ -44,8 +44,8 @@ export async function POST(request: NextRequest) {
     // Format the lead data for logging/email
     const leadData = {
       firstName: data.firstName,
-      businessName: data.businessName,
-      role: data.role,
+      businessName: data.businessName || "",
+      role: data.role || "",
       email: data.email,
       phone: data.phone,
       marketingConsent: data.marketingConsent ? "כן" : "לא",
@@ -122,7 +122,7 @@ export async function POST(request: NextRequest) {
       const danaEmailResult = await resend.emails.send({
         from: "FLOOR D.a.N.A <contact@floor-dana.com>",
         to: "dana@floor-dana.com",
-        subject: `הורדת מדריך פורים - ${data.firstName} מ${data.businessName}`,
+        subject: `הורדת מדריך פורים - ${data.firstName}${data.businessName ? ` מ${data.businessName}` : ""}`,
         html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background: #1a1a1a; padding: 20px; border-radius: 8px 8px 0 0;">
@@ -137,11 +137,11 @@ export async function POST(request: NextRequest) {
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">שם העסק:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.businessName}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.businessName || "לא צוין"}</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">תפקיד:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.role}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.role || "לא צוין"}</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">אימייל:</td>

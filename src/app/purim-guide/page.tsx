@@ -50,14 +50,6 @@ export default function PurimGuidePage() {
       newErrors.firstName = "נא להזין שם פרטי";
     }
 
-    if (!formData.businessName.trim()) {
-      newErrors.businessName = "נא להזין שם עסק";
-    }
-
-    if (!formData.role.trim()) {
-      newErrors.role = "נא להזין תפקיד";
-    }
-
     if (!formData.email.trim()) {
       newErrors.email = "נא להזין כתובת אימייל";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -342,7 +334,7 @@ export default function PurimGuidePage() {
 
                   <div>
                     <label htmlFor="businessName" className="block text-sm font-medium mb-2">
-                      שם העסק <span className="text-red-500">*</span>
+                      שם העסק
                     </label>
                     <input
                       type="text"
@@ -350,22 +342,14 @@ export default function PurimGuidePage() {
                       name="businessName"
                       value={formData.businessName}
                       onChange={handleChange}
-                      aria-required="true"
-                      aria-invalid={!!errors.businessName}
-                      aria-describedby={errors.businessName ? "businessName-error" : undefined}
-                      className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
-                        errors.businessName ? "border-red-500" : "border-[var(--border-light)]"
-                      }`}
+                      className="w-full px-4 py-3 border border-[var(--border-light)] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
                       placeholder="שם הבר או המסעדה"
                     />
-                    {errors.businessName && (
-                      <p id="businessName-error" className="mt-1 text-sm text-red-500" role="alert">{errors.businessName}</p>
-                    )}
                   </div>
 
                   <div>
                     <label htmlFor="role" className="block text-sm font-medium mb-2">
-                      תפקיד <span className="text-red-500">*</span>
+                      תפקיד
                     </label>
                     <input
                       type="text"
@@ -373,17 +357,9 @@ export default function PurimGuidePage() {
                       name="role"
                       value={formData.role}
                       onChange={handleChange}
-                      aria-required="true"
-                      aria-invalid={!!errors.role}
-                      aria-describedby={errors.role ? "role-error" : undefined}
-                      className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
-                        errors.role ? "border-red-500" : "border-[var(--border-light)]"
-                      }`}
+                      className="w-full px-4 py-3 border border-[var(--border-light)] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
                       placeholder="בעלים / מנהל / אחמ״ש / ברמן"
                     />
-                    {errors.role && (
-                      <p id="role-error" className="mt-1 text-sm text-red-500" role="alert">{errors.role}</p>
-                    )}
                   </div>
 
                   <div>
