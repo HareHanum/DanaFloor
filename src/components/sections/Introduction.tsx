@@ -81,7 +81,7 @@ export default function Introduction() {
           >
             <div className="aspect-[4/5] rounded-lg overflow-hidden relative">
               <Image
-                src="/media/dana-hero.png"
+                src="/media/main-hero.jpeg"
                 alt="דנה שמרוני - יועצת אירוח"
                 fill
                 className="object-cover object-top"

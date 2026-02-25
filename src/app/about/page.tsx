@@ -11,6 +11,8 @@ import { ArrowLeft, Quote } from "lucide-react";
 export default function AboutPage() {
   const storyRef = useRef(null);
   const storyInView = useInView(storyRef, { once: true, margin: "-100px" });
+  const secondImageRef = useRef(null);
+  const secondImageInView = useInView(secondImageRef, { once: true, margin: "-100px" });
 
   return (
     <main id="main-content">
@@ -48,20 +50,20 @@ export default function AboutPage() {
           <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[var(--background)] to-transparent hidden" />
         </section>
 
-        {/* Story Section */}
+        {/* Story Section - Part 1: Image right, text left */}
         <section ref={storyRef} className="section-padding bg-[var(--background)]">
           <div className="container-custom">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-              {/* Image */}
+              {/* Image - right side (RTL: appears on right) */}
               <motion.div
                 initial={{ opacity: 0, x: 50 }}
                 animate={storyInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.8 }}
-                className="relative order-2 lg:order-1"
+                className="relative order-1 lg:order-1"
               >
                 <div className="aspect-[4/5] rounded-lg overflow-hidden relative">
                   <Image
-                    src="/media/dana-hero.png"
+                    src="/media/aboutus.jpeg"
                     alt="דנה שמרוני - יועצת אירוח"
                     fill
                     className="object-cover object-top"
@@ -71,12 +73,12 @@ export default function AboutPage() {
                 <div className="absolute -top-6 -right-6 w-24 h-24 bg-[var(--foreground)]/5 rounded-lg -z-10" />
               </motion.div>
 
-              {/* Text Content */}
+              {/* Text Content - left side */}
               <motion.div
                 initial={{ opacity: 0, x: -50 }}
                 animate={storyInView ? { opacity: 1, x: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.2 }}
-                className="order-1 lg:order-2"
+                className="order-2 lg:order-2"
               >
                 <span className="text-[var(--accent)] font-bold mb-4 block text-[2rem]">
                   הסיפור שלי
@@ -97,6 +99,24 @@ export default function AboutPage() {
                   <p>
                     במקביל שירתי כמש&quot;קית חינוך בתותחנים, תפקיד שחיזק אצלי יכולת הובלה, אחריות וקריאת אנשים. אחרי השחרור המשכתי לעולם המסעדנות במלוא העוצמה: מסעדות בשרים, ברים שכונתיים, בתי קפה, ניהול פלור וניהול ברים, פתיחת מסעדות מאפס, עבודה במלונות, וליווי צוותים בתקופות עומס ושינוי.
                   </p>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Story Section - Part 2: Text right, image left */}
+        <section ref={secondImageRef} className="section-padding bg-[var(--background)] pt-0">
+          <div className="container-custom">
+            <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+              {/* Text Content - right side (RTL: appears on right) */}
+              <motion.div
+                initial={{ opacity: 0, x: 50 }}
+                animate={secondImageInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.8 }}
+                className="order-2 lg:order-1"
+              >
+                <div className="space-y-4 text-[var(--text-secondary)] leading-relaxed">
                   <p>
                     לא הסתפקתי בעשייה – רציתי להבין לעומק. למדתי מסעדנות בשנקר, טבחות, קונדיטוריה, ברמנות. עבדתי כטבחית, כקונדיטורית, ניהלתי ויטרינות, לוביים, ברים ופלורים – מהמרכז ועד אילת. כל תפקיד הוסיף עוד שכבה להבנה שלי: איך שירות נראה באמת, ואיך ניהול משפיע ישירות על החוויה – ועל התוצאות.
                   </p>
@@ -121,6 +141,24 @@ export default function AboutPage() {
                     D.N.A של שירות, ניהול ואנשים. שמביא לחוויה ומגדיל רווח.
                   </p>
                 </div>
+              </motion.div>
+
+              {/* Image - left side (RTL: appears on left) */}
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={secondImageInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="relative order-1 lg:order-2"
+              >
+                <div className="aspect-[4/5] rounded-lg overflow-hidden relative">
+                  <Image
+                    src="/media/aboutus2.jpeg"
+                    alt="דנה שמרוני בעבודה"
+                    fill
+                    className="object-cover object-top"
+                  />
+                </div>
+                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-[var(--accent)]/10 rounded-lg -z-10" />
               </motion.div>
             </div>
           </div>
