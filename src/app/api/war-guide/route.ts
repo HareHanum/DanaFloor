@@ -101,6 +101,11 @@ export async function POST(request: NextRequest) {
                 באהבה,<br>
                 דנה
               </p>
+              <div style="border-top: 1px solid #e5e5e5; margin-top: 20px; padding-top: 16px; text-align: center;">
+                <p style="font-size: 12px; color: #999; margin: 0;">
+                  <a href="https://floor-dana.com/unsubscribe?email=${encodeURIComponent(data.email)}" style="color: #999; text-decoration: underline;">להסרה מרשימת הדיוור</a>
+                </p>
+              </div>
             </div>
           </div>
         `,
@@ -112,6 +117,21 @@ export async function POST(request: NextRequest) {
         ],
       });
       console.log("User email sent successfully:", userEmailResult);
+
+      // Add contact to Resend audience if marketing consent given
+      if (data.marketingConsent && process.env.RESEND_AUDIENCE_ID) {
+        try {
+          await resend.contacts.create({
+            email: data.email,
+            firstName: data.firstName,
+            unsubscribed: false,
+            audienceId: process.env.RESEND_AUDIENCE_ID,
+          });
+          console.log("Contact added to audience:", data.email);
+        } catch (contactError) {
+          console.error("Failed to add contact to audience:", contactError);
+        }
+      }
 
       // Send notification email to Dana
       const danaEmailResult = await resend.emails.send({
