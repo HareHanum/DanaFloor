@@ -7,6 +7,8 @@ export default function ResultsPage() {
   return (
     <ServicePageLayout
       icon={TrendingUp}
+      backLink="/services"
+      backText="חזרה לשירותים"
       title="שיפור תוצאות"
       subtitle="תוצאות מידיות"
       heroDescription="לא צריכים ליווי ארוך? יום אחד בשטח יכול לשנות הכל. אני מגיעה, מזהה, משפרת בלייב ונותנת לכם כלים להמשיך לבד."

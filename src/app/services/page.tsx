@@ -6,9 +6,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import {
   Search,
-  Users,
   Building2,
-  TrendingUp,
   ArrowLeft,
 } from "lucide-react";
 
@@ -22,28 +20,12 @@ const services = [
     features: ["אבחון יום מלא", "דוח מפורט", "המלצות ליישום"],
   },
   {
-    icon: Users,
-    title: "הדרכות לצוותים",
-    description:
-      "הדרכות שירות, מכירה ותפקיד. הצוות שלכם הוא הפנים של העסק – נעניק להם ביטחון וכלים.",
-    href: "/services/training",
-    features: ["הדרכת שירות", "הדרכת מכירה", "הדרכת מנהלים"],
-  },
-  {
     icon: Building2,
     title: "הקמה וליווי",
     description:
       "ליווי מסעדות חדשות מההקמה ועד הפתיחה. בניית צוות, נהלים, ספר מסעדה וסטנדרט שירות.",
     href: "/services/establishment",
     features: ["ספר מסעדה", "הדרכות פתיחה", "ליווי צמוד"],
-  },
-  {
-    icon: TrendingUp,
-    title: "שיפור תוצאות",
-    description:
-      "יום שטח עם שיפור בלייב או דוח אבחון מקיף. רואים את השינוי כבר באותו הערב.",
-    href: "/services/results",
-    features: ["יום שטח", "שיפור בלייב", "תוצאות מידיות"],
   },
 ];
 

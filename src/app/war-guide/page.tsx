@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import { Header, Footer } from "@/components/layout";
-import { Download, CheckCircle, AlertCircle, Wine, ListChecks, Users, FileText } from "lucide-react";
+import { Download, CheckCircle, AlertCircle } from "lucide-react";
 
 interface FormData {
   firstName: string;
@@ -17,20 +16,11 @@ interface FormData {
 
 interface FormErrors {
   firstName?: string;
-  businessName?: string;
-  role?: string;
   email?: string;
   phone?: string;
 }
 
-const targetAudience = [
-  { icon: Wine, text: "בעלי ברים" },
-  { icon: Users, text: "מנהלי בר ומסעדה" },
-  { icon: ListChecks, text: "צוותים שעובדים בערבים עמוסים" },
-  { icon: FileText, text: "מקומות שרוצים להכניס יותר באותו ערב, לא לעבוד יותר שעות" },
-];
-
-export default function PurimGuidePage() {
+export default function WarGuidePage() {
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     businessName: "",
@@ -75,7 +65,7 @@ export default function PurimGuidePage() {
     setSubmitStatus("idle");
 
     try {
-      const response = await fetch("/api/purim-guide", {
+      const response = await fetch("/api/war-guide", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,42 +98,12 @@ export default function PurimGuidePage() {
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 },
-    },
-  };
-
   return (
     <>
       <Header />
       <main id="main-content">
         {/* Hero Section */}
-        <section className="relative pt-32 pb-16 min-h-[60vh] flex items-center overflow-hidden">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-cover"
-          >
-            <source src="/media/purim.mp4" type="video/mp4" />
-          </video>
-          <div className="absolute inset-0 bg-black/50" />
+        <section className="relative pt-32 pb-16 min-h-[50vh] flex items-center overflow-hidden bg-[var(--foreground)]">
           <div className="relative z-10 container-custom text-white">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -152,17 +112,16 @@ export default function PurimGuidePage() {
               className="max-w-3xl"
             >
               <span className="text-[var(--accent)] font-bold mb-4 block text-[2.25rem]">
-                בר בפורים
+                מדריך חינמי
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3">
-                כך מגדילים הכנסות בלי לשרוף את הצוות
+                ניהול מסעדה בזמן מלחמה
               </h1>
               <p className="text-2xl md:text-3xl text-white/80 leading-relaxed">
-                מדריך תפעולי קצר לבעלי ברים, מנהלים וצוותים שעובדים בערבים עמוסים ורוצים שהבר יעבוד חכם, לא רק חזק
+                מדריך קצר, ממוקד ופרקטי לתקופה הזאת
               </p>
             </motion.div>
           </div>
-          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[var(--background)] to-transparent hidden" />
         </section>
 
         {/* Opening Text */}
@@ -177,72 +136,42 @@ export default function PurimGuidePage() {
             >
               <div className="prose prose-lg text-[var(--text-secondary)] leading-relaxed space-y-4">
                 <p className="text-3xl text-[var(--foreground)] font-medium">
-                  פורים הוא ערב עם פוטנציאל הכנסה גבוה במיוחד.
+                  טוב… כולנו מבינים שהתקופה הזאת שוב קצת אחרת.
                 </p>
                 <p>
-                  יותר אורחים, יותר אלכוהול, יותר תנועה.<br />
-                  ובכל זאת, בהרבה מקומות, הבר עובד חזק, הצוות רץ והקופה לא תמיד מרגישה את זה.
+                  מסעדות עובדות אחרת.<br />
+                  הצוותים עובדים אחרת.<br />
+                  וגם האורחים שמגיעים – מגיעים בשביל רגע לנשום.
                 </p>
                 <p className="text-[var(--text-primary)]">
-                  זה לא בגלל שאין ביקוש וזה לא בגלל שהצוות לא טוב.<br />
-                  ברוב המקרים, זה פשוט ניהול שלא מותאם לערב עמוס.
+                  אז הכנתי לכם משהו קטן.<br />
+                  מדריך קצר מאוד לניהול מסעדה בזמן מלחמה.<br />
+                  ממש קצר… ברמה שאפשר לקרוא אותו גם בזמן שמחכים במקלט.
                 </p>
                 <p>
-                  אחרי שנים של עבודה בכל התפקידים בפלור ובמיוחד בעשרות חגים, בבר ובניהול צוות ראיתי כל טעות שכתובה בספר ולמדתי כל דרך לתקן אותה - כי אפשר! אפשר להרוויח הרבה יותר.
+                  יש שם כמה דברים באמת פשוטים שאפשר פשוט לעשות:
                 </p>
+                <ul className="list-disc pr-6 space-y-2 text-[var(--text-primary)]">
+                  <li>איך לשמור על הצוות</li>
+                  <li>איך לעבוד עם תפריט יותר מדויק</li>
+                  <li>איך להחזיק פלור טוב גם כשהקצב משתנה</li>
+                </ul>
                 <p className="text-[var(--text-primary)]">
-                  המדריך הזה כולל עקרונות שנועדו לעזור לכם לא רק להימנע מטעויות שחוזרות כל שנה, אלא להכניס יותר כסף בפועל – בלי להאריך משמרות ובלי לשחוק את הצוות.
+                  השארתי אותו חינמי לגמרי כי הרגשתי שזה בדיוק הזמן לשתף.
+                </p>
+                <p>
+                  תוכלו לקבל אותו לאחר מילוי הטופס בחינם.
+                </p>
+                <p>
+                  ואם אתם מרגישים שהצוות צריך רגע של רענון<br />
+                  או איזה חיזוק בתקופה הזאת –<br />
+                  אפשר גם לעשות הדרכה בזום כדי להישאר בלופ.<br />
+                  <a href="/contact" className="text-[var(--accent)] font-medium hover:underline">דברו איתי</a>
                 </p>
                 <p className="text-[var(--foreground)] font-medium">
-                  באהבה, דנה
+                  באהבה,<br />
+                  דנה
                 </p>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* Bar Image */}
-        <section className="relative w-full h-[400px] md:h-[500px]">
-          <Image
-            src="/media/busy-bar.jpg"
-            alt="בר עמוס באווירת ערב"
-            fill
-            className="object-cover"
-          />
-        </section>
-
-        {/* Who is it for */}
-        <section className="section-padding bg-[var(--background)]">
-          <div className="container-custom">
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              className="max-w-3xl mx-auto"
-            >
-              <motion.div variants={itemVariants} className="mb-8">
-                <span className="text-[var(--accent)] font-bold mb-2 block text-[2rem]">
-                  למי המדריך מתאים
-                </span>
-                <h2 className="text-3xl md:text-4xl font-bold">
-                  לכל מי שרוצה להכניס יותר בלי לעבוד יותר
-                </h2>
-              </motion.div>
-
-              <div className="grid sm:grid-cols-2 gap-6">
-                {targetAudience.map((item, index) => (
-                  <motion.div
-                    key={index}
-                    variants={itemVariants}
-                    className="flex items-center gap-4 p-5 bg-white rounded-xl border border-[var(--border-light)]"
-                  >
-                    <div className="w-12 h-12 bg-[var(--accent)]/10 rounded-full flex items-center justify-center flex-shrink-0">
-                      <item.icon className="w-6 h-6 text-[var(--accent)]" />
-                    </div>
-                    <span className="text-[var(--text-primary)] font-medium">{item.text}</span>
-                  </motion.div>
-                ))}
               </div>
             </motion.div>
           </div>
@@ -260,7 +189,7 @@ export default function PurimGuidePage() {
                 className="text-center mb-10"
               >
                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  אני רוצה להרוויח יותר בפורים
+                  אני רוצה לקבל את המדריך
                 </h2>
                 <p className="text-white/70">
                   השאירו פרטים והמדריך יישלח אליכם מיד
@@ -283,7 +212,7 @@ export default function PurimGuidePage() {
                     תודה על הפרטים. המדריך נשלח לכתובת המייל שהזנת.
                   </p>
                   <p className="text-green-600 text-sm">
-                    לא קיבלת? בדקו בתיקיית הספאם או <a href="/guides/purim-bar-guide.pdf" target="_blank" className="underline">לחצו כאן להורדה ישירה</a>
+                    לא קיבלת? בדקו בתיקיית הספאם או <a href="/guides/war-management-guide.pdf" target="_blank" className="underline">לחצו כאן להורדה ישירה</a>
                   </p>
                 </motion.div>
               ) : (
@@ -343,7 +272,7 @@ export default function PurimGuidePage() {
                       value={formData.businessName}
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-[var(--border-light)] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
-                      placeholder="שם הבר או המסעדה"
+                      placeholder="שם המסעדה או העסק"
                     />
                   </div>
 
@@ -358,7 +287,7 @@ export default function PurimGuidePage() {
                       value={formData.role}
                       onChange={handleChange}
                       className="w-full px-4 py-3 border border-[var(--border-light)] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
-                      placeholder="בעלים / מנהל / אחמ״ש / ברמן"
+                      placeholder="בעלים / מנהל / אחמ״ש"
                     />
                   </div>
 
@@ -374,7 +303,7 @@ export default function PurimGuidePage() {
                       onChange={handleChange}
                       aria-required="true"
                       aria-invalid={!!errors.email}
-                      aria-describedby={errors.email ? "purim-email-error" : undefined}
+                      aria-describedby={errors.email ? "guide-email-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
                         errors.email ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
@@ -382,7 +311,7 @@ export default function PurimGuidePage() {
                       dir="ltr"
                     />
                     {errors.email && (
-                      <p id="purim-email-error" className="mt-1 text-sm text-red-500" role="alert">{errors.email}</p>
+                      <p id="guide-email-error" className="mt-1 text-sm text-red-500" role="alert">{errors.email}</p>
                     )}
                   </div>
 
@@ -398,7 +327,7 @@ export default function PurimGuidePage() {
                       onChange={handleChange}
                       aria-required="true"
                       aria-invalid={!!errors.phone}
-                      aria-describedby={errors.phone ? "purim-phone-error" : undefined}
+                      aria-describedby={errors.phone ? "guide-phone-error" : undefined}
                       className={`w-full px-4 py-3 border rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] ${
                         errors.phone ? "border-red-500" : "border-[var(--border-light)]"
                       }`}
@@ -406,7 +335,7 @@ export default function PurimGuidePage() {
                       dir="ltr"
                     />
                     {errors.phone && (
-                      <p id="purim-phone-error" className="mt-1 text-sm text-red-500" role="alert">{errors.phone}</p>
+                      <p id="guide-phone-error" className="mt-1 text-sm text-red-500" role="alert">{errors.phone}</p>
                     )}
                   </div>
 

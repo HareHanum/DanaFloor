@@ -135,8 +135,8 @@ export default function ServicePageLayout({
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[var(--background)] to-transparent hidden" />
       </section>
 
-      {/* Service Navigation */}
-      <ServiceNav mode={navMode} />
+      {/* Service Navigation - only show on general pages (no back link) */}
+      {!backLink && <ServiceNav mode={navMode} />}
 
       {/* What's Included Intro */}
       <section ref={problemRef} className="section-padding bg-[var(--background)]">

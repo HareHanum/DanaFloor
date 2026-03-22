@@ -7,6 +7,8 @@ export default function CoffeeTrainingPage() {
   return (
     <ServicePageLayout
       navMode="trainings"
+      backLink="/services/training"
+      backText="חזרה להדרכות"
       heroVideo="/media/training-courses-video.mp4"
       icon={Coffee}
       title="הדרכת קפה"

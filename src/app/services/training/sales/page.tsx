@@ -7,6 +7,8 @@ export default function SalesTrainingPage() {
   return (
     <ServicePageLayout
       navMode="trainings"
+      backLink="/services/training"
+      backText="חזרה להדרכות"
       heroVideo="/media/training-courses-video.mp4"
       icon={BadgeDollarSign}
       title="הדרכת מכירה"

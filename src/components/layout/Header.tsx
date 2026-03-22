@@ -31,7 +31,7 @@ const trainingItems = [
 const navItems = [
   { href: "/", label: "בית" },
   { href: "/about", label: "אודות" },
-  { href: "/purim-guide", label: "מדריך תפעול לפורים" },
+  { href: "/war-guide", label: "מדריך ניהול בזמן מלחמה" },
   { href: "/contact", label: "צור קשר" },
 ];
 
@@ -132,7 +132,7 @@ export default function Header() {
             <li className="relative flex items-center" ref={servicesRef}>
               <div className="relative group flex items-center leading-none">
                 <Link
-                  href="/services/consulting"
+                  href="/services"
                   className="text-xl font-medium hover:text-[var(--accent)] transition-colors duration-300"
                   style={{ color: isServicePage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
                 >
@@ -189,7 +189,7 @@ export default function Header() {
             <li className="relative flex items-center" ref={trainingsRef}>
               <div className="relative group flex items-center leading-none">
                 <Link
-                  href="/services/training/service"
+                  href="/services/training"
                   className="text-xl font-medium hover:text-[var(--accent)] transition-colors duration-300"
                   style={{ color: isTrainingPage ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
                 >

@@ -50,11 +50,11 @@ export async function POST(request: NextRequest) {
       phone: data.phone,
       marketingConsent: data.marketingConsent ? "כן" : "לא",
       submittedAt: new Date().toISOString(),
-      source: "מדריך תפעול לפורים",
+      source: "מדריך ניהול בזמן מלחמה",
     };
 
     // Log the lead (for development)
-    console.log("New Purim guide download:", leadData);
+    console.log("New war management guide download:", leadData);
 
     // Send emails
     try {
@@ -65,14 +65,14 @@ export async function POST(request: NextRequest) {
       const resend = new Resend(process.env.RESEND_API_KEY);
 
       // Read the PDF file for attachment
-      const pdfPath = join(process.cwd(), "public", "guides", "purim-bar-guide.pdf");
+      const pdfPath = join(process.cwd(), "public", "guides", "war-management-guide.pdf");
       const pdfBuffer = readFileSync(pdfPath);
 
       // Send welcome email to user with PDF attached
       const userEmailResult = await resend.emails.send({
         from: "דנה שמרוני - FLOOR D.a.N.A <contact@floor-dana.com>",
         to: data.email,
-        subject: "המדריך לבר בפורים מחכה לך",
+        subject: "המדריך לניהול מסעדה בזמן מלחמה מחכה לך",
         html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background: #1a1a1a; padding: 20px; border-radius: 8px 8px 0 0;">
@@ -81,12 +81,11 @@ export async function POST(request: NextRequest) {
             <div style="background: #f5f5f5; padding: 30px; border-radius: 0 0 8px 8px;">
               <p style="font-size: 16px; color: #1a1a1a; margin-top: 0;">שלום,</p>
               <p style="font-size: 16px; color: #333; line-height: 1.8;">
-                המדריך להגדלת הכנסות מהבר בפורים מצורף כאן למטה.
+                המדריך לניהול מסעדה בזמן מלחמה מצורף כאן למטה.
               </p>
               <p style="font-size: 16px; color: #333; line-height: 1.8;">
                 הוא קצר, ממוקד<br>
-                ונכתב בדיוק לערבים שבהם הבר עובד חזק<br>
-                והטעויות עולות כסף מהר.
+                ונכתב בדיוק לתקופה הזאת.
               </p>
               <p style="font-size: 16px; color: #333; line-height: 1.8;">
                 מומלץ לעבור עליו<br>
@@ -95,15 +94,11 @@ export async function POST(request: NextRequest) {
                 ומה עוד צריך החלטה.
               </p>
               <p style="font-size: 16px; color: #333; line-height: 1.8;">
-                בסוף המדריך צירפתי גם נקודת מחשבה<br>
-                למי שמרגיש שזה "כמעט"<br>
-                אבל לא תמיד מיושם בפועל.
-              </p>
-              <p style="font-size: 16px; color: #333; line-height: 1.8;">
                 אם עולות שאלות<br>
                 אפשר לפנות אליי.
               </p>
               <p style="font-size: 16px; color: #1a1a1a; margin-bottom: 0; font-weight: 500;">
+                באהבה,<br>
                 דנה
               </p>
             </div>
@@ -111,7 +106,7 @@ export async function POST(request: NextRequest) {
         `,
         attachments: [
           {
-            filename: "מדריך-בר-בפורים.pdf",
+            filename: "מדריך-ניהול-בזמן-מלחמה.pdf",
             content: pdfBuffer,
           },
         ],
@@ -122,14 +117,14 @@ export async function POST(request: NextRequest) {
       const danaEmailResult = await resend.emails.send({
         from: "FLOOR D.a.N.A <contact@floor-dana.com>",
         to: "dana@floor-dana.com",
-        subject: `הורדת מדריך פורים - ${data.firstName}${data.businessName ? ` מ${data.businessName}` : ""}`,
+        subject: `הורדת מדריך ניהול בזמן מלחמה - ${data.firstName}${data.businessName ? ` מ${data.businessName}` : ""}`,
         html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background: #1a1a1a; padding: 20px; border-radius: 8px 8px 0 0;">
               <h1 style="color: #f69a62; margin: 0; font-size: 24px;">FLOOR D.a.N.A</h1>
             </div>
             <div style="background: #f5f5f5; padding: 30px; border-radius: 0 0 8px 8px;">
-              <h2 style="color: #1a1a1a; margin-top: 0;">הורדת מדריך תפעול לפורים</h2>
+              <h2 style="color: #1a1a1a; margin-top: 0;">הורדת מדריך ניהול בזמן מלחמה</h2>
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold; width: 120px;">שם פרטי:</td>
@@ -176,7 +171,7 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
   } catch (error) {
-    console.error("Purim guide form error:", error);
+    console.error("War guide form error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }

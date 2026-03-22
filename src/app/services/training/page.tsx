@@ -18,7 +18,6 @@ import {
   ShieldCheck,
   Coffee,
 } from "lucide-react";
-import ServiceNav from "@/components/ui/ServiceNav";
 
 const trainingTypes: {
   icon: React.ComponentType<{ size?: number; className?: string }>;
@@ -139,8 +138,6 @@ export default function TrainingPage() {
         <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[var(--background)] to-transparent hidden" />
       </section>
 
-      {/* Service Navigation */}
-      <ServiceNav />
 
       {/* Intro Section */}
       <section className="section-padding bg-[var(--background)]">

@@ -7,6 +7,8 @@ export default function RolesTrainingPage() {
   return (
     <ServicePageLayout
       navMode="trainings"
+      backLink="/services/training"
+      backText="חזרה להדרכות"
       heroVideo="/media/training-courses-video.mp4"
       icon={ClipboardList}
       title="הדרכות תפקיד"

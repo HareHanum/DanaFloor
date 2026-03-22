@@ -7,6 +7,8 @@ export default function ConsultingPage() {
   return (
     <ServicePageLayout
       icon={Search}
+      backLink="/services"
+      backText="חזרה לשירותים"
       title="ייעוץ וליווי ניהולי"
       subtitle="מהחזון אל הפלור"
       heroDescription="אבחון, ייעוץ ושיפור ביצועים למסעדות קיימות. כדי שמסעדה תצליח, האוכל הוא רק חצי מהסיפור. החצי השני הוא הקצב, השירות והניהול."

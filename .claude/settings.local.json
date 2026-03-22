@@ -25,7 +25,12 @@
       "Bash(ffprobe:*)",
       "Bash(npm ls:*)",
       "Bash(npx vercel env rm:*)",
-      "Bash(npx vercel env add:*)"
+      "Bash(npx vercel env add:*)",
+      "mcp__plugin_context-mode_context-mode__ctx_batch_execute",
+      "mcp__plugin_context-mode_context-mode__ctx_search",
+      "mcp__plugin_context-mode_context-mode__ctx_execute",
+      "Bash(npx next:*)",
+      "Bash(kill 28357)"
     ]
   }
 }

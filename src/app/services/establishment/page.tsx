@@ -7,6 +7,8 @@ export default function EstablishmentPage() {
   return (
     <ServicePageLayout
       icon={Building2}
+      backLink="/services"
+      backText="חזרה לשירותים"
       title="הקמה ופרויקטים מיוחדים"
       subtitle="בונים בסיס חזק"
       heroDescription="ליווי מקצועי למסעדות בהקמה והתאמת שירות לפי סוג העסק. הקמת מסעדה דורשת דיוק מהיום הראשון. אני מלווה עסקים חדשים משלב גיבוש הנהלים ועד לרגע הפתיחה, כדי להבטיח כניסה חלקה לעבודה."
