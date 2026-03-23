@@ -101,14 +101,10 @@ export async function POST(request: NextRequest) {
                 באהבה,<br>
                 דנה
               </p>
+              <div style="border-top: 1px solid #e5e5e5; margin-top: 20px; padding-top: 16px; text-align: center;">
+                <a href="https://floor-dana.com/unsubscribe?email=${encodeURIComponent(data.email)}" style="color: #888888; font-size: 13px; text-decoration: underline; font-family: Arial, sans-serif;">להסרה מרשימת הדיוור</a>
+              </div>
             </div>
-            <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top: 20px;">
-              <tr>
-                <td align="center" style="padding: 16px 0; border-top: 1px solid #e5e5e5;">
-                  <a href="https://floor-dana.com/unsubscribe?email=${encodeURIComponent(data.email)}" style="color: #888888; font-size: 13px; text-decoration: underline; font-family: Arial, sans-serif;">להסרה מרשימת הדיוור</a>
-                </td>
-              </tr>
-            </table>
           </div>
         `,
         attachments: [
