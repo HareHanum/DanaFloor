@@ -27,7 +27,7 @@ export default function WarGuidePage() {
     role: "",
     email: "",
     phone: "",
-    marketingConsent: false,
+    marketingConsent: true,
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
