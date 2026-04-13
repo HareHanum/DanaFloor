@@ -32,7 +32,8 @@
       "Bash(npx next:*)",
       "Bash(kill 28357)",
       "mcp__context7__resolve-library-id",
-      "mcp__context7__query-docs"
+      "mcp__context7__query-docs",
+      "Bash(npx eslint:*)"
     ]
   }
 }

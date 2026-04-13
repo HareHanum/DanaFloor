@@ -31,6 +31,7 @@ interface FormData {
   businessType: string;
   serviceInterest: string;
   message: string;
+  marketingConsent: boolean;
 }
 
 interface FormErrors {
@@ -50,6 +51,7 @@ export default function ContactPage() {
     businessType: "",
     serviceInterest: "",
     message: "",
+    marketingConsent: true,
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -110,6 +112,7 @@ export default function ContactPage() {
           businessType: "",
           serviceInterest: "",
           message: "",
+          marketingConsent: true,
         });
       } else {
         setSubmitStatus("error");
@@ -124,8 +127,12 @@ export default function ContactPage() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
     if (errors[name as keyof FormErrors]) {
       setErrors((prev) => ({ ...prev, [name]: undefined }));
     }
@@ -382,6 +389,20 @@ export default function ContactPage() {
                       className="w-full px-4 py-3 border border-[var(--border-light)] rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-[var(--accent)] resize-none"
                       placeholder="מה הייתם רוצים לשפר? מה האתגר הכי גדול שלכם היום?"
                     />
+                  </motion.div>
+
+                  <motion.div variants={itemVariants} className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      id="marketingConsent"
+                      name="marketingConsent"
+                      checked={formData.marketingConsent}
+                      onChange={handleChange}
+                      className="w-5 h-5 mt-0.5 accent-[var(--accent)]"
+                    />
+                    <label htmlFor="marketingConsent" className="text-sm text-[var(--text-secondary)]">
+                      אני מאשר/ת קבלת עדכונים ותכנים מקצועיים מ-FLOOR D.a.N.A
+                    </label>
                   </motion.div>
 
                   <motion.div variants={itemVariants}>

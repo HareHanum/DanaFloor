@@ -8,6 +8,7 @@ interface ContactFormData {
   businessType: string;
   serviceInterest: string;
   message?: string;
+  marketingConsent?: boolean;
 }
 
 const businessTypeLabels: Record<string, string> = {
@@ -65,6 +66,7 @@ export async function POST(request: NextRequest) {
       businessType: businessTypeLabels[data.businessType] || data.businessType,
       serviceInterest: serviceLabels[data.serviceInterest] || data.serviceInterest,
       message: data.message || "לא צוין",
+      marketingConsent: data.marketingConsent ? "כן" : "לא",
       submittedAt: new Date().toISOString(),
     };
 
@@ -79,7 +81,7 @@ export async function POST(request: NextRequest) {
       }
       const resend = new Resend(process.env.RESEND_API_KEY);
       const emailResult = await resend.emails.send({
-        from: "FLOOR D.a.N.A <contact@floor-dana.com>",
+        from: "FLOOR D.a.N.A <contact@mail.floor-dana.com>",
         to: "dana@floor-dana.com",
         subject: `פנייה חדשה מ${data.name}`,
         html: `
@@ -111,8 +113,12 @@ export async function POST(request: NextRequest) {
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.serviceInterest}</td>
                 </tr>
                 <tr>
-                  <td style="padding: 10px 0; font-weight: bold; vertical-align: top;">הודעה:</td>
-                  <td style="padding: 10px 0;">${leadData.message}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold; vertical-align: top;">הודעה:</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.message}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; font-weight: bold;">אישור דיוור:</td>
+                  <td style="padding: 10px 0;">${leadData.marketingConsent}</td>
                 </tr>
               </table>
               <p style="color: #666; font-size: 12px; margin-top: 20px;">נשלח בתאריך: ${new Date().toLocaleDateString("he-IL")} בשעה ${new Date().toLocaleTimeString("he-IL")}</p>
@@ -121,6 +127,21 @@ export async function POST(request: NextRequest) {
         `,
       });
       console.log("Email sent successfully:", emailResult);
+
+      // Add contact to Resend audience if marketing consent given
+      if (data.marketingConsent && data.email && process.env.RESEND_AUDIENCE_ID) {
+        try {
+          await resend.contacts.create({
+            email: data.email,
+            firstName: data.name,
+            unsubscribed: false,
+            audienceId: process.env.RESEND_AUDIENCE_ID,
+          });
+          console.log("Contact added to audience:", data.email);
+        } catch (contactError) {
+          console.error("Failed to add contact to audience:", contactError);
+        }
+      }
     } catch (emailError) {
       console.error("Failed to send email:", emailError);
       // Don't fail the request if email fails - the lead is still logged
