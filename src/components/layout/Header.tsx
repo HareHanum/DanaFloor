@@ -9,7 +9,9 @@ import {
   Menu, X, ChevronDown, Search, Building2, TrendingUp,
   HandHelping, BadgeDollarSign, UtensilsCrossed, Wine,
   Heart, DoorOpen, Beer, ShieldCheck, Coffee, Users,
+  GraduationCap, User, LogOut,
 } from "lucide-react";
+import { useAuth } from "@/components/auth/AuthProvider";
 
 const serviceItems = [
   { href: "/services/consulting", label: "ייעוץ למסעדות", icon: Search },
@@ -43,6 +45,7 @@ export default function Header() {
   const servicesRef = useRef<HTMLLIElement>(null);
   const trainingsRef = useRef<HTMLLIElement>(null);
   const pathname = usePathname();
+  const { user, profile, loading: authLoading, signOut } = useAuth();
 
   const isServicePage = pathname.startsWith("/services") && !pathname.startsWith("/services/training");
   const isTrainingPage = pathname.startsWith("/services/training");
@@ -256,6 +259,49 @@ export default function Header() {
                 </Link>
               </li>
             ))}
+
+            {/* Courses link */}
+            <li>
+              <Link
+                href="/catalog"
+                className="text-xl font-medium hover:text-[var(--accent)] transition-colors duration-300 relative group flex items-center gap-1"
+                style={{ color: pathname.startsWith("/catalog") ? "var(--accent)" : isScrolled ? "#1a1a1a" : "#ffffff" }}
+              >
+                <GraduationCap size={20} />
+                קורסים
+                <span className="absolute -bottom-1 right-0 w-0 h-0.5 bg-[var(--accent)] transition-all group-hover:w-full" />
+              </Link>
+            </li>
+
+            {/* Auth button */}
+            {!authLoading && (
+              <li>
+                {user ? (
+                  <Link
+                    href="/courses"
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                    style={{
+                      backgroundColor: isScrolled ? "var(--foreground)" : "white",
+                      color: isScrolled ? "white" : "var(--foreground)",
+                    }}
+                  >
+                    <User size={16} />
+                    האזור שלי
+                  </Link>
+                ) : (
+                  <Link
+                    href="/login"
+                    className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+                    style={{
+                      backgroundColor: isScrolled ? "var(--foreground)" : "white",
+                      color: isScrolled ? "white" : "var(--foreground)",
+                    }}
+                  >
+                    התחבר
+                  </Link>
+                )}
+              </li>
+            )}
           </ul>
 
           {/* Mobile Menu Button */}
@@ -357,7 +403,44 @@ export default function Header() {
                   </li>
                 ))}
 
-                <li className="pt-4">
+                {/* Courses */}
+                <li className="pt-2">
+                  <Link
+                    href="/catalog"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="flex items-center gap-2 py-2 text-lg font-medium text-[var(--accent)]"
+                  >
+                    <GraduationCap size={20} />
+                    קורסים דיגיטליים
+                  </Link>
+                </li>
+
+                <li className="pt-4 flex flex-col gap-2">
+                  {user ? (
+                    <>
+                      <Link
+                        href="/courses"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="block w-full text-center text-xs py-2 px-3 bg-[var(--accent)] text-white rounded font-medium"
+                      >
+                        הקורסים שלי
+                      </Link>
+                      <button
+                        onClick={() => { setIsMobileMenuOpen(false); signOut(); }}
+                        className="block w-full text-center text-xs py-2 px-3 border border-[var(--border-light)] rounded font-medium text-[var(--text-secondary)]"
+                      >
+                        התנתק
+                      </button>
+                    </>
+                  ) : (
+                    <Link
+                      href="/login"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="block w-full text-center text-xs py-2 px-3 bg-[var(--foreground)] text-[var(--background)] rounded font-medium"
+                    >
+                      התחבר
+                    </Link>
+                  )}
                   <Link
                     href="/contact"
                     onClick={() => setIsMobileMenuOpen(false)}

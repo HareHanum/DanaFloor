@@ -6,6 +6,7 @@ const footerLinks = {
     { href: "/about", label: "אודות" },
     { href: "/services", label: "שירותים" },
     { href: "/services/training", label: "הדרכות" },
+    { href: "/catalog", label: "קורסים דיגיטליים" },
     { href: "/contact", label: "צור קשר" },
   ],
 };

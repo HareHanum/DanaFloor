@@ -33,7 +33,11 @@
       "Bash(kill 28357)",
       "mcp__context7__resolve-library-id",
       "mcp__context7__query-docs",
-      "Bash(npx eslint:*)"
+      "Bash(npx eslint:*)",
+      "WebSearch",
+      "Bash(npx tsc *)",
+      "Bash(npm list *)",
+      "Bash(node -e \" const { createServerClient } = require\\('@supabase/ssr'\\); // Just print the type expectations by looking at the package \")"
     ]
   }
 }

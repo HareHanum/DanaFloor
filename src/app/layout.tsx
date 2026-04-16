@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Heebo } from "next/font/google";
 import AccessibilityWidget from "@/components/ui/AccessibilityWidget";
+import AuthProvider from "@/components/auth/AuthProvider";
 import "./globals.css";
 
 const heebo = Heebo({
@@ -88,11 +89,13 @@ export default function RootLayout({
   return (
     <html lang="he" dir="rtl">
       <body className={`${heebo.variable} font-sans antialiased`}>
-        <a href="#main-content" className="skip-to-content">
-          דלג לתוכן הראשי
-        </a>
-        {children}
-        <AccessibilityWidget />
+        <AuthProvider>
+          <a href="#main-content" className="skip-to-content">
+            דלג לתוכן הראשי
+          </a>
+          {children}
+          <AccessibilityWidget />
+        </AuthProvider>
       </body>
     </html>
   );
