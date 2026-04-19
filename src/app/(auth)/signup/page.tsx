@@ -4,7 +4,7 @@ import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Mail, Lock, User, Phone, Loader2, CheckCircle } from "lucide-react";
+import { Mail, Lock, User, Phone, Loader2 } from "lucide-react";
 
 export default function SignupPage() {
   const [fullName, setFullName] = useState("");
@@ -14,7 +14,6 @@ export default function SignupPage() {
   const [marketingConsent, setMarketingConsent] = useState(true);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
   const router = useRouter();
   const supabase = createClient();
 
@@ -37,15 +36,17 @@ export default function SignupPage() {
           full_name: fullName,
           phone: phone || undefined,
         },
-        emailRedirectTo: `${window.location.origin}/callback`,
       },
     });
 
     if (error) {
-      if (error.message.includes("already registered")) {
+      console.error("Signup error:", error);
+      const msg = error.message || "";
+      const status = (error as { status?: number }).status;
+      if (msg.includes("already registered") || msg.includes("already been registered") || msg.includes("User already registered")) {
         setError("אימייל זה כבר רשום. נסה להתחבר.");
       } else {
-        setError("שגיאה בהרשמה. נסה שנית.");
+        setError(`שגיאה בהרשמה${status ? ` (${status})` : ""}: ${msg}`);
       }
       setLoading(false);
       return;
@@ -64,26 +65,8 @@ export default function SignupPage() {
       }
     }
 
-    setSuccess(true);
-    setLoading(false);
-  }
-
-  if (success) {
-    return (
-      <div className="bg-white rounded-lg shadow-md p-8 text-center">
-        <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
-          <CheckCircle size={32} className="text-green-500" />
-        </div>
-        <h1 className="text-2xl font-bold mb-2">נרשמת בהצלחה!</h1>
-        <p className="text-[var(--text-secondary)] mb-4">
-          שלחנו קישור אימות ל-
-          <strong className="text-[var(--foreground)]">{email}</strong>
-        </p>
-        <p className="text-sm text-[var(--text-muted)]">
-          לחץ על הקישור באימייל כדי להפעיל את החשבון.
-        </p>
-      </div>
-    );
+    router.push("/courses");
+    router.refresh();
   }
 
   return (

@@ -30,34 +30,50 @@ export default function LessonEditor({
   const [saved, setSaved] = useState(false);
   const supabase = createClient();
 
-  // Auto-save with debounce
-  const save = useCallback(async () => {
-    setSaving(true);
-    setSaved(false);
+  type SaveOverrides = Partial<{
+    title: string;
+    description: string;
+    lessonType: Lesson["lesson_type"];
+    contentHtml: string;
+    isPreview: boolean;
+  }>;
 
-    const updates = {
-      title: title.trim() || lesson.title,
-      description: description.trim() || null,
-      lesson_type: lessonType,
-      content_html: lessonType === "text" ? contentHtml : lesson.content_html,
-      is_preview: isPreview,
-    };
+  const save = useCallback(
+    async (overrides: SaveOverrides = {}) => {
+      setSaving(true);
+      setSaved(false);
 
-    const { data } = await supabase
-      .from("lessons")
-      .update(updates)
-      .eq("id", lesson.id)
-      .select()
-      .single();
+      const nextTitle = overrides.title ?? title;
+      const nextDescription = overrides.description ?? description;
+      const nextLessonType = overrides.lessonType ?? lessonType;
+      const nextContentHtml = overrides.contentHtml ?? contentHtml;
+      const nextIsPreview = overrides.isPreview ?? isPreview;
 
-    setSaving(false);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 2000);
+      const updates = {
+        title: nextTitle.trim() || lesson.title,
+        description: nextDescription.trim() || null,
+        lesson_type: nextLessonType,
+        content_html:
+          nextLessonType === "text" ? nextContentHtml : lesson.content_html,
+        is_preview: nextIsPreview,
+      };
 
-    if (data) onSave(data);
-  }, [title, description, lessonType, contentHtml, isPreview, lesson, supabase, onSave]);
+      const { data } = await supabase
+        .from("lessons")
+        .update(updates)
+        .eq("id", lesson.id)
+        .select()
+        .single();
 
-  // Auto-save on blur from any field
+      setSaving(false);
+      setSaved(true);
+      setTimeout(() => setSaved(false), 2000);
+
+      if (data) onSave(data);
+    },
+    [title, description, lessonType, contentHtml, isPreview, lesson, supabase, onSave]
+  );
+
   function handleBlur() {
     save();
   }
@@ -96,8 +112,9 @@ export default function LessonEditor({
           <select
             value={lessonType}
             onChange={(e) => {
-              setLessonType(e.target.value as Lesson["lesson_type"]);
-              setTimeout(save, 100);
+              const next = e.target.value as Lesson["lesson_type"];
+              setLessonType(next);
+              save({ lessonType: next });
             }}
             className="w-full px-3 py-2 border border-[var(--border-light)] rounded-lg text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
           >
@@ -149,8 +166,9 @@ export default function LessonEditor({
             type="checkbox"
             checked={isPreview}
             onChange={(e) => {
-              setIsPreview(e.target.checked);
-              setTimeout(save, 100);
+              const next = e.target.checked;
+              setIsPreview(next);
+              save({ isPreview: next });
             }}
             className="rounded border-gray-300"
           />
