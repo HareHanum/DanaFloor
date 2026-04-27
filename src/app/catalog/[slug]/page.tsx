@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { Header, Footer } from "@/components/layout";
 import ModuleAccordion from "@/components/course/ModuleAccordion";
 import PricingCard from "@/components/course/PricingCard";
@@ -8,6 +9,10 @@ import { ArrowRight, BookOpen, Clock, Award } from "lucide-react";
 import type { Metadata } from "next";
 import type { Module, Lesson } from "@/types/database";
 import PurchaseButton from "@/components/payment/PurchaseButton";
+import {
+  verifyPendingPaymentsForUser,
+  verifyAndGrantPaymentByPageUid,
+} from "@/lib/payplus/verify";
 
 interface ModuleWithLessons extends Module {
   lessons: Lesson[];
@@ -39,11 +44,25 @@ export async function generateMetadata({
 
 export default async function CourseSalesPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ pid?: string; payment?: string }>;
 }) {
   const { slug } = await params;
+  const search = await searchParams;
   const supabase = await createClient();
+
+  // Fallback verify path: if the success endpoint passed a page UID through
+  // the URL, run verification here too — this works even when the user
+  // appears logged out (admin client bypasses auth).
+  if (search.pid) {
+    try {
+      await verifyAndGrantPaymentByPageUid(createAdminClient(), search.pid);
+    } catch (e) {
+      console.error("catalog pid recovery failed:", e);
+    }
+  }
 
   const { data: course } = await supabase
     .from("courses")
@@ -67,6 +86,9 @@ export default async function CourseSalesPage({
 
   if (modules) {
     for (const mod of modules) {
+      // After migration 006, sensitive content (content_html, download_url)
+      // lives in lesson_content with strict RLS. The lessons table itself is
+      // safe to read for any published-course visitor.
       const { data: lessons } = await supabase
         .from("lessons")
         .select("*")
@@ -101,6 +123,19 @@ export default async function CourseSalesPage({
     if (isAdmin) {
       isEnrolled = true; // Admins have free access to all courses
     } else {
+      // Recovery path: if the user has any pending payment for this course,
+      // verify it via the PayPlus API and grant enrollment if approved. This
+      // catches cases where the webhook never fired or arrived out of order.
+      try {
+        await verifyPendingPaymentsForUser(
+          createAdminClient(),
+          user.id,
+          course.id
+        );
+      } catch (e) {
+        console.error("payment recovery failed:", e);
+      }
+
       const { data: enrollment } = await supabase
         .from("enrollments")
         .select("id")

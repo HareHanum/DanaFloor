@@ -14,8 +14,14 @@ export default function PurchaseButton({
 }: PurchaseButtonProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [accepted, setAccepted] = useState(false);
 
   async function handlePurchase() {
+    if (!accepted) {
+      setError("יש לאשר את תנאי השימוש ומדיניות הביטולים לפני הרכישה");
+      return;
+    }
+
     setLoading(true);
     setError("");
 
@@ -38,7 +44,6 @@ export default function PurchaseButton({
         return;
       }
 
-      // Redirect to PayPlus payment page
       window.location.href = data.paymentUrl;
     } catch {
       setError("שגיאה בחיבור לשרת. נסה שנית.");
@@ -48,9 +53,51 @@ export default function PurchaseButton({
 
   return (
     <div>
+      <label className="flex items-start gap-2 mb-3 cursor-pointer text-xs text-[var(--text-secondary)]">
+        <input
+          type="checkbox"
+          checked={accepted}
+          onChange={(e) => {
+            setAccepted(e.target.checked);
+            if (e.target.checked) setError("");
+          }}
+          className="mt-0.5 w-4 h-4 shrink-0 accent-[var(--accent)] cursor-pointer"
+        />
+        <span className="leading-snug">
+          קראתי ואני מסכים/ה ל
+          <a
+            href="/terms"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--accent)] hover:underline"
+          >
+            תקנון האתר
+          </a>
+          , ל
+          <a
+            href="/privacy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--accent)] hover:underline"
+          >
+            מדיניות הפרטיות
+          </a>
+          {" "}ול
+          <a
+            href="/refund"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[var(--accent)] hover:underline"
+          >
+            מדיניות הביטולים
+          </a>
+          . אני מבין/ה כי לאחר השלמת הרכישה לא ניתן יהיה לבטל את העסקה ולקבל החזר, למעט במקרים המפורטים במדיניות.
+        </span>
+      </label>
+
       <button
         onClick={handlePurchase}
-        disabled={loading}
+        disabled={loading || !accepted}
         className="w-full btn btn-accent py-3 text-base disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {loading ? (

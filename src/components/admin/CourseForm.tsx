@@ -181,37 +181,18 @@ export default function CourseForm({ course, formId }: CourseFormProps) {
         onRemove={() => setThumbnailUrl("")}
       />
 
-      <div className="grid grid-cols-2 gap-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">מחיר (₪)</label>
-          <input
-            type="number"
-            min="0"
-            step="1"
-            value={priceIls}
-            onChange={(e) => setPriceIls(e.target.value)}
-            className="w-full px-4 py-3 border border-[var(--border-light)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent)] text-base"
-            dir="ltr"
-            placeholder="0"
-          />
-        </div>
-        <div className="flex items-end pb-1">
-          <label className="flex items-center gap-3 cursor-pointer">
-            <div
-              onClick={() => setCommentsEnabled(!commentsEnabled)}
-              className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
-                commentsEnabled ? "bg-[var(--accent)]" : "bg-gray-300"
-              }`}
-            >
-              <div
-                className={`w-5 h-5 bg-white rounded-full shadow absolute top-0.5 transition-all ${
-                  commentsEnabled ? "left-0.5" : "left-[22px]"
-                }`}
-              />
-            </div>
-            <span className="text-sm font-medium">אפשר תגובות</span>
-          </label>
-        </div>
+      <div>
+        <label className="block text-sm font-medium mb-1">מחיר (₪)</label>
+        <input
+          type="number"
+          min="0"
+          step="1"
+          value={priceIls}
+          onChange={(e) => setPriceIls(e.target.value)}
+          className="w-full px-4 py-3 border border-[var(--border-light)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent)] text-base"
+          dir="ltr"
+          placeholder="0"
+        />
       </div>
 
       <div>
@@ -227,6 +208,24 @@ export default function CourseForm({ course, formId }: CourseFormProps) {
           <option value="published">מפורסם</option>
           <option value="archived">בארכיון</option>
         </select>
+      </div>
+
+      <div>
+        <label className="flex items-center gap-3 cursor-pointer">
+          <div
+            onClick={() => setCommentsEnabled(!commentsEnabled)}
+            className={`w-11 h-6 rounded-full transition-colors relative cursor-pointer ${
+              commentsEnabled ? "bg-[var(--accent)]" : "bg-gray-300"
+            }`}
+          >
+            <div
+              className={`w-5 h-5 bg-white rounded-full shadow absolute top-0.5 transition-all ${
+                commentsEnabled ? "left-0.5" : "left-[22px]"
+              }`}
+            />
+          </div>
+          <span className="text-sm font-medium">אפשר תגובות</span>
+        </label>
       </div>
 
       {!formId && (

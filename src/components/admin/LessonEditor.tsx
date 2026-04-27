@@ -23,12 +23,30 @@ export default function LessonEditor({
   const [title, setTitle] = useState(lesson.title);
   const [description, setDescription] = useState(lesson.description ?? "");
   const [lessonType, setLessonType] = useState(lesson.lesson_type);
-  const [contentHtml, setContentHtml] = useState(lesson.content_html ?? "");
+  const [contentHtml, setContentHtml] = useState("");
   // download type removed — attachments handle files
   const [isPreview, setIsPreview] = useState(lesson.is_preview);
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const supabase = createClient();
+
+  // Fetch lesson_content (text body) on mount — admins have RLS access.
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      const { data } = await supabase
+        .from("lesson_content")
+        .select("content_html")
+        .eq("lesson_id", lesson.id)
+        .maybeSingle();
+      if (!cancelled && data?.content_html) {
+        setContentHtml(data.content_html);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [lesson.id, supabase]);
 
   type SaveOverrides = Partial<{
     title: string;
@@ -49,12 +67,11 @@ export default function LessonEditor({
       const nextContentHtml = overrides.contentHtml ?? contentHtml;
       const nextIsPreview = overrides.isPreview ?? isPreview;
 
+      // Lesson metadata in `lessons`
       const updates = {
         title: nextTitle.trim() || lesson.title,
         description: nextDescription.trim() || null,
         lesson_type: nextLessonType,
-        content_html:
-          nextLessonType === "text" ? nextContentHtml : lesson.content_html,
         is_preview: nextIsPreview,
       };
 
@@ -64,6 +81,17 @@ export default function LessonEditor({
         .eq("id", lesson.id)
         .select()
         .single();
+
+      // Sensitive content goes in `lesson_content` (separate table, strict RLS)
+      if (nextLessonType === "text") {
+        await supabase.from("lesson_content").upsert(
+          {
+            lesson_id: lesson.id,
+            content_html: nextContentHtml || null,
+          },
+          { onConflict: "lesson_id" }
+        );
+      }
 
       setSaving(false);
       setSaved(true);

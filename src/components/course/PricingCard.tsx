@@ -36,12 +36,6 @@ export default function PricingCard({
           <Check size={16} className="text-green-500 shrink-0" />
           {totalLessons} שיעורים
         </li>
-        {course.payment_type === "one_time" && (
-          <li className="flex items-center gap-2 text-sm text-[var(--text-primary)]">
-            <Check size={16} className="text-green-500 shrink-0" />
-            גישה לכל החיים
-          </li>
-        )}
         <li className="flex items-center gap-2 text-sm text-[var(--text-primary)]">
           <Check size={16} className="text-green-500 shrink-0" />
           צפייה בכל מכשיר

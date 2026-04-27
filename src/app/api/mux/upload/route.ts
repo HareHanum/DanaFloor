@@ -1,8 +1,12 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { getMuxClient } from "@/lib/mux/client";
+import { assertSameOrigin } from "@/lib/security/origin";
 
 export async function POST(request: Request) {
+  const originError = assertSameOrigin(request);
+  if (originError) return originError;
+
   const supabase = await createClient();
   const {
     data: { user },
@@ -12,7 +16,6 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
-  // Verify admin
   const { data: profile } = await supabase
     .from("profiles")
     .select("role")
@@ -32,11 +35,20 @@ export async function POST(request: Request) {
     );
   }
 
+  // Fail closed if app URL isn't configured — would otherwise allow a wide
+  // CORS origin in production.
+  const corsOrigin = process.env.NEXT_PUBLIC_APP_URL;
+  if (!corsOrigin) {
+    return NextResponse.json(
+      { error: "Server misconfiguration: NEXT_PUBLIC_APP_URL not set" },
+      { status: 500 }
+    );
+  }
+
   const mux = getMuxClient();
 
-  // Create a direct upload URL
   const upload = await mux.video.uploads.create({
-    cors_origin: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+    cors_origin: corsOrigin,
     new_asset_settings: {
       playback_policy: ["signed"],
       encoding_tier: "baseline",

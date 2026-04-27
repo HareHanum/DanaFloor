@@ -1,173 +1,114 @@
 import { NextResponse } from "next/server";
 import { createAdminClient } from "@/lib/supabase/admin";
-import { Resend } from "resend";
+import { verifyAndGrantPaymentByPageUid } from "@/lib/payplus/verify";
+
+// PayPlus IPN. The incoming payload is UNTRUSTED — anyone could hit this URL.
+// We use it only as a hint ("a payment may have completed for this page UID");
+// the real trust check is made by calling PayPlus's authenticated API in the
+// verify helper. Forging this webhook just causes us to re-verify a real
+// payment, which is harmless.
+//
+// PayPlus is inconsistent about delivery method depending on the dashboard
+// setting (get/post) and event type. We accept both POST (body or form) and
+// GET (query string) and look up the page_request_uid from any of them.
 
 export async function POST(request: Request) {
-  const body = await request.text();
+  const event = await readBody(request);
+  return handle(event);
+}
 
-  // PayPlus sends webhook data as JSON
-  let event: Record<string, unknown>;
+export async function GET(request: Request) {
+  const url = new URL(request.url);
+  const event: Record<string, unknown> = {};
+  url.searchParams.forEach((v, k) => {
+    event[k] = v;
+  });
+  return handle(event);
+}
+
+async function readBody(request: Request): Promise<Record<string, unknown>> {
+  const contentType = request.headers.get("content-type") || "";
   try {
-    event = JSON.parse(body);
+    if (contentType.includes("application/json")) {
+      return (await request.json()) as Record<string, unknown>;
+    }
+    if (contentType.includes("application/x-www-form-urlencoded")) {
+      const form = await request.formData();
+      const out: Record<string, unknown> = {};
+      form.forEach((v, k) => {
+        out[k] = typeof v === "string" ? v : "";
+      });
+      return out;
+    }
+    // Fallback: try JSON on raw text
+    const text = await request.text();
+    if (!text) return {};
+    try {
+      return JSON.parse(text);
+    } catch {
+      // Last-ditch: parse as querystring
+      const out: Record<string, unknown> = {};
+      new URLSearchParams(text).forEach((v, k) => {
+        out[k] = v;
+      });
+      return out;
+    }
   } catch {
-    return NextResponse.json({ error: "Invalid JSON" }, { status: 400 });
+    return {};
   }
+}
 
-  const supabase = createAdminClient();
-  const transaction = event.transaction as Record<string, unknown> | undefined;
-
-  if (!transaction) {
-    return NextResponse.json({ error: "No transaction data" }, { status: 400 });
-  }
-
-  const statusCode = transaction.status_code as string;
-  const transactionUid = transaction.uid as string;
-  const moreInfoStr = (event.more_info as string) || "{}";
-
-  let metadata: { user_id?: string; course_id?: string; payment_type?: string };
-  try {
-    metadata = JSON.parse(moreInfoStr);
-  } catch {
-    metadata = {};
-  }
-
-  const { user_id, course_id, payment_type } = metadata;
-
-  if (!user_id || !course_id) {
-    console.error("PayPlus webhook: missing user_id or course_id in more_info");
+async function handle(event: Record<string, unknown>) {
+  const pageRequestUid = extractPageRequestUid(event);
+  if (!pageRequestUid) {
+    console.warn("PayPlus webhook: no page_request_uid in payload", event);
     return NextResponse.json({ received: true });
   }
 
-  // Successful payment
-  if (statusCode === "000") {
-    // Update payment record
-    await supabase
-      .from("payments")
-      .update({
-        status: "completed",
-        payplus_transaction_id: transactionUid,
-        payment_method: (transaction.type as string) || "credit_card",
-      })
-      .eq("user_id", user_id)
-      .eq("course_id", course_id)
-      .eq("status", "pending");
-
-    // Create or update enrollment
-    await supabase.from("enrollments").upsert(
-      {
-        user_id,
-        course_id,
-        status: "active",
-        payment_type: payment_type || "one_time",
-        payplus_transaction_id: transactionUid,
-        payplus_subscription_id:
-          (transaction.recurring_id as string) ?? null,
-        expires_at:
-          payment_type === "subscription"
-            ? new Date(
-                Date.now() + 30 * 24 * 60 * 60 * 1000
-              ).toISOString()
-            : null,
-      },
-      { onConflict: "user_id,course_id" }
-    );
-
-    // Send welcome email
-    try {
-      const { data: user } = await supabase.auth.admin.getUserById(user_id);
-      const { data: course } = await supabase
-        .from("courses")
-        .select("title, slug")
-        .eq("id", course_id)
-        .single();
-
-      if (user?.user?.email && course && process.env.RESEND_API_KEY) {
-        const resend = new Resend(process.env.RESEND_API_KEY);
-        const appUrl =
-          process.env.NEXT_PUBLIC_APP_URL || "https://floor-dana.com";
-
-        await resend.emails.send({
-          from: "FLOOR D.a.N.A <courses@mail.floor-dana.com>",
-          to: user.user.email,
-          subject: `ברוכים הבאים לקורס: ${course.title}`,
-          html: `
-            <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
-              <div style="background: #1a1a1a; padding: 20px; border-radius: 8px 8px 0 0;">
-                <h1 style="color: #f69a62; margin: 0; font-size: 24px;">FLOOR D.a.N.A</h1>
-              </div>
-              <div style="background: #f5f5f5; padding: 30px; border-radius: 0 0 8px 8px;">
-                <h2 style="color: #1a1a1a; margin-top: 0;">הרכישה בוצעה בהצלחה! 🎉</h2>
-                <p>שלום, תודה שרכשת את הקורס <strong>${course.title}</strong>.</p>
-                <p>אתה יכול להתחיל ללמוד כבר עכשיו:</p>
-                <a href="${appUrl}/courses/${course.slug}"
-                   style="display: inline-block; background: #f69a62; color: white; padding: 12px 24px; border-radius: 4px; text-decoration: none; font-weight: bold;">
-                  התחל ללמוד
-                </a>
-                <p style="color: #666; font-size: 14px; margin-top: 20px;">
-                  אם יש לך שאלות, אל תהסס ליצור קשר.
-                </p>
-              </div>
-            </div>
-          `,
-        });
-      }
-    } catch (emailError) {
-      console.error("Failed to send welcome email:", emailError);
-    }
-
-    console.log(
-      `PayPlus: Payment successful for user=${user_id}, course=${course_id}`
-    );
-  }
-
-  // Failed payment
-  if (statusCode !== "000" && statusCode) {
-    await supabase
-      .from("payments")
-      .update({ status: "failed" })
-      .eq("user_id", user_id)
-      .eq("course_id", course_id)
-      .eq("status", "pending");
-
-    console.log(
-      `PayPlus: Payment failed for user=${user_id}, course=${course_id}, status=${statusCode}`
-    );
-  }
-
-  // Subscription cancellation
-  if (event.type === "recurring_cancelled" || event.type === "recurring_failed") {
-    const recurringId = transaction.recurring_id as string;
-    if (recurringId) {
+  // Subscription lifecycle events (cancel/fail) — separate path; no pending
+  // payment to grant.
+  const eventType = (event.type as string) || "";
+  if (
+    eventType === "recurring_cancelled" ||
+    eventType === "recurring_failed"
+  ) {
+    const supabase = createAdminClient();
+    const transaction = event.transaction as { recurring_id?: string } | undefined;
+    if (transaction?.recurring_id) {
       await supabase
         .from("enrollments")
         .update({ status: "expired" })
-        .eq("payplus_subscription_id", recurringId);
-
-      console.log(
-        `PayPlus: Subscription ${event.type} for recurring_id=${recurringId}`
-      );
+        .eq("payplus_subscription_id", transaction.recurring_id);
     }
+    return NextResponse.json({ received: true });
   }
 
-  // Subscription renewal
-  if (event.type === "recurring_success" && statusCode === "000") {
-    const recurringId = transaction.recurring_id as string;
-    if (recurringId) {
-      await supabase
-        .from("enrollments")
-        .update({
-          status: "active",
-          expires_at: new Date(
-            Date.now() + 30 * 24 * 60 * 60 * 1000
-          ).toISOString(),
-        })
-        .eq("payplus_subscription_id", recurringId);
+  const supabase = createAdminClient();
+  const result = await verifyAndGrantPaymentByPageUid(supabase, pageRequestUid);
 
-      console.log(
-        `PayPlus: Subscription renewed for recurring_id=${recurringId}`
-      );
-    }
+  if (!result.ok) {
+    console.error("PayPlus webhook verification failed:", result.reason);
   }
 
   return NextResponse.json({ received: true });
+}
+
+function extractPageRequestUid(event: Record<string, unknown>): string | null {
+  // PayPlus sends the page UID under different keys depending on event /
+  // version / delivery method.
+  const candidates: unknown[] = [
+    event.page_request_uid,
+    event.payment_request_uid,
+    event.payment_page_request_uid,
+    (event.data as Record<string, unknown> | undefined)?.page_request_uid,
+    (event.data as Record<string, unknown> | undefined)?.payment_page_request_uid,
+    (event.transaction as Record<string, unknown> | undefined)
+      ?.payment_page_request_uid,
+    (event.transaction as Record<string, unknown> | undefined)
+      ?.page_request_uid,
+  ];
+  for (const c of candidates) {
+    if (typeof c === "string" && c.length > 0) return c;
+  }
+  return null;
 }

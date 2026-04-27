@@ -37,7 +37,9 @@
       "WebSearch",
       "Bash(npx tsc *)",
       "Bash(npm list *)",
-      "Bash(node -e \" const { createServerClient } = require\\('@supabase/ssr'\\); // Just print the type expectations by looking at the package \")"
+      "Bash(node -e \" const { createServerClient } = require\\('@supabase/ssr'\\); // Just print the type expectations by looking at the package \")",
+      "WebFetch(domain:docs.payplus.co.il)",
+      "Bash(git -C /mnt/c/Users/harel/Desktop/Projects/DanaFloor ls-files)"
     ]
   }
 }

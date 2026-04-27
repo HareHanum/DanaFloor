@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { readFileSync } from "fs";
 import { join } from "path";
+import { escapeHtml } from "@/lib/security/escape";
+import { rateLimitOr429 } from "@/lib/security/rate-limit";
 
 interface GuideFormData {
   firstName: string;
@@ -13,6 +15,9 @@ interface GuideFormData {
 }
 
 export async function POST(request: NextRequest) {
+  const rl = await rateLimitOr429(request, "war-guide", 5, 60 * 10);
+  if (rl) return rl;
+
   try {
     const data: GuideFormData = await request.json();
 
@@ -131,11 +136,21 @@ export async function POST(request: NextRequest) {
         }
       }
 
+      const safe = {
+        firstName: escapeHtml(leadData.firstName),
+        businessName: escapeHtml(leadData.businessName || "לא צוין"),
+        role: escapeHtml(leadData.role || "לא צוין"),
+        email: escapeHtml(leadData.email),
+        phone: escapeHtml(leadData.phone),
+        emailAttr: encodeURIComponent(data.email),
+        phoneAttr: encodeURIComponent(data.phone),
+        marketingConsent: escapeHtml(leadData.marketingConsent),
+      };
       // Send notification email to Dana
       const danaEmailResult = await resend.emails.send({
         from: "FLOOR D.a.N.A <contact@mail.floor-dana.com>",
         to: "dana@floor-dana.com",
-        subject: `הורדת מדריך ניהול בזמן מלחמה - ${data.firstName}${data.businessName ? ` מ${data.businessName}` : ""}`,
+        subject: `הורדת מדריך ניהול בזמן מלחמה - ${safe.firstName}${data.businessName ? ` מ${escapeHtml(data.businessName)}` : ""}`,
         html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background: #1a1a1a; padding: 20px; border-radius: 8px 8px 0 0;">
@@ -146,27 +161,27 @@ export async function POST(request: NextRequest) {
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold; width: 120px;">שם פרטי:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.firstName}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${safe.firstName}</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">שם העסק:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.businessName || "לא צוין"}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${safe.businessName}</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">תפקיד:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.role || "לא צוין"}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${safe.role}</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">אימייל:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;"><a href="mailto:${data.email}" style="color: #f69a62;">${leadData.email}</a></td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;"><a href="mailto:${safe.emailAttr}" style="color: #f69a62;">${safe.email}</a></td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">טלפון:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;"><a href="tel:${data.phone}" style="color: #f69a62;">${leadData.phone}</a></td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;"><a href="tel:${safe.phoneAttr}" style="color: #f69a62;">${safe.phone}</a></td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; font-weight: bold;">אישור דיוור:</td>
-                  <td style="padding: 10px 0;">${leadData.marketingConsent}</td>
+                  <td style="padding: 10px 0;">${safe.marketingConsent}</td>
                 </tr>
               </table>
               <p style="color: #666; font-size: 12px; margin-top: 20px;">נשלח בתאריך: ${new Date().toLocaleDateString("he-IL")} בשעה ${new Date().toLocaleTimeString("he-IL")}</p>

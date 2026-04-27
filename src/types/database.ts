@@ -144,8 +144,6 @@ export interface Database {
           mux_playback_id: string | null;
           mux_asset_id: string | null;
           duration_seconds: number | null;
-          content_html: string | null;
-          download_url: string | null;
           sort_order: number;
           is_preview: boolean;
           created_at: string;
@@ -160,8 +158,6 @@ export interface Database {
           mux_playback_id?: string | null;
           mux_asset_id?: string | null;
           duration_seconds?: number | null;
-          content_html?: string | null;
-          download_url?: string | null;
           sort_order?: number;
           is_preview?: boolean;
           created_at?: string;
@@ -176,8 +172,6 @@ export interface Database {
           mux_playback_id?: string | null;
           mux_asset_id?: string | null;
           duration_seconds?: number | null;
-          content_html?: string | null;
-          download_url?: string | null;
           sort_order?: number;
           is_preview?: boolean;
           created_at?: string;
@@ -189,6 +183,35 @@ export interface Database {
             columns: ["module_id"];
             isOneToOne: false;
             referencedRelation: "modules";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      lesson_content: {
+        Row: {
+          lesson_id: string;
+          content_html: string | null;
+          download_url: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          lesson_id: string;
+          content_html?: string | null;
+          download_url?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          lesson_id?: string;
+          content_html?: string | null;
+          download_url?: string | null;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "lesson_content_lesson_id_fkey";
+            columns: ["lesson_id"];
+            isOneToOne: true;
+            referencedRelation: "lessons";
             referencedColumns: ["id"];
           },
         ];
@@ -432,6 +455,8 @@ export type Profile = Database["public"]["Tables"]["profiles"]["Row"];
 export type Course = Database["public"]["Tables"]["courses"]["Row"];
 export type Module = Database["public"]["Tables"]["modules"]["Row"];
 export type Lesson = Database["public"]["Tables"]["lessons"]["Row"];
+export type LessonContent =
+  Database["public"]["Tables"]["lesson_content"]["Row"];
 export type Enrollment = Database["public"]["Tables"]["enrollments"]["Row"];
 export type LessonProgress = Database["public"]["Tables"]["lesson_progress"]["Row"];
 export type Payment = Database["public"]["Tables"]["payments"]["Row"];

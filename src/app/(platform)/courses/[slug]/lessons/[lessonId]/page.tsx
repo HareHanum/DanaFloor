@@ -64,6 +64,16 @@ export default async function LessonPage({
     }
   }
 
+  // Now that access is verified, fetch the sensitive content (text body /
+  // download URL). RLS on lesson_content will return null for non-enrolled
+  // non-admin viewers anyway — fetching after the gate keeps the page logic
+  // tidy and avoids leaking via a row check.
+  const { data: lessonContent } = await supabase
+    .from("lesson_content")
+    .select("content_html, download_url")
+    .eq("lesson_id", lessonId)
+    .maybeSingle();
+
   // Get attachments for this lesson
   const { data: attachments } = await supabase
     .from("lesson_attachments")
@@ -149,35 +159,36 @@ export default async function LessonPage({
                 lessonId={lesson.id}
                 playbackId={lesson.mux_playback_id}
                 isPreview={lesson.is_preview}
+                viewerEmail={user?.email ?? null}
               />
             </div>
           )}
 
           {/* Text content */}
-          {lesson.lesson_type === "text" && lesson.content_html && (
+          {lesson.lesson_type === "text" && lessonContent?.content_html && (
             <div className="bg-white rounded-xl border border-[var(--border-light)] p-6 md:p-8 mb-6">
-              {lesson.content_html.includes("<") ? (
+              {lessonContent.content_html.includes("<") ? (
                 <div
                   className="prose prose-lg max-w-none"
-                  dangerouslySetInnerHTML={{ __html: lesson.content_html }}
+                  dangerouslySetInnerHTML={{ __html: lessonContent.content_html }}
                 />
               ) : (
                 <div className="text-[var(--text-primary)] leading-relaxed whitespace-pre-line">
-                  {lesson.content_html}
+                  {lessonContent.content_html}
                 </div>
               )}
             </div>
           )}
 
           {/* Download */}
-          {lesson.lesson_type === "download" && lesson.download_url && (
+          {lesson.lesson_type === "download" && lessonContent?.download_url && (
             <div className="bg-[var(--background)] rounded-lg p-6 mb-6 text-center">
               <Download
                 size={32}
                 className="text-[var(--accent)] mx-auto mb-3"
               />
               <a
-                href={lesson.download_url}
+                href={lessonContent.download_url}
                 download
                 className="btn btn-accent py-2 px-6 text-sm"
               >
@@ -202,8 +213,7 @@ export default async function LessonPage({
                   <li key={att.id}>
                     {att.attachment_type === "file" ? (
                       <a
-                        href={`${att.file_url || "#"}?download=${encodeURIComponent(att.title || att.file_name || "file")}`}
-                        download={att.title || att.file_name || "file"}
+                        href={`/api/attachments/${att.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-3 px-4 py-3 bg-white rounded-lg border border-[var(--border-light)] hover:border-[var(--accent)] transition-colors"
@@ -216,7 +226,7 @@ export default async function LessonPage({
                       </a>
                     ) : (
                       <a
-                        href={att.link_url || "#"}
+                        href={`/api/attachments/${att.id}`}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-3 px-4 py-3 bg-white rounded-lg border border-[var(--border-light)] hover:border-[var(--accent)] transition-colors"

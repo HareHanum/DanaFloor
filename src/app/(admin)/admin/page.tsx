@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { BookOpen, Users, CreditCard, TrendingUp } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function AdminDashboard() {
   const supabase = await createClient();
 
@@ -8,10 +10,9 @@ export default async function AdminDashboard() {
     { count: courseCount },
     { count: enrollmentCount },
     { count: paymentCount },
+    { data: completedPayments },
   ] = await Promise.all([
-    supabase
-      .from("courses")
-      .select("id", { count: "exact", head: true }),
+    supabase.from("courses").select("id", { count: "exact", head: true }),
     supabase
       .from("enrollments")
       .select("id", { count: "exact", head: true })
@@ -20,7 +21,15 @@ export default async function AdminDashboard() {
       .from("payments")
       .select("id", { count: "exact", head: true })
       .eq("status", "completed"),
+    supabase
+      .from("payments")
+      .select("amount_ils")
+      .eq("status", "completed"),
   ]);
+
+  const totalRevenueAgorot =
+    completedPayments?.reduce((sum, p) => sum + (p.amount_ils ?? 0), 0) ?? 0;
+  const totalRevenueShekels = totalRevenueAgorot / 100;
 
   const stats = [
     {
@@ -45,8 +54,8 @@ export default async function AdminDashboard() {
       bg: "bg-purple-50",
     },
     {
-      label: "הכנסות (בקרוב)",
-      value: "—",
+      label: "הכנסות",
+      value: `₪${totalRevenueShekels.toLocaleString("he-IL", { minimumFractionDigits: 0, maximumFractionDigits: 0 })}`,
       icon: TrendingUp,
       color: "text-[var(--accent)]",
       bg: "bg-[var(--accent)]/10",

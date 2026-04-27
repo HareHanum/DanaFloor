@@ -1,4 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
+import { verifyPendingPaymentsForUser } from "@/lib/payplus/verify";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { BookOpen, ArrowLeft, GraduationCap } from "lucide-react";
@@ -23,6 +25,16 @@ export default async function MyCoursesPage() {
     .eq("id", user.id)
     .single();
   const isAdmin = userProfile?.role === "admin";
+
+  // Recovery: verify any pending payments before reading enrollments, so a
+  // payment that completed without a webhook still grants access on next visit.
+  if (!isAdmin) {
+    try {
+      await verifyPendingPaymentsForUser(createAdminClient(), user.id);
+    } catch (e) {
+      console.error("payment recovery failed:", e);
+    }
+  }
 
   // Admins see all published courses, students see their enrollments
   let enrollments: Array<{ id: string; course: unknown }> | null = null;

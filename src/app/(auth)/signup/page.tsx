@@ -40,14 +40,13 @@ export default function SignupPage() {
     });
 
     if (error) {
+      // Don't differentiate between "already registered" and other errors —
+      // that would let an attacker enumerate which emails have accounts.
+      // Server-side details still go to logs for our own debugging.
       console.error("Signup error:", error);
-      const msg = error.message || "";
-      const status = (error as { status?: number }).status;
-      if (msg.includes("already registered") || msg.includes("already been registered") || msg.includes("User already registered")) {
-        setError("אימייל זה כבר רשום. נסה להתחבר.");
-      } else {
-        setError(`שגיאה בהרשמה${status ? ` (${status})` : ""}: ${msg}`);
-      }
+      setError(
+        "ההרשמה נכשלה. ייתכן שהאימייל כבר רשום או שהפרטים אינם תקינים. אם כבר יש לך חשבון, נסה להתחבר."
+      );
       setLoading(false);
       return;
     }

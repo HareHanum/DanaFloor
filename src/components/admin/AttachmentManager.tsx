@@ -167,8 +167,9 @@ export default function AttachmentManager({
               )}
               {att.attachment_type === "file" && att.file_url && (
                 <a
-                  href={`${att.file_url}?download=`}
-                  download={att.title || att.file_name || "file"}
+                  href={`/api/attachments/${att.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-[var(--accent)] hover:underline"
                   title="הורד"
                 >

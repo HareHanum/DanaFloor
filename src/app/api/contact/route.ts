@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { escapeHtml } from "@/lib/security/escape";
+import { rateLimitOr429 } from "@/lib/security/rate-limit";
 
 interface ContactFormData {
   name: string;
@@ -30,6 +32,9 @@ const serviceLabels: Record<string, string> = {
 };
 
 export async function POST(request: NextRequest) {
+  const rl = await rateLimitOr429(request, "contact", 5, 60 * 10);
+  if (rl) return rl;
+
   try {
     const data: ContactFormData = await request.json();
 
@@ -80,10 +85,21 @@ export async function POST(request: NextRequest) {
         throw new Error("RESEND_API_KEY not configured");
       }
       const resend = new Resend(process.env.RESEND_API_KEY);
+      const safe = {
+        name: escapeHtml(leadData.name),
+        phone: escapeHtml(leadData.phone),
+        phoneAttr: encodeURIComponent(data.phone),
+        email: escapeHtml(leadData.email),
+        emailAttr: data.email ? encodeURIComponent(data.email) : "",
+        businessType: escapeHtml(leadData.businessType),
+        serviceInterest: escapeHtml(leadData.serviceInterest),
+        message: escapeHtml(leadData.message).replace(/\n/g, "<br>"),
+        marketingConsent: escapeHtml(leadData.marketingConsent),
+      };
       const emailResult = await resend.emails.send({
         from: "FLOOR D.a.N.A <contact@mail.floor-dana.com>",
         to: "dana@floor-dana.com",
-        subject: `פנייה חדשה מ${data.name}`,
+        subject: `פנייה חדשה מ${safe.name}`,
         html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background: #1a1a1a; padding: 20px; border-radius: 8px 8px 0 0;">
@@ -94,31 +110,31 @@ export async function POST(request: NextRequest) {
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold; width: 120px;">שם:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.name}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${safe.name}</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">טלפון:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;"><a href="tel:${data.phone}" style="color: #f69a62;">${leadData.phone}</a></td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;"><a href="tel:${safe.phoneAttr}" style="color: #f69a62;">${safe.phone}</a></td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">אימייל:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${data.email ? `<a href="mailto:${data.email}" style="color: #f69a62;">${leadData.email}</a>` : leadData.email}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${data.email ? `<a href="mailto:${safe.emailAttr}" style="color: #f69a62;">${safe.email}</a>` : safe.email}</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">סוג עסק:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.businessType}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${safe.businessType}</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold;">תחום עניין:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.serviceInterest}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${safe.serviceInterest}</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold; vertical-align: top;">הודעה:</td>
-                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${leadData.message}</td>
+                  <td style="padding: 10px 0; border-bottom: 1px solid #ddd;">${safe.message}</td>
                 </tr>
                 <tr>
                   <td style="padding: 10px 0; font-weight: bold;">אישור דיוור:</td>
-                  <td style="padding: 10px 0;">${leadData.marketingConsent}</td>
+                  <td style="padding: 10px 0;">${safe.marketingConsent}</td>
                 </tr>
               </table>
               <p style="color: #666; font-size: 12px; margin-top: 20px;">נשלח בתאריך: ${new Date().toLocaleDateString("he-IL")} בשעה ${new Date().toLocaleTimeString("he-IL")}</p>

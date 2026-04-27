@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
+import { rateLimitOr429 } from "@/lib/security/rate-limit";
 
 export async function POST(request: NextRequest) {
+  const rl = await rateLimitOr429(request, "unsubscribe", 10, 60 * 10);
+  if (rl) return rl;
+
   try {
     const { email } = await request.json();
 
