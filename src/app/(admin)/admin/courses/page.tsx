@@ -1,6 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import Link from "next/link";
-import { Plus, Pencil, Eye, EyeOff, Archive } from "lucide-react";
+import { Plus, Pencil, Eye, EyeOff, Archive, Users } from "lucide-react";
+import ImportCourseButton from "@/components/admin/ImportCourseButton";
+
+export const dynamic = "force-dynamic";
 
 const statusLabels: Record<string, { label: string; color: string }> = {
   draft: { label: "טיוטה", color: "bg-gray-100 text-gray-600" },
@@ -23,14 +26,32 @@ export default async function AdminCoursesPage() {
     .order("sort_order")
     .order("created_at", { ascending: false });
 
+  // Per-course enrollment counts (used for the locked-delete badge)
+  const enrollmentCounts: Record<string, number> = {};
+  if (courses && courses.length > 0) {
+    const { data: rows } = await supabase
+      .from("enrollments")
+      .select("course_id")
+      .in(
+        "course_id",
+        courses.map((c) => c.id)
+      );
+    for (const r of rows ?? []) {
+      enrollmentCounts[r.course_id] = (enrollmentCounts[r.course_id] ?? 0) + 1;
+    }
+  }
+
   return (
     <div>
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
         <h1 className="text-2xl font-bold">קורסים</h1>
-        <Link href="/admin/courses/new" className="btn btn-accent text-sm py-2">
-          <Plus size={18} className="ml-1" />
-          קורס חדש
-        </Link>
+        <div className="flex items-center gap-2">
+          <ImportCourseButton />
+          <Link href="/admin/courses/new" className="btn btn-accent text-sm py-2">
+            <Plus size={18} className="ml-1" />
+            קורס חדש
+          </Link>
+        </div>
       </div>
 
       {!courses || courses.length === 0 ? (
@@ -62,12 +83,16 @@ export default async function AdminCoursesPage() {
                 <th className="text-right px-5 py-3 text-sm font-medium text-[var(--text-secondary)]">
                   סוג
                 </th>
+                <th className="text-right px-5 py-3 text-sm font-medium text-[var(--text-secondary)]">
+                  תלמידים
+                </th>
                 <th className="px-5 py-3"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[var(--border-light)]">
               {courses.map((course) => {
                 const status = statusLabels[course.status] ?? statusLabels.draft;
+                const studentCount = enrollmentCounts[course.id] ?? 0;
                 return (
                   <tr key={course.id} className="hover:bg-[var(--background)] transition-colors">
                     <td className="px-5 py-4">
@@ -95,6 +120,16 @@ export default async function AdminCoursesPage() {
                       {course.payment_type === "subscription"
                         ? "מנוי חודשי"
                         : "תשלום חד-פעמי"}
+                    </td>
+                    <td className="px-5 py-4 text-sm">
+                      {studentCount > 0 ? (
+                        <span className="inline-flex items-center gap-1 text-[var(--text-primary)]">
+                          <Users size={14} className="text-[var(--accent)]" />
+                          {studentCount}
+                        </span>
+                      ) : (
+                        <span className="text-[var(--text-muted)]">—</span>
+                      )}
                     </td>
                     <td className="px-5 py-4">
                       <Link

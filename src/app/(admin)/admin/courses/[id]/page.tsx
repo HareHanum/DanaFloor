@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import CourseForm from "@/components/admin/CourseForm";
 import ModuleManager from "@/components/admin/ModuleManager";
 import Link from "next/link";
-import { ArrowRight, Save } from "lucide-react";
+import { ArrowRight, Save, Download } from "lucide-react";
 import DeleteCourseButton from "@/components/admin/DeleteCourseButton";
 import type { Module, Lesson } from "@/types/database";
 
@@ -26,6 +26,12 @@ export default async function EditCoursePage({
     .single();
 
   if (!course) notFound();
+
+  // How many students are enrolled — used to lock the delete button.
+  const { count: enrollmentCount } = await supabase
+    .from("enrollments")
+    .select("id", { count: "exact", head: true })
+    .eq("course_id", id);
 
   // Get modules with lessons
   const { data: modules } = await supabase
@@ -62,7 +68,19 @@ export default async function EditCoursePage({
             <h1 className="text-xl font-bold">{course.title}</h1>
           </div>
           <div className="flex items-center gap-3">
-            <DeleteCourseButton courseId={course.id} courseTitle={course.title} />
+            <a
+              href={`/api/admin/courses/${course.id}/export`}
+              className="flex items-center gap-1.5 px-3 py-2 text-sm text-[var(--text-secondary)] border border-[var(--border-light)] rounded-lg hover:bg-[var(--background)] transition-colors"
+              title="הורד JSON של הקורס לגיבוי"
+            >
+              <Download size={14} />
+              ייצוא JSON
+            </a>
+            <DeleteCourseButton
+              courseId={course.id}
+              courseTitle={course.title}
+              enrollmentCount={enrollmentCount ?? 0}
+            />
             <button
               type="submit"
               form="course-form"
