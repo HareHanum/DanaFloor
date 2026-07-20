@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import CourseForm from "@/components/admin/CourseForm";
 import ModuleManager from "@/components/admin/ModuleManager";
 import Link from "next/link";
-import { ArrowRight, Save, Download } from "lucide-react";
+import { ArrowRight, Save, Download, Eye } from "lucide-react";
 import DeleteCourseButton from "@/components/admin/DeleteCourseButton";
 import type { Module, Lesson } from "@/types/database";
 
@@ -68,6 +68,34 @@ export default async function EditCoursePage({
             <h1 className="text-xl font-bold">{course.title}</h1>
           </div>
           <div className="flex items-center gap-3">
+            {/* Preview the course exactly as a customer sees it. Works while the
+                course is still a draft — RLS lets admins load unpublished
+                courses, and a PreviewBadge marks the pages as a preview. */}
+            <div className="flex items-center gap-1.5">
+              <span className="hidden lg:inline text-sm text-[var(--text-muted)]">
+                תצוגת לקוח:
+              </span>
+              <a
+                href={`/courses/${course.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-2 text-sm text-[var(--text-secondary)] border border-[var(--border-light)] rounded-lg hover:bg-[var(--background)] transition-colors"
+                title="צפה בחווית הלמידה כפי שהלקוח רואה אותה"
+              >
+                <Eye size={14} />
+                חווית למידה
+              </a>
+              <a
+                href={`/catalog/${course.slug}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3 py-2 text-sm text-[var(--text-secondary)] border border-[var(--border-light)] rounded-lg hover:bg-[var(--background)] transition-colors"
+                title="צפה בדף המכירה כפי שהלקוח רואה אותו"
+              >
+                <Eye size={14} />
+                דף מכירה
+              </a>
+            </div>
             <a
               href={`/api/admin/courses/${course.id}/export`}
               className="flex items-center gap-1.5 px-3 py-2 text-sm text-[var(--text-secondary)] border border-[var(--border-light)] rounded-lg hover:bg-[var(--background)] transition-colors"

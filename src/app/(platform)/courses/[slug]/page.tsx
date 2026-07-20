@@ -10,6 +10,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import type { Module, Lesson, LessonProgress } from "@/types/database";
+import PreviewBadge from "@/components/course/PreviewBadge";
 
 interface ModuleWithLessons extends Module {
   lessons: (Lesson & { progress?: LessonProgress })[];
@@ -126,6 +127,7 @@ export default async function CourseOverviewPage({
 
   return (
     <div className="container-custom py-8">
+      {course.status !== "published" && <PreviewBadge courseId={course.id} />}
       <Link
         href="/courses"
         className="inline-flex items-center gap-1 text-sm text-[var(--text-secondary)] hover:text-[var(--accent)] mb-4 transition-colors"

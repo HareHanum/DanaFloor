@@ -6,6 +6,7 @@ import LessonSidebar from "@/components/course/LessonSidebar";
 import LessonComments from "@/components/course/LessonComments";
 import LessonFooterBar from "@/components/course/LessonFooterBar";
 import { ArrowRight, ArrowLeft, Download, FileIcon, Link2, ExternalLink, Download as DownloadIcon } from "lucide-react";
+import PreviewBadge from "@/components/course/PreviewBadge";
 
 export default async function LessonPage({
   params,
@@ -126,6 +127,7 @@ export default async function LessonPage({
 
   return (
     <div className="flex min-h-[calc(100vh-64px)]">
+      {course.status !== "published" && <PreviewBadge courseId={course.id} />}
       {/* Sidebar */}
       <LessonSidebar
         courseSlug={slug}

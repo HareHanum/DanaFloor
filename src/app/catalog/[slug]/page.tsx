@@ -9,6 +9,7 @@ import { ArrowRight, BookOpen, Clock, Award } from "lucide-react";
 import type { Metadata } from "next";
 import type { Module, Lesson } from "@/types/database";
 import PurchaseButton from "@/components/payment/PurchaseButton";
+import PreviewBadge from "@/components/course/PreviewBadge";
 import {
   verifyPendingPaymentsForUser,
   verifyAndGrantPaymentByPageUid,
@@ -27,11 +28,12 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const supabase = await createClient();
+  // No status filter: RLS returns non-published courses only to admins, so an
+  // admin previewing a draft gets the real title while customers get nothing.
   const { data: course } = await supabase
     .from("courses")
     .select("title, short_description")
     .eq("slug", slug)
-    .eq("status", "published")
     .single();
 
   if (!course) return { title: "קורס לא נמצא" };
@@ -64,11 +66,13 @@ export default async function CourseSalesPage({
     }
   }
 
+  // No status filter here: the courses RLS policy already restricts
+  // non-published rows to admins ("Admins can see all courses"), so a draft
+  // renders only for an admin preview and 404s for everyone else.
   const { data: course } = await supabase
     .from("courses")
     .select("*")
     .eq("slug", slug)
-    .eq("status", "published")
     .single();
 
   if (!course) notFound();
@@ -154,6 +158,7 @@ export default async function CourseSalesPage({
 
   return (
     <>
+      {course.status !== "published" && <PreviewBadge courseId={course.id} />}
       <Header />
       <main id="main-content">
         {/* Hero */}
