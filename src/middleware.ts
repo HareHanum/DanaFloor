@@ -9,9 +9,15 @@ export async function middleware(request: NextRequest) {
   const { user, supabaseResponse, supabase } = await updateSession(request);
   const path = request.nextUrl.pathname;
 
-  // Redirect authenticated users away from auth pages
+  // Redirect authenticated users away from auth pages — honoring ?next=/...
+  // (internal paths only) so "log in to view X" links still land on X.
   if (AUTH_ROUTES.some((route) => path.startsWith(route)) && user) {
-    return NextResponse.redirect(new URL("/courses", request.url));
+    const next = request.nextUrl.searchParams.get("next");
+    const dest =
+      next && next.startsWith("/") && !next.startsWith("//")
+        ? next
+        : "/courses";
+    return NextResponse.redirect(new URL(dest, request.url));
   }
 
   // Protect platform routes (but allow lesson pages through for previews)

@@ -35,7 +35,14 @@ export default function LoginPage() {
       return;
     }
 
-    router.push("/courses");
+    // Honor ?next=/... so flows like "log in to view this sales page" return
+    // to where the user came from. Internal paths only (no open redirect).
+    const next = new URLSearchParams(window.location.search).get("next");
+    const dest =
+      next && next.startsWith("/") && !next.startsWith("//")
+        ? next
+        : "/courses";
+    router.push(dest);
     router.refresh();
   }
 

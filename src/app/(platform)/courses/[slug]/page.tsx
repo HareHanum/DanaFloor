@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect, notFound } from "next/navigation";
+import { decodeSlug } from "@/lib/utils";
 import Link from "next/link";
 import {
   PlayCircle,
@@ -21,7 +22,8 @@ export default async function CourseOverviewPage({
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeSlug(rawSlug);
   const supabase = await createClient();
   const {
     data: { user },

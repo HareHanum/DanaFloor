@@ -3,10 +3,11 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { Header, Footer } from "@/components/layout";
 import ModuleAccordion from "@/components/course/ModuleAccordion";
 import PricingCard from "@/components/course/PricingCard";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, BookOpen, Clock, Award } from "lucide-react";
 import type { Metadata } from "next";
+import { decodeSlug } from "@/lib/utils";
 import type { Module, Lesson } from "@/types/database";
 import PurchaseButton from "@/components/payment/PurchaseButton";
 import PreviewBadge from "@/components/course/PreviewBadge";
@@ -26,7 +27,8 @@ export async function generateMetadata({
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeSlug(rawSlug);
   const supabase = await createClient();
   // No status filter: RLS returns non-published courses only to admins, so an
   // admin previewing a draft gets the real title while customers get nothing.
@@ -51,7 +53,8 @@ export default async function CourseSalesPage({
   params: Promise<{ slug: string }>;
   searchParams: Promise<{ pid?: string; payment?: string }>;
 }) {
-  const { slug } = await params;
+  const { slug: rawSlug } = await params;
+  const slug = decodeSlug(rawSlug);
   const search = await searchParams;
   const supabase = await createClient();
 
@@ -75,7 +78,26 @@ export default async function CourseSalesPage({
     .eq("slug", slug)
     .single();
 
-  if (!course) notFound();
+  if (!course) {
+    // RLS hides draft courses from non-admins. If the slug actually exists,
+    // the visitor is most likely an admin whose session expired (or who is on
+    // a different domain than the one they logged in on) — send them to login
+    // with a return path instead of a confusing 404.
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      const { data: hidden } = await createAdminClient()
+        .from("courses")
+        .select("id")
+        .eq("slug", slug)
+        .maybeSingle();
+      if (hidden) {
+        redirect(`/login?next=${encodeURIComponent(`/catalog/${slug}`)}`);
+      }
+    }
+    notFound();
+  }
 
   // Get modules with lessons
   const { data: modules } = await supabase

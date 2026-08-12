@@ -1,5 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
+import { createAdminClient } from "@/lib/supabase/admin";
 import { redirect, notFound } from "next/navigation";
+import { decodeSlug } from "@/lib/utils";
 import Link from "next/link";
 import LessonPlayer from "@/components/course/LessonPlayer";
 import LessonSidebar from "@/components/course/LessonSidebar";
@@ -13,7 +15,8 @@ export default async function LessonPage({
 }: {
   params: Promise<{ slug: string; lessonId: string }>;
 }) {
-  const { slug, lessonId } = await params;
+  const { slug: rawSlug, lessonId } = await params;
+  const slug = decodeSlug(rawSlug);
   const supabase = await createClient();
   const {
     data: { user },
@@ -26,7 +29,23 @@ export default async function LessonPage({
     .eq("slug", slug)
     .single();
 
-  if (!course) notFound();
+  if (!course) {
+    // Same as the sales page: a hidden draft + no session usually means an
+    // admin with an expired session — offer login instead of a silent 404.
+    if (!user) {
+      const { data: hidden } = await createAdminClient()
+        .from("courses")
+        .select("id")
+        .eq("slug", slug)
+        .maybeSingle();
+      if (hidden) {
+        redirect(
+          `/login?next=${encodeURIComponent(`/courses/${slug}/lessons/${lessonId}`)}`
+        );
+      }
+    }
+    notFound();
+  }
 
   // Get current lesson
   const { data: lesson } = await supabase
