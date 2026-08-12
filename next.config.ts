@@ -40,6 +40,21 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // The site is reachable on several domains, but floor-dana.com is the
+  // canonical one — it's what NEXT_PUBLIC_APP_URL, the sitemap/metadata, and
+  // the PayPlus payment callbacks all use. Auth cookies are per-domain, so a
+  // visitor split across domains gets "randomly logged out" (e.g. paying on
+  // www.dana-floor.com and returning to floor-dana.com without a session).
+  // Permanently redirect every alternate domain to the canonical host.
+  async redirects() {
+    const altHosts = ["www.dana-floor.com", "dana-floor.com"];
+    return altHosts.map((host) => ({
+      source: "/:path*",
+      has: [{ type: "host" as const, value: host }],
+      destination: "https://floor-dana.com/:path*",
+      permanent: true,
+    }));
+  },
 };
 
 export default nextConfig;
