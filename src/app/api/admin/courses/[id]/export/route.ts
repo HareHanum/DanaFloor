@@ -182,15 +182,21 @@ export async function GET(
     })),
   };
 
-  const filename = `${course.slug || "course"}-${new Date()
-    .toISOString()
-    .slice(0, 10)}.json`;
+  // HTTP header values must be ASCII — a Hebrew slug in a bare filename="…"
+  // makes the Response constructor throw (500). Send an ASCII fallback plus
+  // the RFC 5987 filename* form so browsers still save with the real name.
+  const date = new Date().toISOString().slice(0, 10);
+  const filename = `${course.slug || "course"}-${date}.json`;
+  const asciiSlug =
+    (course.slug || "").replace(/[^\x20-\x7e]/g, "").replace(/["\\;]/g, "") ||
+    "course";
+  const asciiFilename = `${asciiSlug}-${date}.json`;
 
   return new NextResponse(JSON.stringify(bundle, null, 2), {
     status: 200,
     headers: {
       "Content-Type": "application/json; charset=utf-8",
-      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Content-Disposition": `attachment; filename="${asciiFilename}"; filename*=UTF-8''${encodeURIComponent(filename)}`,
     },
   });
 }
