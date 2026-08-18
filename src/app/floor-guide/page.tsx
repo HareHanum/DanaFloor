@@ -20,7 +20,7 @@ interface FormErrors {
   phone?: string;
 }
 
-export default function WarGuidePage() {
+export default function FloorGuidePage() {
   const [formData, setFormData] = useState<FormData>({
     firstName: "",
     businessName: "",
@@ -65,7 +65,7 @@ export default function WarGuidePage() {
     setSubmitStatus("idle");
 
     try {
-      const response = await fetch("/api/war-guide", {
+      const response = await fetch("/api/floor-guide", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,10 +115,10 @@ export default function WarGuidePage() {
                 מדריך חינמי
               </span>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3">
-                ניהול מסעדה בזמן מלחמה
+                7 פרטים קטנים שמסגירים פלור שעובד קשה מדי
               </h1>
               <p className="text-2xl md:text-3xl text-white/80 leading-relaxed">
-                מדריך קצר, ממוקד ופרקטי לתקופה הזאת
+                (ולא נכון)
               </p>
             </motion.div>
           </div>
@@ -136,36 +136,48 @@ export default function WarGuidePage() {
             >
               <div className="prose prose-lg text-[var(--text-secondary)] leading-relaxed space-y-4">
                 <p className="text-3xl text-[var(--foreground)] font-medium">
-                  טוב… כולנו מבינים שהתקופה הזאת שוב קצת אחרת.
+                  תסתכלו מקרוב על הסרוויס שלכם.
                 </p>
                 <p>
-                  מסעדות עובדות אחרת.<br />
-                  הצוותים עובדים אחרת.<br />
-                  וגם האורחים שמגיעים – מגיעים בשביל רגע לנשום.
+                  קל לזהות כשהמסעדה קורסת או כשיש פיקים קיצוניים.<br />
+                  המקצועיות היא לראות את הסדקים הקטנים דווקא כשהכל נראה &ldquo;עובד&rdquo;.
                 </p>
                 <p className="text-[var(--text-primary)]">
-                  אז הכנתי לכם משהו קטן.<br />
-                  מדריך קצר מאוד לניהול מסעדה בזמן מלחמה.<br />
-                  ממש קצר… ברמה שאפשר לקרוא אותו גם בזמן שמחכים במקלט.
+                  הכנתי לכם מדריך קצר שיעזור לכם להביט בפלור שלכם<br />
+                  ולזהות את התנועות הקטנות שמוכיחות שהצוות שלכם מזיע מדי –<br />
+                  ומפסיד לכם כסף.
                 </p>
                 <p>
-                  יש שם כמה דברים באמת פשוטים שאפשר פשוט לעשות:
+                  אלה 7 הפרטים שנעבור עליהם:
                 </p>
                 <ul className="list-disc pr-6 space-y-2 text-[var(--text-primary)]">
-                  <li>איך לשמור על הצוות</li>
-                  <li>איך לעבוד עם תפריט יותר מדויק</li>
-                  <li>איך להחזיק פלור טוב גם כשהקצב משתנה</li>
+                  <li>המלצר שלא מרים עיניים</li>
+                  <li>טיולים על ריק</li>
+                  <li>כוסות ריקות שנשארות סתם על השולחן</li>
+                  <li>המלצר שמדבר עם שולחן תוך כדי הליכה</li>
+                  <li>ה&ldquo;משלחת&rdquo; לשולחן אחד</li>
+                  <li>עמדת שירות שלא מלאה</li>
+                  <li>חיוכים מאולצים בהגשה</li>
                 </ul>
                 <p className="text-[var(--text-primary)]">
-                  השארתי אותו חינמי לגמרי כי הרגשתי שזה בדיוק הזמן לשתף.
+                  על כל אחד מהם תקבלו את מה שרואים בפלור,<br />
+                  ומה זה באמת אומר על התפעול שמאחוריו.
                 </p>
                 <p>
-                  תוכלו לקבל אותו לאחר מילוי הטופס בחינם.
+                  הפרטים הקטנים האלה הם הראי של הניהול שלכם.<br />
+                  הם מוכיחים שהבעיה היא לאו דווקא במלצר &ldquo;עצלן&rdquo;,<br />
+                  אלא בסיסטם שלא מעניק לצוות שקט לעבוד נכון.
+                </p>
+                <p className="text-[var(--text-primary)]">
+                  כשהתפעול מדויק – יש זמן לראות את הכוס הריקה,<br />
+                  יש פנאי לחייך, והמכירות עולות בטבעיות.
                 </p>
                 <p>
-                  ואם אתם מרגישים שהצוות צריך רגע של רענון<br />
-                  או איזה חיזוק בתקופה הזאת –<br />
-                  אפשר גם לעשות הדרכה בזום כדי להישאר בלופ.<br />
+                  המדריך חינמי לגמרי. תוכלו לקבל אותו למייל לאחר מילוי הטופס.
+                </p>
+                <p>
+                  ואם זיהיתם את הסימנים האלה אצלכם בסרוויס –<br />
+                  נבנה לכם סיסטם שעובד.<br />
                   <a href="/contact" className="text-[var(--accent)] font-medium hover:underline">דברו איתי</a>
                 </p>
                 <p className="text-[var(--foreground)] font-medium">
@@ -212,7 +224,7 @@ export default function WarGuidePage() {
                     תודה על הפרטים. המדריך נשלח לכתובת המייל שהזנת.
                   </p>
                   <p className="text-green-600 text-sm">
-                    לא קיבלת? בדקו בתיקיית הספאם או <a href="/guides/war-management-guide.pdf" target="_blank" className="underline">לחצו כאן להורדה ישירה</a>
+                    לא קיבלת? בדקו בתיקיית הספאם או <a href="/guides/floor-signals-guide.pdf" target="_blank" className="underline">לחצו כאן להורדה ישירה</a>
                   </p>
                 </motion.div>
               ) : (

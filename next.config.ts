@@ -48,12 +48,21 @@ const nextConfig: NextConfig = {
   // Permanently redirect every alternate domain to the canonical host.
   async redirects() {
     const altHosts = ["www.dana-floor.com", "dana-floor.com"];
-    return altHosts.map((host) => ({
-      source: "/:path*",
-      has: [{ type: "host" as const, value: host }],
-      destination: "https://floor-dana.com/:path*",
-      permanent: true,
-    }));
+    return [
+      ...altHosts.map((host) => ({
+        source: "/:path*",
+        has: [{ type: "host" as const, value: host }],
+        destination: "https://floor-dana.com/:path*",
+        permanent: true,
+      })),
+      // The war-management guide was retired and replaced by the floor-signals
+      // guide. Keep old links (emails, social posts) landing somewhere useful.
+      {
+        source: "/war-guide",
+        destination: "/floor-guide",
+        permanent: true,
+      },
+    ];
   },
 };
 

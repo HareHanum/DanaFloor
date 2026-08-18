@@ -33,7 +33,7 @@ const trainingItems = [
 const navItems = [
   { href: "/", label: "בית" },
   { href: "/about", label: "אודות" },
-  { href: "/war-guide", label: "מדריך ניהול בזמן מלחמה" },
+  { href: "/floor-guide", label: "מדריך חינם" },
   { href: "/contact", label: "צור קשר" },
 ];
 
