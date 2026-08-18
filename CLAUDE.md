@@ -62,9 +62,3 @@ src/
 - **Language**: Hebrew (RTL)
 - **Tone**: Professional but approachable, field-experienced, no-nonsense
 - **Key message**: "From floor to max income" - practical, results-oriented consulting
-
-## Content Source
-
-Refer to these files for detailed page content and copy:
-- `תוכן ואיפיון ראשוני לאתר אינטרנט.pdf`
-- `דנה Floor - דיגיטל.docx`
