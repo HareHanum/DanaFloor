@@ -114,11 +114,11 @@ export default function FloorGuidePage() {
               <span className="text-[var(--accent)] font-bold mb-4 block text-[2.25rem]">
                 מדריך חינמי
               </span>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-3">
-                7 פרטים קטנים שמסגירים פלור שעובד קשה מדי
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4">
+                איפה המסעדה שלך מפסידה כסף בסרוויס?
               </h1>
-              <p className="text-2xl md:text-3xl text-white/80 leading-relaxed">
-                (ולא נכון)
+              <p className="text-xl md:text-2xl text-white/80 leading-relaxed">
+                קל לזהות כשהפלור קורס. החכמה היא לזהות את הסדקים הקטנים דווקא כשהכל נראה &ldquo;עובד&rdquo;.
               </p>
             </motion.div>
           </div>
@@ -134,56 +134,32 @@ export default function FloorGuidePage() {
               transition={{ duration: 0.6 }}
               className="max-w-3xl mx-auto"
             >
-              <div className="prose prose-lg text-[var(--text-secondary)] leading-relaxed space-y-4">
-                <p className="text-3xl text-[var(--foreground)] font-medium">
-                  תסתכלו מקרוב על הסרוויס שלכם.
+              <div className="prose prose-lg text-[var(--text-secondary)] leading-relaxed space-y-6">
+                <p className="text-xl md:text-2xl text-[var(--text-primary)]">
+                  הכנתי עבורך מדריך פרקטי קצר שיעזור לך להביט בסרוויס בעיניים חדות –
+                  ולזהות את התנועות הקטנות שמוכיחות שהצוות שלך עובד קשה מדי, מזיע, ומפספס מכירות.
                 </p>
-                <p>
-                  קל לזהות כשהמסעדה קורסת או כשיש פיקים קיצוניים.<br />
-                  המקצועיות היא לראות את הסדקים הקטנים דווקא כשהכל נראה &ldquo;עובד&rdquo;.
-                </p>
-                <p className="text-[var(--text-primary)]">
-                  הכנתי לכם מדריך קצר שיעזור לכם להביט בפלור שלכם<br />
-                  ולזהות את התנועות הקטנות שמוכיחות שהצוות שלכם מזיע מדי –<br />
-                  ומפסיד לכם כסף.
-                </p>
-                <p>
-                  אלה 7 הפרטים שנעבור עליהם:
-                </p>
-                <ul className="list-disc pr-6 space-y-2 text-[var(--text-primary)]">
-                  <li>המלצר שלא מרים עיניים</li>
-                  <li>טיולים על ריק</li>
-                  <li>כוסות ריקות שנשארות סתם על השולחן</li>
-                  <li>המלצר שמדבר עם שולחן תוך כדי הליכה</li>
-                  <li>ה&ldquo;משלחת&rdquo; לשולחן אחד</li>
-                  <li>עמדת שירות שלא מלאה</li>
-                  <li>חיוכים מאולצים בהגשה</li>
+                <h2 className="text-2xl md:text-3xl font-bold text-[var(--foreground)]">
+                  מה מגלים במדריך?
+                </h2>
+                <ul className="space-y-3 text-[var(--text-primary)] text-lg">
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-6 h-6 text-[var(--accent)] flex-shrink-0 mt-0.5" />
+                    <span>7 סימנים שקטים בפלור שמסגירים חוסר יעילות בתפעול</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-6 h-6 text-[var(--accent)] flex-shrink-0 mt-0.5" />
+                    <span>הטעות השכיחה בשירות שמקטינה את החשבון הממוצע בשולחן</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-6 h-6 text-[var(--accent)] flex-shrink-0 mt-0.5" />
+                    <span>איך מזהים עומס יתר על הצוות עוד לפני שהסרוויס קורס</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="w-6 h-6 text-[var(--accent)] flex-shrink-0 mt-0.5" />
+                    <span>צעדים מיידיים מבוססי ניסיון בשטח לייעול העבודה והגדלת ההכנסות</span>
+                  </li>
                 </ul>
-                <p className="text-[var(--text-primary)]">
-                  על כל אחד מהם תקבלו את מה שרואים בפלור,<br />
-                  ומה זה באמת אומר על התפעול שמאחוריו.
-                </p>
-                <p>
-                  הפרטים הקטנים האלה הם הראי של הניהול שלכם.<br />
-                  הם מוכיחים שהבעיה היא לאו דווקא במלצר &ldquo;עצלן&rdquo;,<br />
-                  אלא בסיסטם שלא מעניק לצוות שקט לעבוד נכון.
-                </p>
-                <p className="text-[var(--text-primary)]">
-                  כשהתפעול מדויק – יש זמן לראות את הכוס הריקה,<br />
-                  יש פנאי לחייך, והמכירות עולות בטבעיות.
-                </p>
-                <p>
-                  המדריך חינמי לגמרי. תוכלו לקבל אותו למייל לאחר מילוי הטופס.
-                </p>
-                <p>
-                  ואם זיהיתם את הסימנים האלה אצלכם בסרוויס –<br />
-                  נבנה לכם סיסטם שעובד.<br />
-                  <a href="/contact" className="text-[var(--accent)] font-medium hover:underline">דברו איתי</a>
-                </p>
-                <p className="text-[var(--foreground)] font-medium">
-                  באהבה,<br />
-                  דנה
-                </p>
               </div>
             </motion.div>
           </div>
@@ -200,12 +176,9 @@ export default function FloorGuidePage() {
                 transition={{ duration: 0.6 }}
                 className="text-center mb-10"
               >
-                <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-                  אני רוצה לקבל את המדריך
+                <h2 className="text-3xl md:text-4xl font-bold text-white">
+                  מזינים פרטים והמדריך בדרך אליך למייל:
                 </h2>
-                <p className="text-white/70">
-                  השאירו פרטים והמדריך יישלח אליכם מיד
-                </p>
               </motion.div>
 
               {submitStatus === "success" ? (
@@ -378,7 +351,7 @@ export default function FloorGuidePage() {
                     ) : (
                       <>
                         <Download size={18} />
-                        להורדת המדריך
+                        שלחו לי את המדריך החינמי &raquo;
                       </>
                     )}
                   </button>
