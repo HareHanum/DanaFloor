@@ -197,7 +197,7 @@ export default function FloorGuidePage() {
                     תודה על הפרטים. המדריך נשלח לכתובת המייל שהזנת.
                   </p>
                   <p className="text-green-600 text-sm">
-                    לא קיבלת? בדקו בתיקיית הספאם או <a href="/guides/floor-signals-guide.pdf" target="_blank" className="underline">לחצו כאן להורדה ישירה</a>
+                    לא קיבלת? בדקו בתיקיית הספאם או <a href="/guides/profit-mistakes-guide.pdf" target="_blank" className="underline">לחצו כאן להורדה ישירה</a>
                   </p>
                 </motion.div>
               ) : (

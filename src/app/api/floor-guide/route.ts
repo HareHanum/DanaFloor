@@ -55,11 +55,11 @@ export async function POST(request: NextRequest) {
       phone: data.phone,
       marketingConsent: data.marketingConsent ? "כן" : "לא",
       submittedAt: new Date().toISOString(),
-      source: "מדריך 7 פרטים קטנים שמסגירים פלור שעובד קשה מדי",
+      source: "מדריך 7 טעויות שפוגעות לכם ברווחים",
     };
 
     // Log the lead (for development)
-    console.log("New floor signals guide download:", leadData);
+    console.log("New profit mistakes guide download:", leadData);
 
     // Send emails
     try {
@@ -70,14 +70,14 @@ export async function POST(request: NextRequest) {
       const resend = new Resend(process.env.RESEND_API_KEY);
 
       // Read the PDF file for attachment
-      const pdfPath = join(process.cwd(), "public", "guides", "floor-signals-guide.pdf");
+      const pdfPath = join(process.cwd(), "public", "guides", "profit-mistakes-guide.pdf");
       const pdfBuffer = readFileSync(pdfPath);
 
       // Send welcome email to user with PDF attached
       const userEmailResult = await resend.emails.send({
         from: "דנה שמרוני - FLOOR D.a.N.A <contact@mail.floor-dana.com>",
         to: data.email,
-        subject: "המדריך שלך מחכה: 7 פרטים קטנים שמסגירים פלור שעובד קשה מדי",
+        subject: "המדריך שלך מחכה: 7 טעויות שפוגעות לכם ברווחים",
         html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background: #1a1a1a; padding: 20px; border-radius: 8px 8px 0 0;">
@@ -86,17 +86,17 @@ export async function POST(request: NextRequest) {
             <div style="background: #f5f5f5; padding: 30px; border-radius: 0 0 8px 8px;">
               <p style="font-size: 16px; color: #1a1a1a; margin-top: 0;">שלום,</p>
               <p style="font-size: 16px; color: #333; line-height: 1.8;">
-                המדריך &ldquo;7 פרטים קטנים שמסגירים פלור שעובד קשה מדי&rdquo; מצורף כאן למטה.
+                המדריך &ldquo;7 טעויות שפוגעות לכם ברווחים&rdquo; מצורף כאן למטה.
               </p>
               <p style="font-size: 16px; color: #333; line-height: 1.8;">
-                קל לזהות כשהמסעדה קורסת.<br>
+                קל לזהות כשהפלור קורס.<br>
                 הרבה יותר קשה לראות את הסדקים הקטנים כשהכל נראה &ldquo;עובד&rdquo;.<br>
                 בדיוק בשביל זה כתבתי אותו.
               </p>
               <p style="font-size: 16px; color: #333; line-height: 1.8;">
                 מומלץ לעבור עליו,<br>
                 ואז לצאת רגע לפלור בסרוויס הקרוב<br>
-                ולסמן כמה מהסימנים האלה אתם מזהים אצלכם.
+                ולסמן כמה מהטעויות האלה אתם מזהים אצלכם.
               </p>
               <p style="font-size: 16px; color: #333; line-height: 1.8;">
                 אם עולות שאלות<br>
@@ -114,7 +114,7 @@ export async function POST(request: NextRequest) {
         `,
         attachments: [
           {
-            filename: "7-פרטים-קטנים-שמסגירים-פלור.pdf",
+            filename: "7-טעויות-שפוגעות-לכם-ברווחים.pdf",
             content: pdfBuffer,
           },
         ],
@@ -150,14 +150,14 @@ export async function POST(request: NextRequest) {
       const danaEmailResult = await resend.emails.send({
         from: "FLOOR D.a.N.A <contact@mail.floor-dana.com>",
         to: "dana@floor-dana.com",
-        subject: `הורדת מדריך 7 פרטים קטנים - ${safe.firstName}${data.businessName ? ` מ${escapeHtml(data.businessName)}` : ""}`,
+        subject: `הורדת מדריך 7 טעויות - ${safe.firstName}${data.businessName ? ` מ${escapeHtml(data.businessName)}` : ""}`,
         html: `
           <div dir="rtl" style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
             <div style="background: #1a1a1a; padding: 20px; border-radius: 8px 8px 0 0;">
               <h1 style="color: #f69a62; margin: 0; font-size: 24px;">FLOOR D.a.N.A</h1>
             </div>
             <div style="background: #f5f5f5; padding: 30px; border-radius: 0 0 8px 8px;">
-              <h2 style="color: #1a1a1a; margin-top: 0;">הורדת מדריך 7 פרטים קטנים שמסגירים פלור שעובד קשה מדי</h2>
+              <h2 style="color: #1a1a1a; margin-top: 0;">הורדת מדריך 7 טעויות שפוגעות לכם ברווחים</h2>
               <table style="width: 100%; border-collapse: collapse;">
                 <tr>
                   <td style="padding: 10px 0; border-bottom: 1px solid #ddd; font-weight: bold; width: 120px;">שם פרטי:</td>
