@@ -440,6 +440,53 @@ export interface Database {
           },
         ];
       };
+      course_testimonials: {
+        Row: {
+          id: string;
+          course_id: string;
+          author_name: string;
+          author_role: string | null;
+          quote: string | null;
+          photo_url: string | null;
+          mux_upload_id: string | null;
+          mux_playback_id: string | null;
+          sort_order: number;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          course_id: string;
+          author_name: string;
+          author_role?: string | null;
+          quote?: string | null;
+          photo_url?: string | null;
+          mux_upload_id?: string | null;
+          mux_playback_id?: string | null;
+          sort_order?: number;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          course_id?: string;
+          author_name?: string;
+          author_role?: string | null;
+          quote?: string | null;
+          photo_url?: string | null;
+          mux_upload_id?: string | null;
+          mux_playback_id?: string | null;
+          sort_order?: number;
+          created_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "course_testimonials_course_id_fkey";
+            columns: ["course_id"];
+            isOneToOne: false;
+            referencedRelation: "courses";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
     };
     Functions: {
       is_admin: {
@@ -462,3 +509,5 @@ export type LessonProgress = Database["public"]["Tables"]["lesson_progress"]["Ro
 export type Payment = Database["public"]["Tables"]["payments"]["Row"];
 export type LessonAttachment = Database["public"]["Tables"]["lesson_attachments"]["Row"];
 export type LessonComment = Database["public"]["Tables"]["lesson_comments"]["Row"];
+export type CourseTestimonial =
+  Database["public"]["Tables"]["course_testimonials"]["Row"];

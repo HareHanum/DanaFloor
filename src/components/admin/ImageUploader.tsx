@@ -9,6 +9,9 @@ interface ImageUploaderProps {
   currentUrl: string | null;
   onUpload: (url: string) => void;
   onRemove: () => void;
+  label?: string;
+  /** "avatar" renders a small round preview (e.g. a testimonial face photo). */
+  variant?: "cover" | "avatar";
 }
 
 export default function ImageUploader({
@@ -16,7 +19,13 @@ export default function ImageUploader({
   currentUrl,
   onUpload,
   onRemove,
+  label = "תמונת קורס",
+  variant = "cover",
 }: ImageUploaderProps) {
+  const isAvatar = variant === "avatar";
+  const frame = isAvatar
+    ? "w-24 h-24 rounded-full"
+    : "w-full max-w-sm aspect-video rounded-lg";
   const [uploading, setUploading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const supabase = createClient();
@@ -55,19 +64,21 @@ export default function ImageUploader({
 
   return (
     <div>
-      <label className="block text-sm font-medium mb-1">תמונת קורס</label>
+      <label className="block text-sm font-medium mb-1">{label}</label>
 
       {currentUrl ? (
-        <div className="relative w-full max-w-sm">
+        <div className={`relative ${frame}`}>
           <img
             src={currentUrl}
-            alt="תמונת קורס"
-            className="w-full aspect-video object-cover rounded-lg border border-[var(--border-light)]"
+            alt={label}
+            className={`w-full h-full object-cover border border-[var(--border-light)] ${
+              isAvatar ? "rounded-full" : "rounded-lg"
+            }`}
           />
           <button
             type="button"
             onClick={onRemove}
-            className="absolute top-2 left-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
+            className={`absolute ${isAvatar ? "top-0 left-0" : "top-2 left-2"} p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors`}
           >
             <X size={14} />
           </button>
@@ -77,15 +88,15 @@ export default function ImageUploader({
           type="button"
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="w-full max-w-sm aspect-video border-2 border-dashed border-[var(--border-light)] rounded-lg flex flex-col items-center justify-center gap-2 hover:border-[var(--accent)] hover:bg-[var(--accent)]/5 transition-colors cursor-pointer disabled:opacity-50"
+          className={`${frame} border-2 border-dashed border-[var(--border-light)] flex flex-col items-center justify-center gap-2 hover:border-[var(--accent)] hover:bg-[var(--accent)]/5 transition-colors cursor-pointer disabled:opacity-50`}
         >
           {uploading ? (
             <Loader2 size={24} className="animate-spin text-[var(--accent)]" />
           ) : (
             <>
               <ImageIcon size={24} className="text-[var(--text-muted)]" />
-              <span className="text-sm text-[var(--text-muted)]">
-                לחץ להעלאת תמונה
+              <span className={`text-[var(--text-muted)] ${isAvatar ? "text-xs" : "text-sm"}`}>
+                {isAvatar ? "העלאת תמונה" : "לחץ להעלאת תמונה"}
               </span>
             </>
           )}

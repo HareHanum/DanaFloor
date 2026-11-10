@@ -12,9 +12,16 @@ import { Eye, Pencil } from "lucide-react";
  * A fixed floating pill (rather than a top banner) so it drops into the three
  * different page layouts without fighting their headers/offsets.
  */
-export default function PreviewBadge({ courseId }: { courseId: string }) {
+export default function PreviewBadge({
+  courseId,
+  raised = false,
+}: {
+  courseId: string;
+  /** Lift above a bottom bar (e.g. the sales page's floating purchase bar). */
+  raised?: boolean;
+}) {
   return (
-    <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[100] flex items-center gap-3 rounded-full bg-[var(--accent)] px-4 py-2 text-sm text-white shadow-lg">
+    <div className={`fixed ${raised ? "bottom-24" : "bottom-4"} left-1/2 -translate-x-1/2 z-[100] flex items-center gap-3 rounded-full bg-[var(--accent)] px-4 py-2 text-sm text-white shadow-lg`}>
       <span className="flex items-center gap-1.5 font-medium whitespace-nowrap">
         <Eye size={15} />
         תצוגה מקדימה — מצב מנהל

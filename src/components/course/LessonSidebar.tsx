@@ -157,17 +157,19 @@ export default function LessonSidebar({
           <div key={mod.id}>
             <button
               onClick={() => toggleModule(mod.id)}
-              className="w-full flex items-center gap-2 px-4 py-2.5 text-right hover:bg-[var(--background)] transition-colors"
+              className="w-full flex items-start gap-2 px-4 py-3 text-right hover:bg-[var(--background)] transition-colors border-t border-[var(--border-light)] first:border-t-0"
             >
-              <span className="text-xs font-bold text-[var(--accent)]">
-                {i + 1}
-              </span>
-              <span className="flex-1 text-xs font-medium text-[var(--text-primary)] truncate">
-                {mod.title}
+              <span className="flex-1 min-w-0">
+                <span className="block text-[11px] font-bold text-[var(--accent)]">
+                  פרק {i + 1}
+                </span>
+                <span className="block text-sm font-semibold text-[var(--foreground)] leading-snug">
+                  {mod.title}
+                </span>
               </span>
               <ChevronDown
                 size={14}
-                className={`text-[var(--text-muted)] transition-transform ${
+                className={`mt-1 shrink-0 text-[var(--text-muted)] transition-transform ${
                   expandedModules.has(mod.id) ? "rotate-180" : ""
                 }`}
               />
@@ -182,7 +184,7 @@ export default function LessonSidebar({
                   return (
                     <li key={lesson.id}>
                       <div
-                        className={`flex items-center gap-1.5 pr-5 pl-2 py-2 text-xs transition-colors ${
+                        className={`flex items-start gap-1.5 pr-5 pl-2 py-2 text-sm leading-snug transition-colors ${
                           isCurrent
                             ? "bg-[var(--accent)]/10 text-[var(--accent)] font-medium"
                             : "text-[var(--text-secondary)] hover:bg-[var(--background)]"
@@ -192,18 +194,18 @@ export default function LessonSidebar({
                         {isCurrent ? (
                           <PlayCircle
                             size={14}
-                            className="text-[var(--accent)] shrink-0"
+                            className="mt-0.5 text-[var(--accent)] shrink-0"
                           />
                         ) : (
                           <PlayCircle
                             size={14}
-                            className="text-[var(--text-muted)] shrink-0"
+                            className="mt-0.5 text-[var(--text-muted)] shrink-0"
                           />
                         )}
                         <Link
                           href={`/courses/${courseSlug}/lessons/${lesson.id}`}
                           onClick={() => setMobileOpen(false)}
-                          className="flex-1 truncate"
+                          className="flex-1 min-w-0 break-words"
                         >
                           {lesson.title}
                         </Link>

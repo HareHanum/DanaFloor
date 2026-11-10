@@ -57,6 +57,24 @@ export async function POST(request: Request) {
           console.log(
             `Mux asset ready: lesson=${lesson.id}, playbackId=${playbackId}`
           );
+        } else {
+          // Not a lesson upload — maybe a course testimonial video.
+          const { data: testimonial } = await supabase
+            .from("course_testimonials")
+            .select("id")
+            .eq("mux_upload_id", uploadId)
+            .maybeSingle();
+
+          if (testimonial) {
+            await supabase
+              .from("course_testimonials")
+              .update({ mux_playback_id: playbackId })
+              .eq("id", testimonial.id);
+
+            console.log(
+              `Mux asset ready: testimonial=${testimonial.id}, playbackId=${playbackId}`
+            );
+          }
         }
       }
       break;

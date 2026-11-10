@@ -20,7 +20,7 @@ export default function PricingCard({
       : "חינם";
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-[var(--border-light)] p-6 sticky top-24">
+    <div className="bg-white rounded-xl shadow-sm border border-[var(--border-light)] p-6">
       <div className="text-center mb-6">
         <div className="text-3xl font-bold text-[var(--foreground)]">
           {priceFormatted}

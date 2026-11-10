@@ -211,7 +211,7 @@ export default function ModuleManager({
   }
 
   async function deleteModule(moduleId: string) {
-    if (!confirm("למחוק את המודול וכל השיעורים שבו?")) return;
+    if (!confirm("למחוק את הפרק וכל השיעורים שבו?")) return;
 
     const { error } = await supabase
       .from("modules")
@@ -375,7 +375,7 @@ export default function ModuleManager({
                   <button
                     onClick={() => deleteModule(mod.id)}
                     className="p-1.5 text-red-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
-                    title="מחק מודול"
+                    title="מחק פרק"
                   >
                     <Trash2 size={14} />
                   </button>
@@ -386,7 +386,7 @@ export default function ModuleManager({
                   <div className="border-t border-[var(--border-light)]">
                     {mod.lessons.length === 0 ? (
                       <div className="px-4 py-6 text-center text-sm text-[var(--text-muted)]">
-                        אין שיעורים במודול זה
+                        אין שיעורים בפרק זה
                       </div>
                     ) : (
                       <DndContext
@@ -451,7 +451,7 @@ export default function ModuleManager({
           value={newModuleTitle}
           onChange={(e) => setNewModuleTitle(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && addModule()}
-          placeholder="שם מודול חדש"
+          placeholder="שם פרק חדש (למשל: פרק 1 — פתיחת משמרת)"
           className="flex-1 px-3 py-2 border border-[var(--border-light)] rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--accent)]"
         />
         <button
@@ -464,7 +464,7 @@ export default function ModuleManager({
           ) : (
             <>
               <Plus size={16} className="ml-1" />
-              הוסף מודול
+              הוסף פרק
             </>
           )}
         </button>

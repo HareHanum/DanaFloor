@@ -11,6 +11,8 @@ import { decodeSlug } from "@/lib/utils";
 import type { Module, Lesson } from "@/types/database";
 import PurchaseButton from "@/components/payment/PurchaseButton";
 import PreviewBadge from "@/components/course/PreviewBadge";
+import StickyPurchaseBar from "@/components/course/StickyPurchaseBar";
+import CourseTestimonials from "@/components/course/CourseTestimonials";
 import {
   verifyPendingPaymentsForUser,
   verifyAndGrantPaymentByPageUid,
@@ -131,6 +133,12 @@ export default async function CourseSalesPage({
     }
   }
 
+  const { data: testimonials } = await supabase
+    .from("course_testimonials")
+    .select("*")
+    .eq("course_id", course.id)
+    .order("sort_order");
+
   // Check if user is enrolled
   const {
     data: { user },
@@ -180,7 +188,9 @@ export default async function CourseSalesPage({
 
   return (
     <>
-      {course.status !== "published" && <PreviewBadge courseId={course.id} />}
+      {course.status !== "published" && (
+        <PreviewBadge courseId={course.id} raised={!isEnrolled} />
+      )}
       <Header />
       <main id="main-content">
         {/* Hero */}
@@ -215,7 +225,7 @@ export default async function CourseSalesPage({
                 )}
                 <span className="flex items-center gap-2">
                   <Award size={16} />
-                  {modules?.length ?? 0} מודולים
+                  {modules?.length ?? 0} פרקים
                 </span>
               </div>
             </div>
@@ -245,10 +255,13 @@ export default async function CourseSalesPage({
                     <ModuleAccordion modules={modulesWithLessons} courseSlug={slug} />
                   </div>
                 )}
+
+                {/* Testimonials (face photo + video popup) */}
+                <CourseTestimonials testimonials={testimonials ?? []} />
               </div>
 
-              {/* Sidebar — pricing */}
-              <div>
+              {/* Sidebar — pricing (target of the floating purchase bar) */}
+              <div id="purchase" className="scroll-mt-28 self-start">
                 <PricingCard
                   course={course}
                   totalLessons={totalLessons}
@@ -281,6 +294,17 @@ export default async function CourseSalesPage({
         </section>
       </main>
       <Footer />
+      {!isEnrolled && (
+        <>
+          <StickyPurchaseBar
+            title={course.title}
+            priceLabel={priceFormatted}
+            targetId="purchase"
+          />
+          {/* Room so the floating bar never hides the bottom of the footer. */}
+          <div aria-hidden className="h-20" />
+        </>
+      )}
     </>
   );
 }

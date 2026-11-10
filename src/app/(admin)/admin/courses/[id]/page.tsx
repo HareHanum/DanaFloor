@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import CourseForm from "@/components/admin/CourseForm";
 import ModuleManager from "@/components/admin/ModuleManager";
+import TestimonialManager from "@/components/admin/TestimonialManager";
 import Link from "next/link";
 import { ArrowRight, Save, Download, Eye } from "lucide-react";
 import DeleteCourseButton from "@/components/admin/DeleteCourseButton";
@@ -51,6 +52,12 @@ export default async function EditCoursePage({
       modulesWithLessons.push({ ...mod, lessons: lessons ?? [] });
     }
   }
+
+  const { data: testimonials } = await supabase
+    .from("course_testimonials")
+    .select("*")
+    .eq("course_id", id)
+    .order("sort_order");
 
   return (
     <div>
@@ -129,10 +136,19 @@ export default async function EditCoursePage({
 
       {/* Module & Lesson management */}
       <div className="bg-white rounded-xl border border-[var(--border-light)] p-6">
-        <h2 className="text-lg font-semibold mb-4">מודולים ושיעורים</h2>
+        <h2 className="text-lg font-semibold mb-4">פרקים ושיעורים</h2>
         <ModuleManager
           courseId={course.id}
           initialModules={modulesWithLessons}
+        />
+      </div>
+
+      {/* Testimonials shown on the sales page */}
+      <div className="bg-white rounded-xl border border-[var(--border-light)] p-6 mt-8">
+        <h2 className="text-lg font-semibold mb-4">עדויות</h2>
+        <TestimonialManager
+          courseId={course.id}
+          initialTestimonials={testimonials ?? []}
         />
       </div>
     </div>
