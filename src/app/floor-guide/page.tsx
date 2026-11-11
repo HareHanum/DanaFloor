@@ -27,7 +27,7 @@ export default function FloorGuidePage() {
     role: "",
     email: "",
     phone: "",
-    marketingConsent: true,
+    marketingConsent: false,
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);

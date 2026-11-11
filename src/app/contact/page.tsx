@@ -51,7 +51,7 @@ export default function ContactPage() {
     businessType: "",
     serviceInterest: "",
     message: "",
-    marketingConsent: true,
+    marketingConsent: false,
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -112,7 +112,7 @@ export default function ContactPage() {
           businessType: "",
           serviceInterest: "",
           message: "",
-          marketingConsent: true,
+          marketingConsent: false,
         });
       } else {
         setSubmitStatus("error");
