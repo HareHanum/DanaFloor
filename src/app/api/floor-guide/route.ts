@@ -4,6 +4,7 @@ import { readFileSync } from "fs";
 import { join } from "path";
 import { escapeHtml } from "@/lib/security/escape";
 import { rateLimitOr429 } from "@/lib/security/rate-limit";
+import { addMarketingContact } from "@/lib/resend/contacts";
 
 interface GuideFormData {
   firstName: string;
@@ -121,19 +122,9 @@ export async function POST(request: NextRequest) {
       });
       console.log("User email sent successfully:", userEmailResult);
 
-      // Add contact to Resend audience if marketing consent given
-      if (data.marketingConsent && process.env.RESEND_AUDIENCE_ID) {
-        try {
-          await resend.contacts.create({
-            email: data.email,
-            firstName: data.firstName,
-            unsubscribed: false,
-            audienceId: process.env.RESEND_AUDIENCE_ID,
-          });
-          console.log("Contact added to audience:", data.email);
-        } catch (contactError) {
-          console.error("Failed to add contact to audience:", contactError);
-        }
+      // Add contact to the Resend marketing segment if consent given
+      if (data.marketingConsent) {
+        await addMarketingContact(resend, { email: data.email, firstName: data.firstName });
       }
 
       const safe = {

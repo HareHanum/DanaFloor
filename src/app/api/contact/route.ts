@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { escapeHtml } from "@/lib/security/escape";
 import { rateLimitOr429 } from "@/lib/security/rate-limit";
+import { addMarketingContact } from "@/lib/resend/contacts";
 
 interface ContactFormData {
   name: string;
@@ -144,19 +145,9 @@ export async function POST(request: NextRequest) {
       });
       console.log("Email sent successfully:", emailResult);
 
-      // Add contact to Resend audience if marketing consent given
-      if (data.marketingConsent && data.email && process.env.RESEND_AUDIENCE_ID) {
-        try {
-          await resend.contacts.create({
-            email: data.email,
-            firstName: data.name,
-            unsubscribed: false,
-            audienceId: process.env.RESEND_AUDIENCE_ID,
-          });
-          console.log("Contact added to audience:", data.email);
-        } catch (contactError) {
-          console.error("Failed to add contact to audience:", contactError);
-        }
+      // Add contact to the Resend marketing segment if consent given
+      if (data.marketingConsent && data.email) {
+        await addMarketingContact(resend, { email: data.email, firstName: data.name });
       }
     } catch (emailError) {
       console.error("Failed to send email:", emailError);
