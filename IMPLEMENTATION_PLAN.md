@@ -1,3 +1,5 @@
+> **Note (2026-11-16):** This is the original plan for the brochure site, kept as history. `docs/PROJECT.md` describes the current site, which also has a courses platform.
+
 # D.A.N.A FLOOR - Website Implementation Plan
 
 ## Design Direction (Inspired by USHG)
