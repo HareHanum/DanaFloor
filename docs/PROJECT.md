@@ -28,7 +28,7 @@ A brand site plus a courses platform. The owner calls it an "upgraded brand site
 
 Shared pieces: Header and Footer (`src/components/layout/`), page sections and the service page layout (`src/components/sections/`), the accessibility widget and service navigation (`src/components/ui/`).
 
-`src/app/sitemap.ts` lists the brand pages but not `/catalog`, `/catalog/[slug]`, or `/refund`, `/privacy`, `/terms`.
+`src/app/sitemap.ts` lists 13 pages: home, about, contact, the services pages, four of the 11 training pages (`service`, `sales`, `management`, `roles`) and `/floor-guide`. It leaves out the other seven training pages, `/catalog`, `/catalog/[slug]`, `/refund`, `/privacy` and `/terms`.
 
 ### Courses platform
 
