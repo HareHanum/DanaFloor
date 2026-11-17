@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/client";
 import { Loader2 } from "lucide-react";
 import type { Course } from "@/types/database";
 import ImageUploader from "./ImageUploader";
+import { sanitizeSlug, isValidSlug } from "@/lib/utils";
 
 interface CourseFormProps {
   course?: Course;
@@ -18,7 +19,16 @@ export default function CourseForm({ course, formId }: CourseFormProps) {
   const supabase = createClient();
 
   const [title, setTitle] = useState(course?.title ?? "");
-  const [slug, setSlug] = useState(course?.slug ?? "");
+  // A stored slug with URL-breaking characters (e.g. a pasted link) is replaced
+  // in the field by one made from the title, ready to be saved.
+  const storedSlugInvalid = !!course && !isValidSlug(course.slug);
+  const [slug, setSlug] = useState(
+    storedSlugInvalid
+      ? sanitizeSlug(course.title.trim())
+      : (course?.slug ?? "")
+  );
+  // Until the admin types in the slug field, a new course's slug follows the title.
+  const [slugTouched, setSlugTouched] = useState(false);
   const [shortDescription, setShortDescription] = useState(
     course?.short_description ?? ""
   );
@@ -38,15 +48,6 @@ export default function CourseForm({ course, formId }: CourseFormProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  function generateSlug(text: string) {
-    return text
-      .trim()
-      .toLowerCase()
-      .replace(/[^\w\u0590-\u05FF\s-]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-");
-  }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
@@ -54,7 +55,7 @@ export default function CourseForm({ course, formId }: CourseFormProps) {
 
     const data = {
       title: title.trim(),
-      slug: slug.trim() || generateSlug(title),
+      slug: (sanitizeSlug(slug) || sanitizeSlug(title)).replace(/^-+|-+$/g, ""),
       short_description: shortDescription.trim() || null,
       description: description.trim() || null,
       thumbnail_url: thumbnailUrl.trim() || null,
@@ -127,7 +128,7 @@ export default function CourseForm({ course, formId }: CourseFormProps) {
           value={title}
           onChange={(e) => {
             setTitle(e.target.value);
-            if (!isEdit && !slug) setSlug(generateSlug(e.target.value));
+            if (!isEdit && !slugTouched) setSlug(sanitizeSlug(e.target.value));
           }}
           className="w-full px-4 py-3 border border-[var(--border-light)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent)] text-base"
           placeholder="שם הקורס"
@@ -144,12 +145,27 @@ export default function CourseForm({ course, formId }: CourseFormProps) {
             type="text"
             required
             value={slug}
-            onChange={(e) => setSlug(e.target.value)}
+            onChange={(e) => {
+              setSlugTouched(true);
+              setSlug(sanitizeSlug(e.target.value));
+            }}
             className="flex-1 px-4 py-3 border border-[var(--border-light)] rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--accent)] text-base"
             dir="ltr"
             placeholder="course-slug"
+            autoComplete="off"
+            name="course-slug"
           />
         </div>
+        <p className="text-xs text-[var(--text-muted)] mt-1">
+          אותיות, ספרות ומקפים בלבד. זו הכתובת של הקורס באתר.
+        </p>
+        {storedSlugInvalid && (
+          <p className="text-xs text-red-600 mt-1">
+            הכתובת השמורה של הקורס לא תקינה ({course.slug}), ולכן הקישורים
+            לתצוגת הלקוח לא נפתחים. הוצעה כאן כתובת חדשה; אפשר לשנות אותה,
+            ואז ללחוץ &quot;שמור קורס&quot;.
+          </p>
+        )}
       </div>
 
       <div>

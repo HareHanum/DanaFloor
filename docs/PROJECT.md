@@ -119,6 +119,10 @@ Applying a database migration to the real Supabase database is a separate step a
 
 2026-11-16: this file was written from a reading of the code on that date. Nothing was run. The earlier documents (`CLAUDE.md`, `README.md`) described only a brochure site on Next.js 14; they were updated in the same change. `IMPLEMENTATION_PLAN.md` is the original brochure-site plan, kept as history.
 
+2026-11-17 (branch `claude/builder-video-preview-slug-fix`, not merged): course slugs are now restricted to letters, digits, "-" and "_" (`sanitizeSlug`, `isValidSlug` in `src/lib/utils.ts`, used by `CourseForm`), and the course builder shows a still image of each lesson's video that opens a player on click (`src/components/admin/LessonVideoPreview.tsx`, thumbnail tokens signed in `src/app/(admin)/admin/courses/[id]/page.tsx`). Checked with `npx tsc --noEmit` and ESLint on the touched files. `npm run build` could not run in the work environment (Google Fonts unreachable), and the builder was not viewed in a browser with real Mux keys: check the thumbnails on the Vercel preview before merging.
+
+Production data to fix by hand: the course "muster floor" has the slug `https://floor-dana.com/admin/courses/new`, so its two customer-view links return 404. After this change is deployed, opening the course in the admin shows a suggested slug (`muster-floor`); saving the course fixes it.
+
 Not known from the code: see Open questions.
 
 Repository oddities noticed: three empty files at the repository root named `dana-floor-app@0.1.0`, `next` and `npm` (likely created by a mistyped shell command such as `npm run ... > next`). They are tracked in git and do nothing. Left in place.
@@ -140,3 +144,4 @@ For the owner to answer; none are guessed here.
 ## Session log
 
 - 2026-11-16: created this file from a reading of the code (routes, `src/lib`, migrations, `package.json`, `next.config.ts`). Updated `README.md` and `CLAUDE.md` to match. No code changed.
+- 2026-11-17: found the cause of the 404 on the builder's "חווית למידה" link (a URL saved as a course slug; looked at production in the owner's browser, read only). Added slug sanitising and a warning in `CourseForm`. Added video stills with click-to-play in the course builder. Not merged, not deployed.

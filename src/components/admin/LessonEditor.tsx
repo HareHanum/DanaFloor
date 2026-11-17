@@ -6,10 +6,12 @@ import { Loader2, Check } from "lucide-react";
 import type { Lesson, LessonAttachment } from "@/types/database";
 import VideoUploader from "./VideoUploader";
 import AttachmentManager from "./AttachmentManager";
+import LessonVideoPreview from "./LessonVideoPreview";
 
 interface LessonEditorProps {
   lesson: Lesson;
   attachments?: LessonAttachment[];
+  thumbnailToken?: string;
   onSave: (lesson: Lesson) => void;
   onCancel: () => void;
 }
@@ -17,6 +19,7 @@ interface LessonEditorProps {
 export default function LessonEditor({
   lesson,
   attachments = [],
+  thumbnailToken,
   onSave,
   onCancel,
 }: LessonEditorProps) {
@@ -182,10 +185,22 @@ export default function LessonEditor({
       )}
 
       {lessonType === "video" && (
-        <VideoUploader
-          lessonId={lesson.id}
-          currentPlaybackId={lesson.mux_playback_id}
-        />
+        <div className="flex items-start gap-3">
+          {lesson.mux_playback_id && (
+            <LessonVideoPreview
+              lessonId={lesson.id}
+              lessonTitle={lesson.title}
+              playbackId={lesson.mux_playback_id}
+              thumbnailToken={thumbnailToken}
+              durationSeconds={lesson.duration_seconds}
+              size="lg"
+            />
+          )}
+          <VideoUploader
+            lessonId={lesson.id}
+            currentPlaybackId={lesson.mux_playback_id}
+          />
+        </div>
       )}
 
       <div className="flex items-center gap-2">
