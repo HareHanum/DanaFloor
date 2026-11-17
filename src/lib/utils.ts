@@ -14,3 +14,22 @@ export function decodeSlug(slug: string) {
     return slug;
   }
 }
+
+// Course slugs become part of the URL (/catalog/<slug>, /courses/<slug>), so
+// they may hold only letters (Latin or Hebrew), digits, "-" and "_". Anything
+// else (":", "/", "?", "#", "." ...) breaks the route: a pasted URL saved as a
+// slug made both customer-view links return 404.
+export function sanitizeSlug(text: string) {
+  // No trim here: the slug field runs this on every keystroke, and trimming
+  // would swallow the space the admin is typing between two words. Edge
+  // dashes are removed when the form is saved.
+  return text
+    .toLowerCase()
+    .replace(/[^\w\u0590-\u05FF\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-");
+}
+
+export function isValidSlug(slug: string) {
+  return /^[\w\u0590-\u05FF-]+$/.test(slug) && !/^-|-$/.test(slug);
+}

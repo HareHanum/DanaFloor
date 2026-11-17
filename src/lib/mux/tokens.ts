@@ -25,3 +25,17 @@ export async function generatePlaybackToken(
     params: { viewer_id: userId },
   });
 }
+
+// Signed token for a still image of the video (image.mux.com/<id>/thumbnail.jpg).
+// With signed playback, image parameters must be inside the token, not the URL.
+export async function generateThumbnailToken(
+  playbackId: string,
+  width = 320
+) {
+  const mux = getSigningClient();
+  return await mux.jwt.signPlaybackId(playbackId, {
+    type: "thumbnail",
+    expiration: "12h",
+    params: { width: String(width) },
+  });
+}

@@ -7,6 +7,7 @@ import Link from "next/link";
 import { ArrowRight, Save, Download, Eye } from "lucide-react";
 import DeleteCourseButton from "@/components/admin/DeleteCourseButton";
 import type { Module, Lesson } from "@/types/database";
+import { generateThumbnailToken } from "@/lib/mux/tokens";
 
 interface ModuleWithLessons extends Module {
   lessons: Lesson[];
@@ -52,6 +53,25 @@ export default async function EditCoursePage({
       modulesWithLessons.push({ ...mod, lessons: lessons ?? [] });
     }
   }
+
+  // Signed still-image tokens, so the builder can show which video sits in
+  // each lesson. Signing is local (no Mux request). If signing fails, the
+  // builder still works and shows a plain play tile.
+  const thumbnailTokens: Record<string, string> = {};
+  await Promise.all(
+    modulesWithLessons
+      .flatMap((m) => m.lessons)
+      .filter((l) => l.mux_playback_id)
+      .map(async (l) => {
+        try {
+          thumbnailTokens[l.id] = await generateThumbnailToken(
+            l.mux_playback_id!
+          );
+        } catch (err) {
+          console.error("Mux thumbnail token failed:", err);
+        }
+      })
+  );
 
   const { data: testimonials } = await supabase
     .from("course_testimonials")
@@ -140,6 +160,7 @@ export default async function EditCoursePage({
         <ModuleManager
           courseId={course.id}
           initialModules={modulesWithLessons}
+          thumbnailTokens={thumbnailTokens}
         />
       </div>
 

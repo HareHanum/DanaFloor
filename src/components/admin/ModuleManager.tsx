@@ -30,6 +30,7 @@ import {
 } from "lucide-react";
 import type { Module, Lesson, LessonAttachment } from "@/types/database";
 import LessonEditor from "./LessonEditor";
+import LessonVideoPreview from "./LessonVideoPreview";
 
 interface ModuleWithLessons extends Module {
   lessons: Lesson[];
@@ -38,6 +39,8 @@ interface ModuleWithLessons extends Module {
 interface ModuleManagerProps {
   courseId: string;
   initialModules: ModuleWithLessons[];
+  // lesson id -> signed Mux token for the video's still image
+  thumbnailTokens?: Record<string, string>;
 }
 
 // Sortable lesson row
@@ -46,6 +49,7 @@ function SortableLessonRow({
   index,
   isEditing,
   attachments,
+  thumbnailToken,
   onEdit,
   onCloseEdit,
   onDelete,
@@ -56,6 +60,7 @@ function SortableLessonRow({
   index: number;
   isEditing: boolean;
   attachments: LessonAttachment[];
+  thumbnailToken?: string;
   onEdit: () => void;
   onCloseEdit: () => void;
   onDelete: () => void;
@@ -88,6 +93,7 @@ function SortableLessonRow({
           <LessonEditor
             lesson={lesson}
             attachments={attachments}
+            thumbnailToken={thumbnailToken}
             onSave={onSave}
             onCancel={onCloseEdit}
           />
@@ -101,8 +107,18 @@ function SortableLessonRow({
           >
             <GripVertical size={14} />
           </button>
-          {lessonTypeIcons[lesson.lesson_type] || (
-            <FileText size={14} className="text-gray-400" />
+          {lesson.lesson_type === "video" && lesson.mux_playback_id ? (
+            <LessonVideoPreview
+              lessonId={lesson.id}
+              lessonTitle={lesson.title}
+              playbackId={lesson.mux_playback_id}
+              thumbnailToken={thumbnailToken}
+              durationSeconds={lesson.duration_seconds}
+            />
+          ) : (
+            lessonTypeIcons[lesson.lesson_type] || (
+              <FileText size={14} className="text-gray-400" />
+            )
           )}
           <button
             onClick={onEdit}
@@ -115,8 +131,10 @@ function SortableLessonRow({
               <Eye size={12} />
             </span>
           )}
-          {lesson.mux_playback_id && (
-            <span className="text-xs text-green-500">וידאו</span>
+          {lesson.lesson_type === "video" && !lesson.mux_playback_id && (
+            <span className="text-xs text-[var(--text-muted)]">
+              {lesson.mux_asset_id ? "הוידאו בעיבוד" : "אין וידאו"}
+            </span>
           )}
           <button
             onClick={onDelete}
@@ -159,6 +177,7 @@ function SortableModule({
 export default function ModuleManager({
   courseId,
   initialModules,
+  thumbnailTokens = {},
 }: ModuleManagerProps) {
   const [modules, setModules] = useState(initialModules);
   const [expandedModule, setExpandedModule] = useState<string | null>(
@@ -408,6 +427,7 @@ export default function ModuleManager({
                                 attachments={
                                   lessonAttachments[lesson.id] ?? []
                                 }
+                                thumbnailToken={thumbnailTokens[lesson.id]}
                                 onEdit={async () => {
                                   await loadAttachments(lesson.id);
                                   setEditingLesson(lesson.id);
