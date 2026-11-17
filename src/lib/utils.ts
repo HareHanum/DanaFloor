@@ -33,3 +33,15 @@ export function sanitizeSlug(text: string) {
 export function isValidSlug(slug: string) {
   return /^[\w\u0590-\u05FF-]+$/.test(slug) && !/^-|-$/.test(slug);
 }
+
+// Seconds as m:ss, or h:mm:ss from one hour up (video and section lengths).
+export function formatDuration(seconds: number): string {
+  const total = Math.max(0, Math.round(seconds));
+  const h = Math.floor(total / 3600);
+  const m = Math.floor((total % 3600) / 60);
+  const s = total % 60;
+  const ss = s.toString().padStart(2, "0");
+  return h > 0
+    ? `${h}:${m.toString().padStart(2, "0")}:${ss}`
+    : `${m}:${ss}`;
+}

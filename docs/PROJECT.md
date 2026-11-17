@@ -123,6 +123,8 @@ Applying a database migration to the real Supabase database is a separate step a
 
 Production data to fix by hand: the course "muster floor" has the slug `https://floor-dana.com/admin/courses/new`, so its two customer-view links return 404. After this change is deployed, opening the course in the admin shows a suggested slug (`muster-floor`); saving the course fixes it.
 
+2026-11-17 (branch `claude/builder-durations`, not merged): the course builder shows each lesson's length in its row and the total length of each module in the module header (`src/components/admin/ModuleManager.tsx`; `formatDuration` moved to `src/lib/utils.ts`). Lengths come from `lessons.duration_seconds`, which the Mux webhook fills; lessons without it add nothing to the total. Checked with `npx tsc --noEmit` and ESLint (the two ESLint errors in `AttachmentManager.tsx` were there before). Not viewed in a browser: check on the Vercel preview before merging.
+
 Not known from the code: see Open questions.
 
 Repository oddities noticed: three empty files at the repository root named `dana-floor-app@0.1.0`, `next` and `npm` (likely created by a mistyped shell command such as `npm run ... > next`). They are tracked in git and do nothing. Left in place.
@@ -145,3 +147,4 @@ For the owner to answer; none are guessed here.
 
 - 2026-11-16: created this file from a reading of the code (routes, `src/lib`, migrations, `package.json`, `next.config.ts`). Updated `README.md` and `CLAUDE.md` to match. No code changed.
 - 2026-11-17: found the cause of the 404 on the builder's "חווית למידה" link (a URL saved as a course slug; looked at production in the owner's browser, read only). Added slug sanitising and a warning in `CourseForm`. Added video stills with click-to-play in the course builder. Not merged, not deployed.
+- 2026-11-17: added lesson lengths and per-module total length to the course builder. Not merged, not deployed.

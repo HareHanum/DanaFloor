@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import MuxPlayer from "@mux/mux-player-react";
 import { Loader2, Play, X, AlertCircle } from "lucide-react";
+import { formatDuration } from "@/lib/utils";
 
 interface LessonVideoPreviewProps {
   lessonId: string;
@@ -13,12 +14,6 @@ interface LessonVideoPreviewProps {
   thumbnailToken?: string;
   durationSeconds?: number | null;
   size?: "sm" | "lg";
-}
-
-function formatDuration(seconds: number) {
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
 // A still image of the lesson's video in the course builder. A click opens the
