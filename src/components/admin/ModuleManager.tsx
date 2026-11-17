@@ -27,7 +27,9 @@ import {
   PlayCircle,
   FileText,
   Eye,
+  Clock,
 } from "lucide-react";
+import { formatDuration } from "@/lib/utils";
 import type { Module, Lesson, LessonAttachment } from "@/types/database";
 import LessonEditor from "./LessonEditor";
 import LessonVideoPreview from "./LessonVideoPreview";
@@ -41,6 +43,12 @@ interface ModuleManagerProps {
   initialModules: ModuleWithLessons[];
   // lesson id -> signed Mux token for the video's still image
   thumbnailTokens?: Record<string, string>;
+}
+
+// Total video length of a module's lessons, in seconds. Lessons without a
+// known length (text lessons, videos still processing) count as zero.
+function moduleDurationSeconds(lessons: Lesson[]) {
+  return lessons.reduce((sum, l) => sum + (l.duration_seconds ?? 0), 0);
 }
 
 // Sortable lesson row
@@ -126,6 +134,15 @@ function SortableLessonRow({
           >
             {index + 1}. {lesson.title}
           </button>
+          {!!lesson.duration_seconds && (
+            <span
+              className="flex items-center gap-1 text-xs text-[var(--text-muted)] tabular-nums"
+              title="משך השיעור"
+            >
+              <Clock size={12} />
+              <span dir="ltr">{formatDuration(lesson.duration_seconds)}</span>
+            </span>
+          )}
           {lesson.is_preview && (
             <span className="flex items-center gap-1 text-xs text-[var(--accent)]">
               <Eye size={12} />
@@ -384,6 +401,17 @@ export default function ModuleManager({
                     <span className="text-xs text-[var(--text-muted)]">
                       ({mod.lessons.length})
                     </span>
+                    {moduleDurationSeconds(mod.lessons) > 0 && (
+                      <span
+                        className="flex items-center gap-1 text-xs text-[var(--text-muted)] tabular-nums"
+                        title="משך כולל של הפרק"
+                      >
+                        <Clock size={12} />
+                        <span dir="ltr">
+                          {formatDuration(moduleDurationSeconds(mod.lessons))}
+                        </span>
+                      </span>
+                    )}
                     <ChevronDown
                       size={16}
                       className={`mr-auto text-[var(--text-muted)] transition-transform ${
